@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" >
+<head>
+    <title> Lista demandantes </title>
+    <meta charset = "UTF-8" />
+    <link rel ="stylesheet"
+          href ="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+</head>
+<body>
+<h1> Listado de demandantes </h1>
+<table>
+    <thead>
+    <tr>
+        <th> nick </th>
+        <th> nombre </th>
+        <th> edad </th>
+        <th> tlf </th>
+        <th >cod_asist </th>
+        <th > correo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "demandante: ${demandantes}" >
+        <td th:text = "${demandante.nick}" > </td>
+        <td th:text = "${demandante.nombre}" > </td>
+        <td th:text = "${demandante.edad}" > </td>
+        <td th:text = "${demandante.tlf}" > </td>
+        <td th:text = "${demandante.cod_asist}" > </td>
+        <td th:text = "${demandante.correo}" > </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
