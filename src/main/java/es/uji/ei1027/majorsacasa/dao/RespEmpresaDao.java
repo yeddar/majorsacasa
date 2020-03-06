@@ -16,6 +16,10 @@ public class RespEmpresaDao {
     private JdbcTemplate jdbcTemplate ;
     private static String TABLA = "resp_empresa";
     private static String PKEY = "nick";
+    private static String COL2 = "nombre";
+    private static String COL3 = "cif";
+    private static String COL4 = "tlf";
+    private static String COL5 = "correo";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -45,8 +49,9 @@ public class RespEmpresaDao {
     }
 
     void updateRespEmpresa(RespEmpresa n) {
-        jdbcTemplate .update( "UPDATE "+TABLA+" SET nombre=?, cif=?, tlf=?, correo=?" +
-                " WHERE "+PKEY+"=?", n.getNombre(), n.getCif(), n.getTlf(), n.getCorreo(), n.getNick());
+        jdbcTemplate .update( "UPDATE "+TABLA+" SET "+COL2+"=?, "+COL3+"=?, "+COL4+"=?, "
+                +COL5+"=? WHERE "+PKEY+"=?", n.getNombre(), n.getCif(), n.getTlf(),
+                n.getCorreo(), n.getNick());
     }
 
     public List<RespEmpresa> getRespsEmpresas() {
