@@ -3,16 +3,20 @@ package es.uji.ei1027.majorsacasa.model;
 public class Demandante {
 
     String nick;
-    String pass;
     String nombre;
     int edad;
+
     String tlf;
-    String cod_asist;
     String correo;
+    String direccion;
+
+    String cod_asist;
+    boolean es_activo;
 
     public Demandante(){
         super();
     }
+
 
     public String getNick() {
         return nick;
@@ -20,14 +24,6 @@ public class Demandante {
 
     public void setNick(String nick) {
         this.nick = nick;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
     }
 
     public String getNombre() {
@@ -54,6 +50,22 @@ public class Demandante {
         this.tlf = tlf;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
     public String getCod_asist() {
         return cod_asist;
     }
@@ -62,11 +74,25 @@ public class Demandante {
         this.cod_asist = cod_asist;
     }
 
-    public String getCorreo() {
-        return correo;
+    public boolean isEs_activo() {
+        return es_activo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setEs_activo(boolean es_activo) {
+        this.es_activo = es_activo;
+    }
+
+    @Override
+    public String toString() {
+        return "Demandante{" +
+                "nick='" + nick + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", edad=" + edad +
+                ", tlf='" + tlf + '\'' +
+                ", correo='" + correo + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", cod_asist='" + cod_asist + '\'' +
+                ", es_activo=" + es_activo +
+                '}';
     }
 }
