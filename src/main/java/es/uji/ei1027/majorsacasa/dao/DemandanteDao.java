@@ -22,8 +22,10 @@ public class DemandanteDao {
 
     void addDemantante(Demandante d) throws DataAccessException {
             jdbcTemplate.update(
-                    "INSERT INTO Demandante VALUES(?, ?, ?, ?, ?, ?, ?)",
-                    d.getNick(), d.getPass(), d.getNombre(), d.getEdad(), d.getTlf(), d.getCod_asist(), d.getCorreo()
+                    "INSERT INTO Demandante VALUES(?, ?, ?,  ?, ?, ?,  ?,?)",
+                    d.getNick(), d.getNombre(), d.getEdad(),
+                    d.getTlf(),  d.getCorreo(), d.getDireccion(),
+                    d.getCod_asist(), d.isEs_activo()
             );
     }
 
@@ -42,9 +44,13 @@ public class DemandanteDao {
         }
     }
 
-    void updateDemandante(Demandante n) {
+    void updateDemandante(Demandante d) {
         jdbcTemplate .update( "UPDATE Demandante SET nombre=?, edad=?, tlf=?, cod_asist=?, correo=?" +
-                " WHERE nick=?", n.getNombre(), n.getEdad(), n.getTlf(), n.getCod_asist(), n.getCorreo(), n.getNick());
+                " WHERE nick=?",
+                d.getNombre(), d.getEdad(),
+                d.getTlf(),  d.getCorreo(), d.getDireccion(),
+                d.getCod_asist(), d.isEs_activo(),
+                d.getNick());
     }
 
 
