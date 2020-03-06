@@ -15,6 +15,7 @@ import java.util.List;
 public class RespEmpresaDao {
     private JdbcTemplate jdbcTemplate ;
     private static String TABLA = "resp_empresa";
+    private static String PKEY = "nick";
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -29,12 +30,12 @@ public class RespEmpresaDao {
     }
 
     void deleteRespEmpresa (RespEmpresa d) {
-        jdbcTemplate.update("DELETE FROM "+TABLA+" WHERE nick=?", d.getNick());
+        jdbcTemplate.update("DELETE FROM "+TABLA+" WHERE "+PKEY+"=?", d.getNick());
     }
 
     public RespEmpresa getRespEmpresa(String nickRespEmpresa) {
         try {
-            return jdbcTemplate.queryForObject("SELECT * FROM "+TABLA+" WHERE nick=?",
+            return jdbcTemplate.queryForObject("SELECT * FROM "+TABLA+" WHERE "+PKEY+"=?",
                     new RespEmpresaRowMapper(),
                     nickRespEmpresa);
         }
@@ -45,7 +46,7 @@ public class RespEmpresaDao {
 
     void updateRespEmpresa(RespEmpresa n) {
         jdbcTemplate .update( "UPDATE "+TABLA+" SET nombre=?, cif=?, tlf=?, correo=?" +
-                " WHERE nick=?", n.getNombre(), n.getCif(), n.getTlf(), n.getCorreo(), n.getNick());
+                " WHERE "+PKEY+"=?", n.getNombre(), n.getCif(), n.getTlf(), n.getCorreo(), n.getNick());
     }
 
     public List<RespEmpresa> getRespsEmpresas() {
