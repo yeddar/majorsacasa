@@ -16,7 +16,6 @@ import java.util.List;
 public class VoluntarioDao {
     private JdbcTemplate jdbcTemplate;
 
-
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -38,12 +37,13 @@ public class VoluntarioDao {
         String tlf = v.getTlf();
         String correo = v.getCorreo();
         boolean esActivo = v.isEsActivo();
-        jdbcTemplate.update("UPDATE Voluntario SET nick = '"+nick+"', nombre = '"+nombre+"', edad = '"+edad+"', tlf = '"+tlf+"', correo = '"+correo+"', es_activo = '"+esActivo+"' WHERE nick = '"+nick+"'");
+        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, correo = ?, es_activo = ? WHERE nick = ?",
+                v.getNombre(), v.getEdad(), v.getTlf(), v.getCorreo(), v.isEsActivo());
     }
 
     public Voluntario getVoluntario(String nickVoluntario) {
         try {
-            return jdbcTemplate.queryForObject("SELECT FROM Voluntario WHERE nick='"+nickVoluntario+"'", new VoluntarioRowMapper());
+            return jdbcTemplate.queryForObject("SELECT FROM Voluntario WHERE nick=?", new VoluntarioRowMapper(),nickVoluntario);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
