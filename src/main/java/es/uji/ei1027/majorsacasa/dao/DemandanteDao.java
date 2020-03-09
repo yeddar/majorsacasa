@@ -20,18 +20,30 @@ public class DemandanteDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addDemantante(Demandante d) throws DataAccessException {
+    // List method
+
+    public List<Demandante> getDemandantes() {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Demandante",
+                    new DemandanteRowMapper());
+        }
+        catch (Exception e) {
+            return new ArrayList<Demandante>();
+        }
+    }
+
+    // Add method
+
+    public void addDemandante(Demandante d) throws DataAccessException {
             jdbcTemplate.update(
-                    "INSERT INTO Demandante VALUES(?, ?, ?,  ?, ?, ?,  ?,?)",
+                    "INSERT INTO Demandante VALUES(?, ?, ?,  ?, ?, ?,  ?, ?)",
                     d.getNick(), d.getNombre(), d.getEdad(),
                     d.getTlf(),  d.getCorreo(), d.getDireccion(),
-                    d.getCod_asist(), d.isEs_activo()
+                    d.getCod_asist(), false
             );
     }
 
-    void deleteDemandante (Demandante d) {
-        jdbcTemplate.update("DELETE FROM Demandante WHERE nick=?", d.getNick());
-    }
+    // getByNick method
 
     public Demandante getDemandante(String nickDemandante) {
         try {
@@ -44,9 +56,11 @@ public class DemandanteDao {
         }
     }
 
-    void updateDemandante(Demandante d) {
-        jdbcTemplate .update( "UPDATE Demandante SET nombre=?, edad=?, tlf=?, cod_asist=?, correo=?" +
-                " WHERE nick=?",
+    // Update method
+
+    public void updateDemandante(Demandante d) {
+        jdbcTemplate .update( "UPDATE Demandante SET nombre=?, edad=?, tlf=?, correo=?, " +
+                        "direccion=?, cod_asist=?, es_activo=?" + " WHERE nick=?",
                 d.getNombre(), d.getEdad(),
                 d.getTlf(),  d.getCorreo(), d.getDireccion(),
                 d.getCod_asist(), d.isEs_activo(),
@@ -54,20 +68,11 @@ public class DemandanteDao {
     }
 
 
-    public List<Demandante> getDemandantes() {
-        try {
-            return jdbcTemplate.query("SELECT * FROM Demandante",
-                    new DemandanteRowMapper());
-        }
-        catch (Exception e) {
-            return new ArrayList<Demandante>();
-        }
+    // Delete method
+
+    public void deleteDemandante(String nick) {
+        jdbcTemplate.update("DELETE FROM Demandante WHERE nick=?", nick);
     }
-
-
-
-
-
 
 
 
