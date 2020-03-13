@@ -13,7 +13,7 @@ public class VoluntarioController {
 
     @Autowired
     public void setVoluntarioDao(VoluntarioDao voluntarioDao) {
-        this.voluntarioDao=voluntarioDao;
+        this.voluntarioDao = voluntarioDao;
     }
 
     @RequestMapping("/list")

@@ -5,7 +5,7 @@ public class PreferenciaVoluntario {
     private String nick;
     private String preferencia;
 
-    public PreferenciaVoluntario(){
+    public PreferenciaVoluntario() {
 
     }
 

@@ -8,8 +8,7 @@ import java.sql.SQLException;
 
 public class RespEmpresaRowMapper implements RowMapper<RespEmpresa> {
 
-    public RespEmpresa mapRow(ResultSet rs, int rowNum) throws SQLException
-    {
+    public RespEmpresa mapRow(ResultSet rs, int rowNum) throws SQLException {
         RespEmpresa respEmpresa = new RespEmpresa();
         respEmpresa.setNick(rs.getString("nick"));
         respEmpresa.setNombre(rs.getString("nombre"));

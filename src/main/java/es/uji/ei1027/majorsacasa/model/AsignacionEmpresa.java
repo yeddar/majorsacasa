@@ -5,7 +5,7 @@ public class AsignacionEmpresa {
     private String nick;
     private float precio;
 
-    public AsignacionEmpresa(){
+    public AsignacionEmpresa() {
 
     }
 

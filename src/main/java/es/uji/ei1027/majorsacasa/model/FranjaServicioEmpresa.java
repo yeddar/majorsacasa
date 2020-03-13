@@ -11,7 +11,7 @@ public class FranjaServicioEmpresa {
     LocalTime hFin;
     int vacantes;
 
-    public FranjaServicioEmpresa(){
+    public FranjaServicioEmpresa() {
         super();
     }
 

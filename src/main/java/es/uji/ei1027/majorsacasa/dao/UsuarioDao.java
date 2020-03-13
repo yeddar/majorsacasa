@@ -23,14 +23,14 @@ public class UsuarioDao {
     public List<Usuario> getUsuarios() {
         try {
             return jdbcTemplate.query("SELECT * FROM Usuario", new UsuarioRowMapper());
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Usuario>();
         }
     }
 
     public Usuario getUsuario(String nickUsuario) {
         try {
-            return jdbcTemplate.queryForObject("SELECT FROM Usuario WHERE nick=?", new UsuarioRowMapper(),nickUsuario);
+            return jdbcTemplate.queryForObject("SELECT FROM Usuario WHERE nick=?", new UsuarioRowMapper(), nickUsuario);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -44,8 +44,8 @@ public class UsuarioDao {
     }
 
 
-    public void updateUsuario(Usuario u){
-        jdbcTemplate .update( "UPDATE Usuario SET nick=?, pass=?, tipo=?" +
+    public void updateUsuario(Usuario u) {
+        jdbcTemplate.update("UPDATE Usuario SET nick=?, pass=?, tipo=?" +
                         " WHERE nick=?",
                 u.getPass(), u.getTipo(), u.getNick());
     }
@@ -56,9 +56,4 @@ public class UsuarioDao {
     }
 
 
-    
-    
-    
-    
-    
 }

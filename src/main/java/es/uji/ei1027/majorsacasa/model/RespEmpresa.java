@@ -7,7 +7,7 @@ public class RespEmpresa {
     String tlf;
     String correo;
 
-    public RespEmpresa(){
+    public RespEmpresa() {
         super();
     }
 

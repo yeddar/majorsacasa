@@ -10,13 +10,13 @@ import javax.sql.DataSource;
 
 @Configuration
 public class MajorsacasaConfiguration {
-        // Configura l'accés a la base de dades (DataSource)
-        //    // a partir de les propietats a src/main/resources/applications.properties
-        //    // que comencen pel prefix spring.datasource
+    // Configura l'accés a la base de dades (DataSource)
+    //    // a partir de les propietats a src/main/resources/applications.properties
+    //    // que comencen pel prefix spring.datasource
     @Bean
-    @ConfigurationProperties (prefix = "spring.datasource" )
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
-        return DataSourceBuilder. create ().build();
+        return DataSourceBuilder.create().build();
     }
 
 }

@@ -13,7 +13,7 @@ public class Demandante {
     String cod_asist;
     boolean es_activo;
 
-    public Demandante(){
+    public Demandante() {
         super();
     }
 

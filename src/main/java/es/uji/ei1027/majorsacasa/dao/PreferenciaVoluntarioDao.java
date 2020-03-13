@@ -29,13 +29,12 @@ public class PreferenciaVoluntarioDao {
         jdbcTemplate.update("DELETE FROM preferencias_voluntario WHERE nick=? AND preferencia=?", preferenciaVoluntario.getNick(), preferenciaVoluntario.getPreferencia());
     }
 
-    PreferenciaVoluntario getPreferenciaVoluntarioPorVoluntario(Voluntario v){
+    PreferenciaVoluntario getPreferenciaVoluntarioPorVoluntario(Voluntario v) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM preferencias_voluntario WHERE nick=?",
                     new PreferenciaVoluntarioRowMapper(), v.getNick());
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null ;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 
@@ -47,17 +46,14 @@ public class PreferenciaVoluntarioDao {
     }
      */
 
-    List<PreferenciaVoluntario> getAsignaciones(){
+    List<PreferenciaVoluntario> getAsignaciones() {
         try {
             return jdbcTemplate.query("SELECT * FROM preferencias_voluntario",
                     new PreferenciaVoluntarioRowMapper());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
-
-
 
 
 }

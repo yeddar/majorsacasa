@@ -18,11 +18,11 @@ public class AsignacionEmpresaDao {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public void setDataSource(DataSource dataSource){
+    public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addAsignacionEmpresa(AsignacionEmpresa asignacionEmpresa) throws DataAccessException{
+    void addAsignacionEmpresa(AsignacionEmpresa asignacionEmpresa) throws DataAccessException {
         jdbcTemplate.update(
                 "INSERT INTO asignacion_empresa VALUES(?, ?, ?)",
                 asignacionEmpresa.getNick(), asignacionEmpresa.getId(), asignacionEmpresa.getPrecio()
@@ -33,13 +33,12 @@ public class AsignacionEmpresaDao {
         jdbcTemplate.update("DELETE FROM asignacion_empresa WHERE id=? AND nick=?", asignacionEmpresa.getId(), asignacionEmpresa.getNick());
     }
 
-    AsignacionEmpresa getAsignacionEmpresaPorDemandante(Demandante d){
+    AsignacionEmpresa getAsignacionEmpresaPorDemandante(Demandante d) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_empresa WHERE nick=?",
-                    new AsignacionEmpresaRowMapper(),d.getNick());
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null ;
+                    new AsignacionEmpresaRowMapper(), d.getNick());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 
@@ -57,18 +56,17 @@ public class AsignacionEmpresaDao {
 
      */
 
-    void updateAsignacion(AsignacionEmpresa asignacionEmpresa){
-        jdbcTemplate .update( "UPDATE asignacion_empresa SET precio=?" +
+    void updateAsignacion(AsignacionEmpresa asignacionEmpresa) {
+        jdbcTemplate.update("UPDATE asignacion_empresa SET precio=?" +
                         " WHERE nick=? AND id=?",
                 asignacionEmpresa.getPrecio(), asignacionEmpresa.getNick(), asignacionEmpresa.getId());
     }
 
-    List<AsignacionEmpresa> getAsignaciones(){
+    List<AsignacionEmpresa> getAsignaciones() {
         try {
             return jdbcTemplate.query("SELECT * FROM asignacion_empresa",
                     new AsignacionEmpresaRowMapper());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ArrayList<AsignacionEmpresa>();
         }
     }

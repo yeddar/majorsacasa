@@ -9,8 +9,7 @@ import java.time.LocalTime;
 
 public class FranjaServicioEmpresaRowMapper implements RowMapper<FranjaServicioEmpresa> {
 
-    public FranjaServicioEmpresa mapRow(ResultSet rs, int rowNum) throws SQLException
-    {
+    public FranjaServicioEmpresa mapRow(ResultSet rs, int rowNum) throws SQLException {
         FranjaServicioEmpresa franjaServicioEmpresa = new FranjaServicioEmpresa();
         franjaServicioEmpresa.setId(rs.getInt("id"));
         franjaServicioEmpresa.setServEmpresaId(rs.getInt("serv_empresa_id"));

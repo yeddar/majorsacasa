@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 public class FranjaServicioVoluntarioDao {
-    private JdbcTemplate jdbcTemplate ;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -24,11 +24,11 @@ public class FranjaServicioVoluntarioDao {
         jdbcTemplate.update(
                 "INSERT INTO FranjaServicioVoluntario VALUES(?, ?, ?, ?, ?)",
                 fsv.getId(), fsv.getNick(), fsv.getDiaSemana(),
-                fsv.gethIni(),  fsv.gethFin()
+                fsv.gethIni(), fsv.gethFin()
         );
     }
 
-    void deleteDemandante (FranjaServicioVoluntario fsv) {
+    void deleteDemandante(FranjaServicioVoluntario fsv) {
         jdbcTemplate.update("DELETE FROM FranjaServicioVoluntario WHERE if=?", fsv.getId());
     }
 
@@ -37,9 +37,8 @@ public class FranjaServicioVoluntarioDao {
             return jdbcTemplate.queryForObject("SELECT * FROM FranjaServicioVoluntario WHERE id=?",
                     new FranjaServicioVoluntarioRowMapper(),
                     id);
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null ;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 
@@ -55,17 +54,10 @@ public class FranjaServicioVoluntarioDao {
         try {
             return jdbcTemplate.query("SELECT * FROM FranjaServicioVoluntario",
                     new FranjaServicioVoluntarioRowMapper());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ArrayList<FranjaServicioVoluntario>();
         }
     }
-
-
-
-
-
-
 
 
 }

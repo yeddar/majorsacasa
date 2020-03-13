@@ -5,7 +5,7 @@ public class AsignacionVoluntario {
     private int id;
     private String nick;
 
-    public AsignacionVoluntario(){
+    public AsignacionVoluntario() {
 
     }
 

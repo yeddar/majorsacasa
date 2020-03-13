@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public final class VoluntarioRowMapper implements RowMapper <Voluntario> {
+public final class VoluntarioRowMapper implements RowMapper<Voluntario> {
     public Voluntario mapRow(ResultSet resultSet, int i) throws SQLException {
         Voluntario v = new Voluntario();
         v.setNick(resultSet.getString("nick"));

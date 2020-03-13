@@ -6,7 +6,7 @@ public class ServEmpresa {
     String respEmpresaNick;
     String tipoServEmp;
 
-    public ServEmpresa(){
+    public ServEmpresa() {
         super();
     }
 

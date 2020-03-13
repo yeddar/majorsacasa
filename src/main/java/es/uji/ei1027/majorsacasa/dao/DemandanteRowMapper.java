@@ -1,4 +1,5 @@
 package es.uji.ei1027.majorsacasa.dao;
+
 import es.uji.ei1027.majorsacasa.model.Demandante;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -7,8 +8,7 @@ import java.sql.SQLException;
 
 public final class DemandanteRowMapper implements RowMapper<Demandante> {
 
-    public Demandante mapRow(ResultSet rs, int rowNum) throws SQLException
-    {
+    public Demandante mapRow(ResultSet rs, int rowNum) throws SQLException {
         Demandante demandante = new Demandante();
 
         demandante.setNick(rs.getString("nick"));

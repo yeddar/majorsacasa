@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th = "http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Lista voluntarios </title>
-    <meta charset = "UTF-8" />
-    <link rel ="stylesheet"
-          href ="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
 
 <body>
@@ -12,31 +12,31 @@
 <table>
     <thead>
     <tr>
-        <th> nick </th>
-        <th> nombre </th>
-        <th> edad </th>
+        <th> nick</th>
+        <th> nombre</th>
+        <th> edad</th>
 
 
-        <th> tlf </th>
+        <th> tlf</th>
         <th> correo</th>
-        <th>es_activo </th>
+        <th>es_activo</th>
 
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each = "voluntario: ${voluntarios}" >
-        <td th:text = "${voluntario.nick}" > </td>
-        <td th:text = "${voluntario.nombre}" > </td>
-        <td th:text = "${voluntario.edad}" > </td>
+    <tr th:each="voluntario: ${voluntarios}">
+        <td th:text="${voluntario.nick}"></td>
+        <td th:text="${voluntario.nombre}"></td>
+        <td th:text="${voluntario.edad}"></td>
 
-        <td th:text = "${voluntario.tlf}" > </td>
-        <td th:text = "${voluntario.correo}" > </td>
-        <td th:text = "${voluntario.es_activo}" > </td>
+        <td th:text="${voluntario.tlf}"></td>
+        <td th:text="${voluntario.correo}"></td>
+        <td th:text="${voluntario.es_activo}"></td>
 
-        <td><a th:href = "@{/voluntario/update/{prova}(nom=${prova.nom})}" > Edita </a>
+        <td><a th:href="@{/voluntario/update/{prova}(nom=${prova.nom})}"> Edita </a>
         </td>
-        <td><a th:href= "@{/voluntario/delete/{prova}(nom=${prova.nom})}" > Elimina </a>
+        <td><a th:href="@{/voluntario/delete/{prova}(nom=${prova.nom})}"> Elimina </a>
         </td>
     </tr>
     </tbody>

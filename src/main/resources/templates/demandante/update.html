@@ -2,62 +2,62 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title> Edita un demandante </title>
-    <meta charset = "UTF-8" />
-    <link rel = "stylesheet"
-          href = "https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 
 
 <body>
 <h2> Modificar demandante </h2>
-<form action = "#" th:action = "@{/demandante/update}"
-      th:object="${demandante}" method="post" >
+<form action="#" th:action="@{/demandante/update}"
+      th:object="${demandante}" method="post">
     <table>
         <tr>
             <td><label> Nick </label></td>
-            <td><input type= "text" th:field= "*{nick}" /></td>
+            <td><input type="text" th:field="*{nick}"/></td>
         </tr>
 
         <tr>
             <td><label> Nombre </label></td>
-            <td><input type= "text" th:field= "*{nombre}" /></td>
+            <td><input type="text" th:field="*{nombre}"/></td>
         </tr>
 
         <tr>
             <td><label> Edad </label></td>
-            <td><input type= "number" th:field= "*{edad}" /></td>
+            <td><input type="number" th:field="*{edad}"/></td>
         </tr>
 
         <!-- three more -->
 
         <tr>
             <td><label> tlf </label></td>
-            <td><input type= "text" th:field= "*{tlf}" /></td>
+            <td><input type="text" th:field="*{tlf}"/></td>
         </tr>
         <tr>
             <td><label> Correo</label></td>
-            <td><input type= "text" th:field= "*{correo}" /></td>
+            <td><input type="text" th:field="*{correo}"/></td>
         </tr>
         <tr>
             <td><label> Direccion </label></td>
-            <td><input type= "text" th:field= "*{direccion}" /></td>
+            <td><input type="text" th:field="*{direccion}"/></td>
         </tr>
 
         <!-- two more -->
 
         <tr>
             <td><label> Codigo asistente </label></td>
-            <td><input type= "number" th:field= "*{cod_asist}" /></td>
+            <td><input type="number" th:field="*{cod_asist}"/></td>
         </tr>
 
         <tr>
             <td><label> e </label></td>
-            <td><input type= "text" th:field= "*{es_activo}" /></td>
+            <td><input type="text" th:field="*{es_activo}"/></td>
         </tr>
 
 
         <tr>
-            <td colspan= "2" ><input type= "submit" value= "Modifica demandante" /></td>
+            <td colspan="2"><input type="submit" value="Modifica demandante"/></td>
         </tr>
     </table>
 </form>

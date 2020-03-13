@@ -30,7 +30,8 @@ public class VoluntarioDao {
     void deleteVoluntario(Voluntario v) {
         jdbcTemplate.update("DELETE FROM Voluntario WHERE nick=?", v.getNick());
     }
-    public void updateVoluntario(Voluntario v){
+
+    public void updateVoluntario(Voluntario v) {
         String nick = v.getNick();
         String nombre = v.getNombre();
         int edad = v.getEdad();
@@ -43,7 +44,7 @@ public class VoluntarioDao {
 
     public Voluntario getVoluntario(String nickVoluntario) {
         try {
-            return jdbcTemplate.queryForObject("SELECT FROM Voluntario WHERE nick=?", new VoluntarioRowMapper(),nickVoluntario);
+            return jdbcTemplate.queryForObject("SELECT FROM Voluntario WHERE nick=?", new VoluntarioRowMapper(), nickVoluntario);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -52,7 +53,7 @@ public class VoluntarioDao {
     public List<Voluntario> getVoluntarios() {
         try {
             return jdbcTemplate.query("SELECT * FROM Voluntario", new VoluntarioRowMapper());
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Voluntario>();
         }
     }
