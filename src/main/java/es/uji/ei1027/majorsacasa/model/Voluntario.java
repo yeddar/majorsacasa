@@ -1,13 +1,13 @@
 package es.uji.ei1027.majorsacasa.model;
 
 public class Voluntario {
-    String nick;
-    String nombre;
-    int edad;
+    private String nick;
+    private String nombre;
+    private int edad;
 
-    String tlf;
-    String correo;
-    boolean esActivo;
+    private String tlf;
+    private String correo;
+    private boolean esActivo;
 
 
     public String getNick() {

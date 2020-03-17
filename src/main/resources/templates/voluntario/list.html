@@ -32,11 +32,12 @@
 
         <td th:text="${voluntario.tlf}"></td>
         <td th:text="${voluntario.correo}"></td>
-        <td th:text="${voluntario.es_activo}"></td>
+        <td th:text="${voluntario.esActivo}"></td>
 
-        <td><a th:href="@{/voluntario/update/{prova}(nom=${prova.nom})}"> Edita </a>
+
+        <td><a th:href="@{/voluntario/update/{nick}(nick=${voluntario.nick})}"> Edita </a>
         </td>
-        <td><a th:href="@{/voluntario/delete/{prova}(nom=${prova.nom})}"> Elimina </a>
+        <td><a th:href="@{/voluntario/delete/{nick}(nick=${voluntario.nick})}"> Elimina </a>
         </td>
     </tr>
     </tbody>

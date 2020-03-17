@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Crear nuevo voluntario </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<h2> Nuevo voluntario </h2>
+<form action="#" th:action="@{/voluntario/add}"
+      th:object="${voluntario}" method="post">
+    <table>
+        <tr>
+            <td><label> Nick </label></td>
+            <td><input type="text" th:field="*{nick}"/></td>
+        </tr>
+        <tr>
+            <td><label> Nombre </label></td>
+            <td><input type="text" th:field="*{nombre}"/></td>
+        </tr>
+        <tr>
+            <td><label> Edad </label></td>
+            <td><input type="number" th:field="*{edad}"/></td>
+        </tr>
+
+        <!-- three more -->
+
+        <tr>
+            <td><label> tlf </label></td>
+            <td><input type="text" th:field="*{tlf}"/></td>
+        </tr>
+        <tr>
+            <td><label> Correo</label></td>
+            <td><input type="text" th:field="*{correo}"/></td>
+        </tr>
+
+
+
+        <tr>
+            <td><label> Es activo </label></td>
+            <td><input type= "text" th:field= "*{esActivo}" /></td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2"><input type="submit" value="Añade voluntario"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

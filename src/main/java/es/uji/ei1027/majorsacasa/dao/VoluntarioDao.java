@@ -22,13 +22,13 @@ public class VoluntarioDao {
     }
 
     public void addVoluntaio(Voluntario v) throws DataAccessException {
-        jdbcTemplate.update("INSERT INTO Voluntario VALUES(?, ?, ?, ?, ?, ?", v.getNick(),
+        jdbcTemplate.update("INSERT INTO Voluntario VALUES(?, ?, ?, ?, ?, ?)", v.getNick(),
                 v.getNombre(), v.getEdad(), v.getTlf(), v.getCorreo(), v.isEsActivo()
         );
     }
 
-    void deleteVoluntario(Voluntario v) {
-        jdbcTemplate.update("DELETE FROM Voluntario WHERE nick=?", v.getNick());
+    public void deleteVoluntario(String nick) {
+        jdbcTemplate.update("DELETE FROM Voluntario WHERE nick=?", nick);
     }
 
     public void updateVoluntario(Voluntario v) {
@@ -38,13 +38,13 @@ public class VoluntarioDao {
         String tlf = v.getTlf();
         String correo = v.getCorreo();
         boolean esActivo = v.isEsActivo();
-        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, correo = ?, es_activo = ? WHERE nick = ?",
-                v.getNombre(), v.getEdad(), v.getTlf(), v.getCorreo(), v.isEsActivo());
+        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, correo = ?, es_activo = ? WHERE nick ='"+nick+"'",
+                nombre, edad, tlf, correo, esActivo);
     }
 
     public Voluntario getVoluntario(String nickVoluntario) {
         try {
-            return jdbcTemplate.queryForObject("SELECT FROM Voluntario WHERE nick=?", new VoluntarioRowMapper(), nickVoluntario);
+            return jdbcTemplate.queryForObject("SELECT * FROM Voluntario WHERE nick='"+nickVoluntario+"'", new VoluntarioRowMapper());
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
