@@ -9,6 +9,8 @@
 
 <body>
 <h2> Nou demandante </h2>
+
+<!--/*@thymesVar id="demandante" type=""*/-->
 <form action="#" th:action="@{/demandante/add}"
       th:object="${demandante}" method="post">
     <table>
@@ -16,6 +18,12 @@
             <td><label> Nick </label></td>
             <td><input type="text" th:field="*{nick}"/></td>
         </tr>
+
+        <tr>
+            <td><label> Contrasena </label></td>
+            <td><input type="text" th:field="*{pass}"/></td>
+        </tr>
+
         <tr>
             <td><label> Nombre </label></td>
             <td><input type="text" th:field="*{nombre}"/></td>

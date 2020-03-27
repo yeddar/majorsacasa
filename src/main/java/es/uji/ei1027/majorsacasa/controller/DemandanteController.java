@@ -1,7 +1,10 @@
 package es.uji.ei1027.majorsacasa.controller;
 
 import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
+import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
 import es.uji.ei1027.majorsacasa.model.Demandante;
+import es.uji.ei1027.majorsacasa.model.ROL_USUARIO;
+import es.uji.ei1027.majorsacasa.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/demandante")
 public class DemandanteController {
     private DemandanteDao demandanteDao;
+    private UsuarioDao usuarioDao;
 
     @Autowired
     public void setDemandanteDao(DemandanteDao demandanteDao) {
         this.demandanteDao = demandanteDao;
+    }
+
+    @Autowired
+    public void setUsuarioDao(UsuarioDao usuarioDao) {
+        this.usuarioDao = usuarioDao;
     }
 
     // List method
@@ -30,7 +39,9 @@ public class DemandanteController {
         return "demandante/list";
     }
 
-    // Add methods
+    /* Add methods
+    *
+    */
 
     @RequestMapping(value = "/add")
     public String addDemandante(Model model) {
@@ -44,7 +55,14 @@ public class DemandanteController {
         if (bindingResult.hasErrors())
             return "demandante/add";
 
+        Usuario user = new Usuario();
+        user.setNick(demandante.getNick());
+        user.setPass(demandante.getPass());
+        user.setRol(ROL_USUARIO.DEMANDANTE);
+
+        usuarioDao.addUsuario(user);
         demandanteDao.addDemandante(demandante);
+
         return "redirect:/";
     }
 

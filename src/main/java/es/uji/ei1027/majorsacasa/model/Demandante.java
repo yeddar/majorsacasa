@@ -1,6 +1,6 @@
 package es.uji.ei1027.majorsacasa.model;
 
-public class Demandante {
+public class Demandante extends Usuario{
 
     String nick;
     String nombre;
@@ -13,17 +13,38 @@ public class Demandante {
     String cod_asist;
     boolean es_activo;
 
-    public Demandante() {
+    public Demandante(){
         super();
     }
 
-
+    @Override
     public String getNick() {
         return nick;
     }
 
+    @Override
     public void setNick(String nick) {
         this.nick = nick;
+    }
+
+    @Override
+    public String getPass() {
+        return super.getPass();
+    }
+
+    @Override
+    public void setPass(String pass) {
+        super.setPass(pass);
+    }
+
+    @Override
+    public String getRol() {
+        return super.getRol();
+    }
+
+    @Override
+    public void setRol(ROL_USUARIO tipo) {
+        super.setRol(tipo);
     }
 
     public String getNombre() {
@@ -80,19 +101,5 @@ public class Demandante {
 
     public void setEs_activo(boolean es_activo) {
         this.es_activo = es_activo;
-    }
-
-    @Override
-    public String toString() {
-        return "Demandante{" +
-                "nick='" + nick + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", edad=" + edad +
-                ", tlf='" + tlf + '\'' +
-                ", correo='" + correo + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", cod_asist='" + cod_asist + '\'' +
-                ", es_activo=" + es_activo +
-                '}';
     }
 }

@@ -39,7 +39,7 @@ public class UsuarioDao {
 
     public void addUsuario(Usuario u) throws DataAccessException {
         jdbcTemplate.update("INSERT INTO Usuario VALUES(?, ?, ?)",
-                u.getNick(), u.getPass(), u.getTipo()
+                u.getNick(), u.getPass(), u.getRol()
         );
     }
 
@@ -47,7 +47,7 @@ public class UsuarioDao {
     public void updateUsuario(Usuario u) {
         jdbcTemplate.update("UPDATE Usuario SET nick=?, pass=?, tipo=?" +
                         " WHERE nick=?",
-                u.getPass(), u.getTipo(), u.getNick());
+                u.getPass(), u.getRol(), u.getNick());
     }
 
 

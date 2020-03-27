@@ -4,7 +4,7 @@ public class Usuario {
 
     String nick;
     String pass;
-    String tipo;
+    ROL_USUARIO rol;
 
     public String getNick() {
         return nick;
@@ -22,11 +22,11 @@ public class Usuario {
         this.pass = pass;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getRol() {
+        return rol.toString();
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setRol(ROL_USUARIO rol) {
+        this.rol = rol;
     }
 }
