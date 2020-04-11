@@ -1,10 +1,9 @@
 package es.uji.ei1027.majorsacasa.controller;
 
-import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
+import es.uji.ei1027.majorsacasa.dao.RespEmpresaDao;
 import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
-import es.uji.ei1027.majorsacasa.model.Demandante;
 import es.uji.ei1027.majorsacasa.model.ROL_USUARIO;
-import es.uji.ei1027.majorsacasa.model.Usuario;
+import es.uji.ei1027.majorsacasa.model.RespEmpresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-@RequestMapping("/demandante")
-public class DemandanteController {
-    private DemandanteDao demandanteDao;
+@RequestMapping("/respEmpresa")
+public class RespEmpresaController {
+    private RespEmpresaDao respEmpresaDao;
     private UsuarioDao usuarioDao;
 
     @Autowired
-    public void setDemandanteDao(DemandanteDao demandanteDao) {
-        this.demandanteDao = demandanteDao;
+    public void setRespEmpresaDao(RespEmpresaDao respEmpresaDao) {
+        this.respEmpresaDao = respEmpresaDao;
     }
 
     @Autowired
@@ -34,49 +33,47 @@ public class DemandanteController {
     // List method
 
     @RequestMapping("/list")
-    public String listDemandantes(Model model) {
-        model.addAttribute("demandantes", demandanteDao.getDemandantes());
-        return "demandante/list";
+    public String listRespEmpresas(Model model) {
+        model.addAttribute("respEmpresas", respEmpresaDao.getRespEmpresas());
+        return "respEmpresa/list";
     }
 
-    /* Add methods
-    *
-    */
+    // Add methods
 
     @RequestMapping(value = "/add")
-    public String addDemandante(Model model) {
-        model.addAttribute("demandante", new Demandante());
-        return "demandante/add";
+    public String addRespEmpresa(Model model) {
+        model.addAttribute("respEmpresa", new RespEmpresa());
+        return "respEmpresa/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("demandante") Demandante demandante,
+    public String processAddSubmit(@ModelAttribute("respEmpresa") RespEmpresa respEmpresa,
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "demandante/add";
+            return "respEmpresa/add";
 
-        demandante.setRol(ROL_USUARIO.DEMANDANTE);
-        usuarioDao.addUsuario(demandante);
-        demandanteDao.addDemandante(demandante);
-
-        return "redirect:list";
+        respEmpresa.setRol(ROL_USUARIO.RESP_EMPRESA);
+        System.out.println(respEmpresa.toString());
+        usuarioDao.addUsuario(respEmpresa);
+        respEmpresaDao.addRespEmpresa(respEmpresa);
+        return "redirect:/";
     }
 
     // Update methods
 
     @RequestMapping(value = "/update/{nick}", method = RequestMethod.GET)
-    public String editDemandante(Model model, @PathVariable String nick) {
-        model.addAttribute("demandante", demandanteDao.getDemandante(nick));
-        return "demandante/update";
+    public String editRespEmpresa(Model model, @PathVariable String nick) {
+        model.addAttribute("respEmpresa", respEmpresaDao.getRespEmpresa(nick));
+        return "respEmpresa/update";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
-            @ModelAttribute("demandante") Demandante demandante,
+            @ModelAttribute("respEmpresa") RespEmpresa respEmpresa,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "demandante/update";
-        demandanteDao.updateDemandante(demandante);
+            return "respEmpresa/update";
+        respEmpresaDao.updateRespEmpresa(respEmpresa);
         return "redirect:list";
     }
 
@@ -84,7 +81,7 @@ public class DemandanteController {
 
     @RequestMapping(value = "/delete/{nick}")
     public String processDelete(@PathVariable String nick) {
-        demandanteDao.deleteDemandante(nick);
+        respEmpresaDao.deleteRespEmpresa(nick);
         return "redirect:../list";
     }
 

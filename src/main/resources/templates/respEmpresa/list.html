@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Lista empresas </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<h1> Listado de empresas </h1>
+<table>
+    <thead>
+    <tr>
+        <th> nick</th>
+        <th> nombre</th>
+        <th> cif</th>
+
+        <th> tlf</th>
+        <th> correo</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="respEmpresa: ${respEmpresas}">
+        <td th:text="${respEmpresa.nick}"></td>
+        <td th:text="${respEmpresa.nombre}"></td>
+        <td th:text="${respEmpresa.cif}"></td>
+
+        <td th:text="${respEmpresa.tlf}"></td>
+        <td th:text="${respEmpresa.correo}"></td>
+
+
+        <td><a th:href="@{/respEmpresa/update/{nick}(nick=${respEmpresa.nick})}"> Edita </a>
+        </td>
+        <td><a th:href="@{/respEmpresa/delete/{nick}(nick=${respEmpresa.nick})}"> Elimina </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

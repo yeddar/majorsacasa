@@ -8,7 +8,7 @@ public class FranjaServicioVoluntario {
     private int id;
     private String nick;
     private String diaSemana;
-    @DateTimeFormat(pattern = "HH:mm:ss.SSS")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime hIni;
     private LocalTime hFin;
 

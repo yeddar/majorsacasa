@@ -2,7 +2,6 @@ package es.uji.ei1027.majorsacasa.model;
 
 public class Demandante extends Usuario{
 
-    String nick;
     String nombre;
     int edad;
 
@@ -15,36 +14,6 @@ public class Demandante extends Usuario{
 
     public Demandante(){
         super();
-    }
-
-    @Override
-    public String getNick() {
-        return nick;
-    }
-
-    @Override
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    @Override
-    public String getPass() {
-        return super.getPass();
-    }
-
-    @Override
-    public void setPass(String pass) {
-        super.setPass(pass);
-    }
-
-    @Override
-    public String getRol() {
-        return super.getRol();
-    }
-
-    @Override
-    public void setRol(ROL_USUARIO tipo) {
-        super.setRol(tipo);
     }
 
     public String getNombre() {

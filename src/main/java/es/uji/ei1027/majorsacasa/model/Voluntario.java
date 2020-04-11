@@ -1,7 +1,6 @@
 package es.uji.ei1027.majorsacasa.model;
 
-public class Voluntario {
-    private String nick;
+public class Voluntario extends Usuario {
     private String nombre;
     private int edad;
 
@@ -9,14 +8,6 @@ public class Voluntario {
     private String correo;
     private boolean esActivo;
 
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
 
     public String getNombre() {
         return nombre;
@@ -58,15 +49,19 @@ public class Voluntario {
         this.esActivo = esActivo;
     }
 
+
+
     @Override
     public String toString() {
         return "Voluntario{" +
-                "nick='" + nick + '\'' +
-                ", nombre='" + nombre + '\'' +
+                "nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", tlf='" + tlf + '\'' +
                 ", correo='" + correo + '\'' +
                 ", esActivo=" + esActivo +
+                ", nick='" + nick + '\'' +
+                ", pass='" + pass + '\'' +
                 '}';
     }
+
 }

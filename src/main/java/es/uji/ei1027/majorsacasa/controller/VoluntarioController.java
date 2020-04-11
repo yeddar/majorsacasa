@@ -1,7 +1,10 @@
 package es.uji.ei1027.majorsacasa.controller;
 
+import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
 import es.uji.ei1027.majorsacasa.dao.VoluntarioDao;
 import es.uji.ei1027.majorsacasa.model.Demandante;
+import es.uji.ei1027.majorsacasa.model.ROL_USUARIO;
+import es.uji.ei1027.majorsacasa.model.Usuario;
 import es.uji.ei1027.majorsacasa.model.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/voluntario")
 public class VoluntarioController {
     private VoluntarioDao voluntarioDao;
+    private UsuarioDao usuarioDao;
 
     @Autowired
     public void setVoluntarioDao(VoluntarioDao voluntarioDao) {
         this.voluntarioDao = voluntarioDao;
+    }
+
+    @Autowired
+    public void setUsuarioDao(UsuarioDao usuarioDao) {
+        this.usuarioDao = usuarioDao;
     }
 
     @RequestMapping("/list")
@@ -40,6 +49,9 @@ public class VoluntarioController {
         if (bindingResult.hasErrors())
             return "voluntario/add";
 
+
+        voluntario.setRol(ROL_USUARIO.VOLUNTARIO);
+        usuarioDao.addUsuario(voluntario);
         voluntarioDao.addVoluntaio(voluntario);
         return "redirect:list";
     }

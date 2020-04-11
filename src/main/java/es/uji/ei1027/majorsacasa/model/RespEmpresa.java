@@ -1,7 +1,7 @@
 package es.uji.ei1027.majorsacasa.model;
 
-public class RespEmpresa {
-    String nick;
+
+public class RespEmpresa extends Usuario {
     String nombre;
     String cif;
     String tlf;
@@ -9,14 +9,6 @@ public class RespEmpresa {
 
     public RespEmpresa() {
         super();
-    }
-
-    public String getNick() {
-        return nick;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
     }
 
     public String getNombre() {
@@ -54,11 +46,13 @@ public class RespEmpresa {
     @Override
     public String toString() {
         return "RespEmpresa{" +
-                "nick='" + nick + '\'' +
-                ", nombre='" + nombre + '\'' +
+                "nombre='" + nombre + '\'' +
                 ", cif='" + cif + '\'' +
                 ", tlf='" + tlf + '\'' +
                 ", correo='" + correo + '\'' +
+                ", nick='" + nick + '\'' +
+                ", pass='" + pass + '\'' +
+                ", rol=" + rol +
                 '}';
     }
 }

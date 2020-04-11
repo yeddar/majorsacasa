@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> FSV </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2> Nueva franja servicio voluntario </h2>
+<form action="#" th:action="@{/voluntario/fsv/add}"
+      th:object="${fsv}" method="post">
+    <table>
+        <tr>
+            <td><label> ID </label></td>
+            <td><input type="number" th:field="*{id}"/></td>
+        </tr>
+        <tr>
+            <td><label> Nick </label></td>
+            <td><input type="text" th:field="*{nick}"/></td>
+        </tr>
+
+        <tr>
+            <td><label> Dia semana </label></td>
+            <td><input type="text" th:field="*{diaSemana}"/></td>
+        </tr>
+        <tr>
+            <td><label> Hora inicio </label></td>
+            <td><input type="time" th:field="*{hIni}"/></td>
+        </tr>
+        <tr>
+            <td><label> Hora fin </label></td>
+            <td><input type="time" th:field="*{hFin}"/></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input type="submit" value="Añade franja"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

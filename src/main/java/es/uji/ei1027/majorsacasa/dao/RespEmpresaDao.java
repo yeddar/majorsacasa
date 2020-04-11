@@ -27,15 +27,15 @@ public class RespEmpresaDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addRespEmpresa(RespEmpresa d) throws DataAccessException {
+    public void addRespEmpresa(RespEmpresa d) throws DataAccessException {
         jdbcTemplate.update(
                 "INSERT INTO " + TABLA + " VALUES(?, ?, ?, ?, ?)",
                 d.getNick(), d.getNombre(), d.getCif(), d.getTlf(), d.getCorreo()
         );
     }
 
-    void deleteRespEmpresa(RespEmpresa d) {
-        jdbcTemplate.update("DELETE FROM " + TABLA + " WHERE " + PKEY + "=?", d.getNick());
+    public void deleteRespEmpresa(String nick) {
+        jdbcTemplate.update("DELETE FROM " + TABLA + " WHERE " + PKEY + "=?", nick);
     }
 
     public RespEmpresa getRespEmpresa(String nickRespEmpresa) {
@@ -48,13 +48,13 @@ public class RespEmpresaDao {
         }
     }
 
-    void updateRespEmpresa(RespEmpresa n) {
+    public void updateRespEmpresa(RespEmpresa n) {
         jdbcTemplate.update("UPDATE " + TABLA + " SET " + COL2 + "=?, " + COL3 + "=?, " + COL4 + "=?, "
                         + COL5 + "=? WHERE " + PKEY + "=?", n.getNombre(), n.getCif(), n.getTlf(),
                 n.getCorreo(), n.getNick());
     }
 
-    public List<RespEmpresa> getRespsEmpresas() {
+    public List<RespEmpresa> getRespEmpresas() {
         try {
             return jdbcTemplate.query("SELECT * FROM " + TABLA,
                     new RespEmpresaRowMapper());

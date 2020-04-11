@@ -12,6 +12,7 @@ public final class DemandanteRowMapper implements RowMapper<Demandante> {
         Demandante demandante = new Demandante();
 
         demandante.setNick(rs.getString("nick"));
+
         demandante.setNombre(rs.getString("nombre"));
         demandante.setEdad(rs.getInt("edad"));
 

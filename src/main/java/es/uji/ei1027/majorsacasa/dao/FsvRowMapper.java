@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 
-public final class FranjaServicioVoluntarioRowMapper implements RowMapper<FranjaServicioVoluntario> {
+public final class FsvRowMapper implements RowMapper<FranjaServicioVoluntario> {
 
     public FranjaServicioVoluntario mapRow(ResultSet rs, int rowNum) throws SQLException {
         FranjaServicioVoluntario franjaServicioVoluntario = new FranjaServicioVoluntario();
