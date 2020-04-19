@@ -7,7 +7,7 @@ public class Usuario {
     ROL_USUARIO rol;
 
     public String getNick() {
-        return nick;
+        return this.nick;
     }
 
     public void setNick(String nick) {
@@ -29,4 +29,5 @@ public class Usuario {
     public void setRol(ROL_USUARIO rol) {
         this.rol = rol;
     }
+
 }

@@ -29,14 +29,17 @@ public class AsignacionVoluntarioDao {
         jdbcTemplate.update("DELETE FROM asignacion_voluntario WHERE id=? AND nick=?", asignacionVoluntario.getId(), asignacionVoluntario.getNick());
     }
 
+    /*
     AsignacionVoluntario getAsignacionVoluntarioPorDemandante(Demandante d) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE nick=?",
-                    new AsignacionVoluntarioRowMapper(), d.getNick());
+                    new AsignacionVoluntarioRowMapper(), d.getNick(empresa.getNick()));
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
+
+     */
 
     /*
     AsignacionVoluntario getAsignacionVoluntarioPorVoluntario(Voluntario v){

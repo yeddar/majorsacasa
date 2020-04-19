@@ -1,6 +1,6 @@
 package es.uji.ei1027.majorsacasa.dao;
 
-import es.uji.ei1027.majorsacasa.model.ServEmpresa;
+import es.uji.ei1027.majorsacasa.model.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
@@ -23,20 +23,20 @@ public class ServEmpresaDao {
     @Autowired
     public void setDataSource(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    void addServEmpresa(ServEmpresa d) throws DataAccessException {
+    }}
+/*
+    void addServEmpresa(Empresa d) throws DataAccessException {
         jdbcTemplate.update(
                 "INSERT INTO " + TABLA + " VALUES(?, ?, ?)",
                 d.getId(), d.getRespEmpresaNick(), d.getTipoServEmp()
         );
     }
 
-    void deleteServEmpresa(ServEmpresa d) {
+    void deleteServEmpresa(Empresa d) {
         jdbcTemplate.update("DELETE FROM " + TABLA + " WHERE " + PKEY + "=?", d.getId());
     }
 
-    public ServEmpresa getServEmpresa(String nickServEmpresa) {
+    public Empresa getServEmpresa(String nickServEmpresa) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM " + TABLA + " WHERE " + PKEY + "=?",
                     new ServEmpresaRowMapper(),
@@ -46,17 +46,19 @@ public class ServEmpresaDao {
         }
     }
 
-    void updateServEmpresa(ServEmpresa n) {
+    void updateServEmpresa(Empresa n) {
         jdbcTemplate.update("UPDATE " + TABLA + " SET " + COL2 + "=?, " + COL3 + "=?" +
                 " WHERE " + PKEY + "=?", n.getRespEmpresaNick(), n.getTipoServEmp(), n.getId());
     }
 
-    public List<ServEmpresa> getServsEmpresas() {
+    public List<Empresa> getServsEmpresas() {
         try {
             return jdbcTemplate.query("SELECT * FROM " + TABLA,
                     new ServEmpresaRowMapper());
         } catch (Exception e) {
-            return new ArrayList<ServEmpresa>();
+            return new ArrayList<Empresa>();
         }
     }
 }
+
+ */

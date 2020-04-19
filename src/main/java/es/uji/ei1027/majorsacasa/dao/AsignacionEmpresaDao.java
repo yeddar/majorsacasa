@@ -2,7 +2,6 @@ package es.uji.ei1027.majorsacasa.dao;
 
 import es.uji.ei1027.majorsacasa.model.AsignacionEmpresa;
 import es.uji.ei1027.majorsacasa.model.Demandante;
-import es.uji.ei1027.majorsacasa.model.RespEmpresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,14 +32,17 @@ public class AsignacionEmpresaDao {
         jdbcTemplate.update("DELETE FROM asignacion_empresa WHERE id=? AND nick=?", asignacionEmpresa.getId(), asignacionEmpresa.getNick());
     }
 
+    /*
     AsignacionEmpresa getAsignacionEmpresaPorDemandante(Demandante d) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_empresa WHERE nick=?",
-                    new AsignacionEmpresaRowMapper(), d.getNick());
+                    new AsignacionEmpresaRowMapper(), d.getNick(empresa.getNick()));
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
+
+     */
 
     /*
     AsignacionEmpresa getAsignacionEmpresaPorEmpresa(RespEmpresa e){

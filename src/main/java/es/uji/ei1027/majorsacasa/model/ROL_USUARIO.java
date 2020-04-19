@@ -6,7 +6,7 @@ public enum ROL_USUARIO {
 
     DEMANDANTE,
     VOLUNTARIO,
-    RESP_EMPRESA,
+    EMPRESA,
 
     COMITE_CAS,
     SUPERVISOR_CAS,

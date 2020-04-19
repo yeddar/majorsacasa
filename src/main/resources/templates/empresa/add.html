@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Crear nuevo empresa </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<h2> Nuevo resp. empresa </h2>
+<!--/*@thymesVar id="empresa" type="java"*/-->
+<form action="#" th:action="@{/empresa/add}"
+      th:object="${empresa}" method="post">
+    <table>
+
+        <tr>
+            <td><label>Nombre de Empresa: </label></td>
+            <td><input type="text" th:field="*{nombre}"/></td>
+        </tr>
+
+        <tr>
+            <td><label> DNI de responsable: </label></td>
+            <td><input type="text" th:field="*{nif}"/></td>
+        </tr>
+
+        <tr>
+            <td><label> Telefono de contacto: </label></td>
+            <td><input type="text" th:field="*{tlf}"/></td>
+        </tr>
+
+        <!-- three more -->
+
+        <tr>
+            <td><label> Correo electrónico: </label></td>
+            <td><input type="text" th:field="*{email}"/></td>
+        </tr>
+
+
+        <tr>
+            <td><label> (Solo si procede) <br> Número de plazas ofertadas</label></td>
+            <td><input type="number" th:field="*{vacantes}"/></td>
+        </tr>
+
+        <tr>
+            <td><label> Servicio ofertado</label></td>
+            <td><input type="text" th:field="*{tipo_empresa}"/></td>
+        </tr>
+
+        <tr>
+            <td><label> Nick de usuario </label></td>
+            <td><input type="text" th:field="*{nick}"/></td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2"><input type="submit" value="Añade empresa"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

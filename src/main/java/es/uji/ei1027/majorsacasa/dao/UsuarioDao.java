@@ -38,7 +38,6 @@ public class UsuarioDao {
 
 
     public void addUsuario(Usuario u) throws DataAccessException {
-        System.out.println(u.toString());
         jdbcTemplate.update("INSERT INTO Usuario VALUES(?, ?, ?)",
                 u.getNick(), u.getPass(), u.getRol()
         );

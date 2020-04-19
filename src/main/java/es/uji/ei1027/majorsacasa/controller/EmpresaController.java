@@ -1,9 +1,10 @@
 package es.uji.ei1027.majorsacasa.controller;
 
-import es.uji.ei1027.majorsacasa.dao.RespEmpresaDao;
+import es.uji.ei1027.majorsacasa.dao.EmpresaDao;
 import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
+import es.uji.ei1027.majorsacasa.model.Empresa;
 import es.uji.ei1027.majorsacasa.model.ROL_USUARIO;
-import es.uji.ei1027.majorsacasa.model.RespEmpresa;
+import es.uji.ei1027.majorsacasa.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-@RequestMapping("/respEmpresa")
-public class RespEmpresaController {
-    private RespEmpresaDao respEmpresaDao;
+@RequestMapping("/empresa")
+public class EmpresaController {
+    private EmpresaDao empresaDao;
     private UsuarioDao usuarioDao;
 
     @Autowired
-    public void setRespEmpresaDao(RespEmpresaDao respEmpresaDao) {
-        this.respEmpresaDao = respEmpresaDao;
+    public void setEmpresaDao(EmpresaDao empresaDao) {
+        this.empresaDao = empresaDao;
     }
 
     @Autowired
@@ -33,47 +34,51 @@ public class RespEmpresaController {
     // List method
 
     @RequestMapping("/list")
-    public String listRespEmpresas(Model model) {
-        model.addAttribute("respEmpresas", respEmpresaDao.getRespEmpresas());
-        return "respEmpresa/list";
+    public String listEmpresas(Model model) {
+        model.addAttribute("empresas", empresaDao.getEmpresas());
+        return "empresa/list";
     }
 
     // Add methods
 
     @RequestMapping(value = "/add")
-    public String addRespEmpresa(Model model) {
-        model.addAttribute("respEmpresa", new RespEmpresa());
-        return "respEmpresa/add";
+    public String addEmpresa(Model model) {
+        model.addAttribute("empresa", new Empresa());
+        return "empresa/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("respEmpresa") RespEmpresa respEmpresa,
+    public String processAddSubmit(@ModelAttribute("empresa") Empresa empresa,
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "respEmpresa/add";
+            return "empresa/add";
 
-        respEmpresa.setRol(ROL_USUARIO.RESP_EMPRESA);
-        System.out.println(respEmpresa.toString());
-        usuarioDao.addUsuario(respEmpresa);
-        respEmpresaDao.addRespEmpresa(respEmpresa);
+        Usuario user = new Usuario();
+        user.setNick(empresa.getNick());
+        user.setPass("123");
+        user.setRol(ROL_USUARIO.EMPRESA);
+
+        usuarioDao.addUsuario(user);
+        empresaDao.addEmpresa(empresa);
+
         return "redirect:/";
     }
 
     // Update methods
 
     @RequestMapping(value = "/update/{nick}", method = RequestMethod.GET)
-    public String editRespEmpresa(Model model, @PathVariable String nick) {
-        model.addAttribute("respEmpresa", respEmpresaDao.getRespEmpresa(nick));
-        return "respEmpresa/update";
+    public String editEmpresa(Model model, @PathVariable String nick) {
+        model.addAttribute("empresa", empresaDao.getEmpresa(nick));
+        return "empresa/update";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
-            @ModelAttribute("respEmpresa") RespEmpresa respEmpresa,
+            @ModelAttribute("empresa") Empresa empresa,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
-            return "respEmpresa/update";
-        respEmpresaDao.updateRespEmpresa(respEmpresa);
+            return "empresa/update";
+        empresaDao.updateEmpresa(empresa);
         return "redirect:list";
     }
 
@@ -81,7 +86,7 @@ public class RespEmpresaController {
 
     @RequestMapping(value = "/delete/{nick}")
     public String processDelete(@PathVariable String nick) {
-        respEmpresaDao.deleteRespEmpresa(nick);
+        empresaDao.deleteEmpresa(nick);
         return "redirect:../list";
     }
 
