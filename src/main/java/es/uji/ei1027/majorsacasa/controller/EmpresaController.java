@@ -59,6 +59,8 @@ public class EmpresaController {
         user.setRol(ROL_USUARIO.EMPRESA);
 
         usuarioDao.addUsuario(user);
+        System.out.print(empresa.toString());
+
         empresaDao.addEmpresa(empresa);
 
         return "redirect:/";
