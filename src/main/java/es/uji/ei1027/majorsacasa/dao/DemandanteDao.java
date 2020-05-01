@@ -40,7 +40,7 @@ public class DemandanteDao {
                 "INSERT INTO Demandante VALUES(?, ?, ?,  ?, ?, ?,  ?, ?)",
                 d.getNick(), d.getNombre(), d.getEdad(),
                 d.getTlf(), d.getCorreo(), d.getDireccion(),
-                d.getCod_asist(), false
+                d.getCod_asist(), d.getStatus()
         );
     }
 
@@ -63,7 +63,7 @@ public class DemandanteDao {
                         "direccion=?, cod_asist=?, es_activo=?" + " WHERE nick=?",
                 d.getNombre(), d.getEdad(),
                 d.getTlf(), d.getCorreo(), d.getDireccion(),
-                d.getCod_asist(), d.isEs_activo(),
+                d.getCod_asist(), d.getStatus(),
                 d.getNick());
     }
 

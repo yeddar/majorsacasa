@@ -56,6 +56,7 @@ public class DemandanteController {
             return "demandante/add";
 
         demandante.setRol(ROL_USUARIO.DEMANDANTE);
+        demandante.setStatus("SIN REVISAR");
         usuarioDao.addUsuario(demandante);
         demandanteDao.addDemandante(demandante);
 

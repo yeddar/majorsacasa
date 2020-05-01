@@ -21,7 +21,7 @@ public final class DemandanteRowMapper implements RowMapper<Demandante> {
         demandante.setDireccion(rs.getString("direccion"));
 
         demandante.setCod_asist(rs.getString("cod_asist"));
-        demandante.setEs_activo(rs.getBoolean("es_activo"));
+        demandante.setStatus(rs.getString("status"));
 
 
         return demandante;

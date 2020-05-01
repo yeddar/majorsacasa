@@ -21,7 +21,7 @@
         <th> direccion</th>
 
         <th>cod_asist</th>
-        <th>es_activo</th>
+        <th>status</th>
 
 
     </tr>
@@ -37,7 +37,7 @@
         <td th:text="${demandante.direccion}"></td>
 
         <td th:text="${demandante.cod_asist}"></td>
-        <td th:text="${demandante.es_activo}"></td>
+        <td th:text="${demandante.status}"></td>
 
         <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
         </td>

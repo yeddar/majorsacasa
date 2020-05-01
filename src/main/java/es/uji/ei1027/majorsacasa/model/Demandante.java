@@ -10,7 +10,7 @@ public class Demandante extends Usuario{
     String direccion;
 
     String cod_asist;
-    boolean es_activo;
+    String status;
 
     public Demandante(){
         super();
@@ -64,11 +64,11 @@ public class Demandante extends Usuario{
         this.cod_asist = cod_asist;
     }
 
-    public boolean isEs_activo() {
-        return es_activo;
+    public String getStatus() {
+        return status;
     }
 
-    public void setEs_activo(boolean es_activo) {
-        this.es_activo = es_activo;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
