@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitar servicio de pago</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="solServEmpresa.css">
+</head>
+<body>
+
+<header class="header"> CABECERA </header>
+<h2>SELECCIONAR SERVICIO DE PAGO</h2>
+<div class="contenedor">
+    <aside class="aside">MENU IZQUIERDA</aside>
+
+    <article class="article">
+        <form action="#" th:action="@{/servEmpresa/add}" th:object="${servEmpresa}" method="post">
+            <div class="formulario">
+                <div class="zonaServicios">
+
+                    <div class="selectorServicios">
+                        <b>Servicios disponibles:</b>
+                        <br>
+                        <br><input type="checkbox" id="cb_catering" value="catering"> Servicio catering
+                        <br><input type="checkbox" id="cb_sanitario" value="sanitario"> Servicio sanitario
+                        <br><input type="checkbox" id="cb_limpieza" value="limpieza"> Servicio limpieza
+                    </div>
+                    <div class="infoSelector">
+                        Se habilitarán las casillas de información de la derecha en función de las opciones que haya elegido en el cuadro superior.
+                    </div>
+                    <div class="infoPrecio">
+                        <b>TABLA DE PRECIOS</b>
+                        <br>
+                        <br>Servicio sanitario:	    		5 euros/visita<br>
+                        Servicio de catering:		5 euros/día<br>
+                        Servicio de Limpieza: 		5 euros/hora<br>
+
+                    </div>
+                </div>
+
+                <div class="zonaOpciones">
+                    <div class="catering">
+                        <u><b>SERVICIO CATERING:</b></u>
+                        <br>
+                        <table class="formCatering">
+                            <tr>
+                                <td><b>Tipo de menu:</b> </td>
+                                <td><input type="radio" id="diabetico" name="menu" value="diabetico"> Diabético</td>
+                                <td><input type="radio" id="bajoSal" name="menu" value="bajoSal">Bajo en sal</td>
+                                <td><input type="radio" id="bajoGrasa" name="menu" value="bajoGrasa">Bajo en grasa</td>
+                                <td><input type="radio" id="nada" name="menu" value="nada">Sin restricciones</td>
+                            </tr>
+                            <tr>
+                                <td><b>Día de la semana: </b></td>
+                                <td><input type="checkbox" id="catering_lunes" value="Lunes">Lunes</td>
+                                <td><input type="checkbox" id="catering_martes" value="Martes">Martes</td>
+                                <td><input type="checkbox" id="catering_miercoles" value="Miércoles">Miércoles</td>
+                                <td><input type="checkbox" id="catering_jueves" value="Jueves">Jueves</td>
+                                <td><input type="checkbox" id="catering_viernes" value="viernes">Viernes</td>
+                            </tr>
+                        </table>
+                        AÑADIR FECHA
+                    </div>
+                    <div class="sanitario">
+                        <u><b>SERVICIO SANITARIO</b></u>
+                        <table class="formSanitario">
+                            <tr>
+                                <td><b>Descripción: </b></td>
+                                <td><input type="text" id="sanitario_descripcion"></td>
+                            </tr>
+                        </table>
+                        AÑADIR FECHA
+                    </div>
+                    <div class="limpieza">
+                        <u><b>SERVICIO LIMPIEZA</b></u>
+                        <table class="formLimpieza">
+                            <tr>
+                                <td><b>Horas semanales: </b></td>
+                                <td><input type="number" id="limpieza_horas"></td>
+                            </tr>
+                        </table>
+                        AÑADIR FECHA
+                    </div>
+                </div>
+            </div>
+            <button type="submit" value="Continuar">Continuar</button>
+        </form>
+    </article>
+</div>
+<footer class="footer">PIE DE PAGINA</footer>
+</body>
+</html>
