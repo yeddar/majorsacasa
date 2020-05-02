@@ -1,67 +1,102 @@
 package es.uji.ei1027.majorsacasa.model;
 
 public class Voluntario extends Usuario {
+
+    private String nick;
     private String nombre;
     private int edad;
-
     private String tlf;
-    private String correo;
-    private boolean esActivo;
+    private String email;
+    private String aficiones;
+    private String status;
 
+    public Voluntario(){
+        super();
+    }
+
+    // *********************************
+    // ************ GETTERS ************
+    // *********************************
+
+    @Override
+    public String getNick() {
+        return nick;
+    }
 
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public int getEdad() {
         return edad;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
     public String getTlf() {
         return tlf;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAficiones() {
+        return aficiones;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    // *********************************
+    // ************ SETTERS ************
+    // *********************************
+
+    @Override
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
 
     public void setTlf(String tlf) {
         this.tlf = tlf;
     }
 
-    public String getCorreo() {
-        return correo;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setAficiones(String aficiones) {
+        this.aficiones = aficiones;
     }
 
-    public boolean isEsActivo() {
-        return esActivo;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void setEsActivo(boolean esActivo) {
-        this.esActivo = esActivo;
-    }
-
-
+    // *********************************
+    // *********** TO STRING ***********
+    // *********************************
 
     @Override
     public String toString() {
         return "Voluntario{" +
-                "nombre='" + nombre + '\'' +
+                "nick='" + nick + '\'' +
+                ", nombre='" + nombre + '\'' +
                 ", edad=" + edad +
                 ", tlf='" + tlf + '\'' +
-                ", correo='" + correo + '\'' +
-                ", esActivo=" + esActivo +
+                ", email='" + email + '\'' +
+                ", aficiones='" + aficiones + '\'' +
+                ", status='" + status + '\'' +
                 ", nick='" + nick + '\'' +
                 ", pass='" + pass + '\'' +
+                ", rol=" + rol +
                 '}';
     }
-
 }

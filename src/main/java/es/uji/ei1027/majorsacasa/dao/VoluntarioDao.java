@@ -21,8 +21,8 @@ public class VoluntarioDao {
     }
 
     public void addVoluntaio(Voluntario v) throws DataAccessException {
-        jdbcTemplate.update("INSERT INTO Voluntario VALUES(?, ?, ?, ?, ?, ?)", v.getNick(),
-                v.getNombre(), v.getEdad(), v.getTlf(), v.getCorreo(), v.isEsActivo()
+        jdbcTemplate.update("INSERT INTO Voluntario VALUES(?, ?, ?, ?, ?, ?, ?)", v.getNick(),
+                v.getNombre(), v.getEdad(), v.getTlf(), v.getEmail(), v.getAficiones(), v.getStatus()
         );
     }
 
@@ -31,14 +31,8 @@ public class VoluntarioDao {
     }
 
     public void updateVoluntario(Voluntario v) {
-        String nick = v.getNick();
-        String nombre = v.getNombre();
-        int edad = v.getEdad();
-        String tlf = v.getTlf();
-        String correo = v.getCorreo();
-        boolean esActivo = v.isEsActivo();
-        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, correo = ?, es_activo = ? WHERE nick ='"+nick+"'",
-                nombre, edad, tlf, correo, esActivo);
+        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, correo = ?, aficiones = ?, status = ? WHERE nick ='"+v.getNick()+"'",
+                v.getNombre(), v.getEdad(), v.getTlf(), v.getEmail(), v.getAficiones(), v.getStatus());
     }
 
     public Voluntario getVoluntario(String nickVoluntario) {

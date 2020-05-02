@@ -168,6 +168,6 @@ public class ServicioEmpresaController {
             }
         }
 
-        return "redirect:addVoluntario";
+        return "redirect:../servicio_voluntario/add";
     }
 }

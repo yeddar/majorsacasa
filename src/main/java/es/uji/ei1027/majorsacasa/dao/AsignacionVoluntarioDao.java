@@ -22,11 +22,13 @@ public class AsignacionVoluntarioDao {
     }
 
     public void addAsignacionVoluntario(AsignacionVoluntario asignacionVoluntario) {
-        jdbcTemplate.update("INSERT INTO asignacion_voluntario VALUES(?, ?)", asignacionVoluntario.getId(), asignacionVoluntario.getNick());
+        jdbcTemplate.update("INSERT INTO asignacion_voluntario VALUES(?, ?, ?, ?, ?, ?)",
+                asignacionVoluntario.getId_franja(), asignacionVoluntario.getNick_demandante(), asignacionVoluntario.getF_ini(),
+                asignacionVoluntario.getF_fin(), asignacionVoluntario.getServ_status(), asignacionVoluntario.getFeedback_voluntario());
     }
 
     void deleteAsignacionVoluntario(AsignacionVoluntario asignacionVoluntario) {
-        jdbcTemplate.update("DELETE FROM asignacion_voluntario WHERE id=? AND nick=?", asignacionVoluntario.getId(), asignacionVoluntario.getNick());
+        jdbcTemplate.update("DELETE FROM asignacion_voluntario WHERE id_franja=?", asignacionVoluntario.getId_franja());
     }
 
     /*
