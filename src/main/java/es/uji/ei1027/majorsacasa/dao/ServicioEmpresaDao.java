@@ -19,28 +19,28 @@ public class ServicioEmpresaDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addServicioEmpresa(ServicioEmpresa servicioEmpresa) throws DataAccessException {
+    public void addServicioEmpresa(ServicioEmpresa servicioEmpresa) throws DataAccessException {
         jdbcTemplate.update(
-                "INSERT INTO asignacion_empresa VALUES(?,?,?,?,?)",
+                "INSERT INTO servicio_empresa VALUES(?,?,?,?,?)",
                 servicioEmpresa.getNick_empresa(), servicioEmpresa.getNick_demandante(), servicioEmpresa.getF_ini(),
                 servicioEmpresa.getF_fin(), servicioEmpresa.getServ_status()
         );
     }
 
-    void deleteAsignacionEmpresa(ServicioEmpresa servicioEmpresa) {
-        jdbcTemplate.update("DELETE FROM asignacion_empresa WHERE nick_empresa=? AND nick_demandante=?",
+    public void deleteAsignacionEmpresa(ServicioEmpresa servicioEmpresa) {
+        jdbcTemplate.update("DELETE FROM servicio_empresa WHERE nick_empresa=? AND nick_demandante=?",
                 servicioEmpresa.getNick_empresa(), servicioEmpresa.getNick_demandante());
     }
 
-    void updateAsignacion(ServicioEmpresa servicioEmpresa) {
-        jdbcTemplate.update("UPDATE asignacion_empresa SET f_ini=?, f_fin=?, serv_status=?" +
+    public void updateAsignacion(ServicioEmpresa servicioEmpresa) {
+        jdbcTemplate.update("UPDATE servicio_empresa SET f_ini=?, f_fin=?, serv_status=?" +
                         " WHERE nick_empresa=? AND nick_demandante=?",
                 servicioEmpresa.getF_ini(), servicioEmpresa.getF_fin(), servicioEmpresa.getServ_status(),
                 servicioEmpresa.getNick_empresa(), servicioEmpresa.getNick_demandante()
         );
     }
 
-    List<ServicioEmpresa> getServiciosEmpresa() {
+    public List<ServicioEmpresa> getServiciosEmpresa() {
         try {
             return jdbcTemplate.query("SELECT * FROM servicio_empresa",
                     new ServicioEmpresaRowMapper());

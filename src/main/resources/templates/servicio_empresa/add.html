@@ -16,16 +16,16 @@
     <aside class="aside">MENU IZQUIERDA</aside>
 
     <article class="article">
-        <form action="#" th:action="@{/servEmpresa/add}" th:object="${servEmpresa}" method="post">
+        <form action="#" th:action="@{/servEmpresa/add}" method="post">
             <div class="formulario">
                 <div class="zonaServicios">
 
                     <div class="selectorServicios">
                         <b>Servicios disponibles:</b>
                         <br>
-                        <br><input type="checkbox" id="cb_catering" value="catering"> Servicio catering
-                        <br><input type="checkbox" id="cb_sanitario" value="sanitario"> Servicio sanitario
-                        <br><input type="checkbox" id="cb_limpieza" value="limpieza"> Servicio limpieza
+                        <br><input type="checkbox" th:value="catering" th:name="servicios"> Servicio catering
+                        <br><input type="checkbox" th:value="sanitario" th:name="servicios"> Servicio sanitario
+                        <br><input type="checkbox" th:value="limpieza" th:name="servicios"> Servicio limpieza
                     </div>
                     <div class="infoSelector">
                         Se habilitarán las casillas de información de la derecha en función de las opciones que haya elegido en el cuadro superior.
@@ -47,22 +47,22 @@
                         <table class="formCatering">
                             <tr>
                                 <td><b>Tipo de menu:</b> </td>
-                                <td><input type="radio" id="diabetico" name="menu" value="diabetico"> Diabético</td>
-                                <td><input type="radio" id="bajoSal" name="menu" value="bajoSal">Bajo en sal</td>
-                                <td><input type="radio" id="bajoGrasa" name="menu" value="bajoGrasa">Bajo en grasa</td>
-                                <td><input type="radio" id="nada" name="menu" value="nada">Sin restricciones</td>
+                                <td><input type="radio" name="menu" th:field ="${servCatering.tipo_comida}" th:value="DIABETICO"> Diabético</td>
+                                <td><input type="radio" name="menu" th:field ="${servCatering.tipo_comida}" th:value="BAJO_SAL">Bajo en sal</td>
+                                <td><input type="radio" name="menu" th:field ="${servCatering.tipo_comida}" th:value="BAJO_GRASA">Bajo en grasa</td>
+                                <td><input type="radio" name="menu" th:field ="${servCatering.tipo_comida}" th:value="NADA">Sin restricciones</td>
                             </tr>
                             <tr>
                                 <td><b>Día de la semana: </b></td>
-                                <td><input type="checkbox" id="catering_lunes" value="Lunes">Lunes</td>
-                                <td><input type="checkbox" id="catering_martes" value="Martes">Martes</td>
-                                <td><input type="checkbox" id="catering_miercoles" value="Miércoles">Miércoles</td>
-                                <td><input type="checkbox" id="catering_jueves" value="Jueves">Jueves</td>
-                                <td><input type="checkbox" id="catering_viernes" value="viernes">Viernes</td>
+                                <td><input type="checkbox" th:name="dias_catering" th:value="Lunes">Lunes</td>
+                                <td><input type="checkbox" th:name="dias_catering" th:value="Martes">Martes</td>
+                                <td><input type="checkbox" th:name="dias_catering" th:value="Miercoles">Miércoles</td>
+                                <td><input type="checkbox" th:name="dias_catering" th:value="Jueves">Jueves</td>
+                                <td><input type="checkbox" th:name="dias_catering" th:value="Viernes">Viernes</td>
                             </tr>
                             <tr>
                                 <td><b>(Si se requiere) Fecha finalización: </b></td>
-                                <td><input type="date"></td>
+                                <td><input type="date" th:name="fecha_catering"></td>
                             </tr>
                         </table>
                     </div>
@@ -71,7 +71,7 @@
                         <table class="formSanitario">
                             <tr>
                                 <td><b>Descripción: </b></td>
-                                <td><input type="text" id="sanitario_descripcion"></td>
+                                <td><input type="text" th:field="${servSanitario.necesidad}"></td>
                             </tr>
                             <tr>
                                 <td><b>(Si se requiere) Fecha finalización: </b></td>
@@ -84,11 +84,11 @@
                         <table class="formLimpieza">
                             <tr>
                                 <td><b>Horas semanales: </b></td>
-                                <td><input type="number" id="limpieza_horas"></td>
+                                <td><input type="number" th:field="${servLimpieza.horas}"></td>
                             </tr>
                             <tr>
                                 <td><b>(Si se requiere) Fecha finalización: </b></td>
-                                <td><input type="date"></td>
+                                <td><input type="date" ></td>
                             </tr>
                         </table>
                     </div>

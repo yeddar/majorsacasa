@@ -18,7 +18,7 @@ public class ServicioSanitarioDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addServicioSanitario(ServicioSanitario servicioSanitario){
+    public void addServicioSanitario(ServicioSanitario servicioSanitario){
         jdbcTemplate.update(
                 "INSERT INTO servicio_sanitario VALUES(?, ?, ?, ?, ?)", servicioSanitario.getNick_empresa(),
                 servicioSanitario.getNick_demandante(), servicioSanitario.getNecesidad(), servicioSanitario.getDia_visita(),
@@ -26,12 +26,12 @@ public class ServicioSanitarioDao {
         );
     }
 
-    void deleteServicioSanitario(ServicioSanitario servicioSanitario) {
+    public void deleteServicioSanitario(ServicioSanitario servicioSanitario) {
         jdbcTemplate.update("DELETE FROM servicio_sanitario WHERE nick_empresa=? AND nick_demandante=?",
                 servicioSanitario.getNick_empresa(), servicioSanitario.getNick_demandante());
     }
 
-    void updateServicioSanitario(ServicioSanitario servicioSanitario) {
+    public void updateServicioSanitario(ServicioSanitario servicioSanitario) {
         jdbcTemplate.update("UPDATE servicio_catering SET necesidad=?, dia_visita=?, manana_tarde=?" +
                         " WHERE nick_empresa=? AND nick_demandante=?",
                 servicioSanitario.getNecesidad(), servicioSanitario.getDia_visita(), servicioSanitario.getManana_tarde(),
@@ -39,7 +39,7 @@ public class ServicioSanitarioDao {
         );
     }
 
-    List<ServicioSanitario> getServiciosSanitario() {
+    public List<ServicioSanitario> getServiciosSanitario() {
         try {
             return jdbcTemplate.query("SELECT * FROM servicio_sanitario",
                     new ServicioSanitarioRowMapper());

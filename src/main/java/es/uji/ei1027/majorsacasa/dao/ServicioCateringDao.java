@@ -18,7 +18,7 @@ public class ServicioCateringDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addServicioCatering(ServicioCatering servicioCatering){
+    public void addServicioCatering(ServicioCatering servicioCatering){
         jdbcTemplate.update(
                 "INSERT INTO servicio_catering VALUES(?, ?, ?, ?, ?)", servicioCatering.getNick_empresa(),
                 servicioCatering.getNick_demandante(), servicioCatering.getTipo_comida(), servicioCatering.getDias_semana(),
@@ -26,12 +26,12 @@ public class ServicioCateringDao {
         );
     }
 
-    void deleteServicioCatering(ServicioCatering servicioCatering) {
+    public void deleteServicioCatering(ServicioCatering servicioCatering) {
         jdbcTemplate.update("DELETE FROM servicio_catering WHERE nick_empresa=? AND nick_demandante=?",
                 servicioCatering.getNick_empresa(), servicioCatering.getNick_demandante());
     }
 
-    void updateServicioCatering(ServicioCatering servicioCatering) {
+    public void updateServicioCatering(ServicioCatering servicioCatering) {
         jdbcTemplate.update("UPDATE servicio_catering SET tipo_comida=?, dias_semana=?, hora_aprox=?" +
                         " WHERE nick_empresa=? AND nick_demandante=?",
                 servicioCatering.getTipo_comida(), servicioCatering.getDias_semana(), servicioCatering.getHora_aprox(),
@@ -39,7 +39,7 @@ public class ServicioCateringDao {
         );
     }
 
-    List<ServicioCatering> getServiciosCatering() {
+    public List<ServicioCatering> getServiciosCatering() {
         try {
             return jdbcTemplate.query("SELECT * FROM servicio_catering",
                     new ServicioCateringRowMapper());

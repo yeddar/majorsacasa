@@ -18,26 +18,26 @@ public class ServicioLimpiezaDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    void addServicioLimpieza(ServicioLimpieza servicioLimpieza){
+    public void addServicioLimpieza(ServicioLimpieza servicioLimpieza){
         jdbcTemplate.update(
                 "INSERT INTO servicio_limpieza VALUES(?, ?, ?)", servicioLimpieza.getNick_empresa(),
                 servicioLimpieza.getNick_demandante(), servicioLimpieza.getHoras()
         );
     }
 
-    void deleteServicioLimpieza(ServicioLimpieza servicioLimpieza) {
+    public void deleteServicioLimpieza(ServicioLimpieza servicioLimpieza) {
         jdbcTemplate.update("DELETE FROM servicio_limpieza WHERE nick_empresa=? AND nick_demandante=?",
                 servicioLimpieza.getNick_empresa(), servicioLimpieza.getNick_demandante());
     }
 
-    void updateServicioLimpieza(ServicioLimpieza servicioLimpieza) {
+    public void updateServicioLimpieza(ServicioLimpieza servicioLimpieza) {
         jdbcTemplate.update("UPDATE servicio_limpieza SET cant_horas=?" +
                         " WHERE nick_empresa=? AND nick_demandante=?",
                 servicioLimpieza.getHoras(), servicioLimpieza.getNick_empresa(), servicioLimpieza.getNick_demandante()
         );
     }
 
-    List<ServicioLimpieza> getServiciosLimpieza() {
+    public List<ServicioLimpieza> getServiciosLimpieza() {
         try {
             return jdbcTemplate.query("SELECT * FROM servicio_limpieza",
                     new ServicioLimpiezaRowMapper());
