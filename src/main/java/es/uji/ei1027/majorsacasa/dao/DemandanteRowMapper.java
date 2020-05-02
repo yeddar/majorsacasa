@@ -17,7 +17,7 @@ public final class DemandanteRowMapper implements RowMapper<Demandante> {
         demandante.setEdad(rs.getInt("edad"));
 
         demandante.setTlf(rs.getString("tlf"));
-        demandante.setCorreo(rs.getString("correo"));
+        demandante.setEmail(rs.getString("email"));
         demandante.setDireccion(rs.getString("direccion"));
 
         demandante.setCod_asist(rs.getString("cod_asist"));

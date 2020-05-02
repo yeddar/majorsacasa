@@ -31,7 +31,7 @@ public class VoluntarioDao {
     }
 
     public void updateVoluntario(Voluntario v) {
-        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, correo = ?, aficiones = ?, status = ? WHERE nick ='"+v.getNick()+"'",
+        jdbcTemplate.update("UPDATE Voluntario SET nombre = ?, edad = ?, tlf = ?, email = ?, aficiones = ?, status = ? WHERE nick ='"+v.getNick()+"'",
                 v.getNombre(), v.getEdad(), v.getTlf(), v.getEmail(), v.getAficiones(), v.getStatus());
     }
 

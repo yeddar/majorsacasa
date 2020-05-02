@@ -16,25 +16,25 @@
         <th> nombre</th>
         <th> cif</th>
 
-        <th> tlf</th>
-        <th> correo</th>
+        <th> Teléfono</th>
+        <th> Email</th>
 
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="respEmpresa: ${respEmpresas}">
-        <td th:text="${respEmpresa.nick}"></td>
-        <td th:text="${respEmpresa.nombre}"></td>
-        <td th:text="${respEmpresa.cif}"></td>
+    <tr th:each="empresa: ${empresas}">
+        <td th:text="${empresa.nick}"></td>
+        <td th:text="${empresa.nombre}"></td>
+        <td th:text="${empresa.cif}"></td>
 
-        <td th:text="${respEmpresa.tlf}"></td>
-        <td th:text="${respEmpresa.correo}"></td>
+        <td th:text="${empresa.tlf}"></td>
+        <td th:text="${empresa.email}"></td>
 
 
-        <td><a th:href="@{/respEmpresa/update/{nick}(nick=${respEmpresa.nick})}"> Edita </a>
+        <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}"> Edita </a>
         </td>
-        <td><a th:href="@{/respEmpresa/delete/{nick}(nick=${respEmpresa.nick})}"> Elimina </a>
+        <td><a th:href="@{/empresa/delete/{nick}(nick=${empresa.nick})}"> Elimina </a>
         </td>
     </tr>
     </tbody>

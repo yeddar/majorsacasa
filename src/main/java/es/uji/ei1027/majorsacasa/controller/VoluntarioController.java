@@ -51,6 +51,7 @@ public class VoluntarioController {
 
 
         voluntario.setRol(ROL_USUARIO.VOLUNTARIO);
+        voluntario.setStatus("SIN REVISAR");
         usuarioDao.addUsuario(voluntario);
         voluntarioDao.addVoluntaio(voluntario);
         return "redirect:list";

@@ -39,7 +39,7 @@ public class DemandanteDao {
         jdbcTemplate.update(
                 "INSERT INTO Demandante VALUES(?, ?, ?,  ?, ?, ?,  ?, ?)",
                 d.getNick(), d.getNombre(), d.getEdad(),
-                d.getTlf(), d.getCorreo(), d.getDireccion(),
+                d.getTlf(), d.getEmail(), d.getDireccion(),
                 d.getCod_asist(), d.getStatus()
         );
     }
@@ -59,10 +59,10 @@ public class DemandanteDao {
     // Update method
 
     public void updateDemandante(Demandante d) {
-        jdbcTemplate.update("UPDATE Demandante SET nombre=?, edad=?, tlf=?, correo=?, " +
-                        "direccion=?, cod_asist=?, es_activo=?" + " WHERE nick=?",
+        jdbcTemplate.update("UPDATE Demandante SET nombre=?, edad=?, tlf=?, email=?, " +
+                        "direccion=?, cod_asist=?, status=?" + " WHERE nick=?",
                 d.getNombre(), d.getEdad(),
-                d.getTlf(), d.getCorreo(), d.getDireccion(),
+                d.getTlf(), d.getEmail(), d.getDireccion(),
                 d.getCod_asist(), d.getStatus(),
                 d.getNick());
     }

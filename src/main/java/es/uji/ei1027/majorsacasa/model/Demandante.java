@@ -6,7 +6,7 @@ public class Demandante extends Usuario{
     int edad;
 
     String tlf;
-    String correo;
+    String email;
     String direccion;
 
     String cod_asist;
@@ -40,13 +40,6 @@ public class Demandante extends Usuario{
         this.tlf = tlf;
     }
 
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
 
     public String getDireccion() {
         return direccion;
@@ -70,5 +63,13 @@ public class Demandante extends Usuario{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
