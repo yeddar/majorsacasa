@@ -60,7 +60,7 @@ public class ServicioEmpresaController {
      */
 
     @RequestMapping(value = "/add")
-    public String addDemandante(Model model) {
+    public String addServicioEmpresa(Model model) {
         model.addAttribute("servCatering", new ServicioCatering());
         model.addAttribute("servSanitario", new ServicioSanitario());
         model.addAttribute("servLimpieza", new ServicioLimpieza());
@@ -168,7 +168,6 @@ public class ServicioEmpresaController {
             }
         }
 
-        return "redirect:../demandante/add";
+        return "redirect:addVoluntario";
     }
-
 }
