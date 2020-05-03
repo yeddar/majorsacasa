@@ -8,28 +8,37 @@
 </head>
 
 <body>
-<h2> Actualizar resp. empresa </h2>
-<form action="#" th:action="@{/respEmpresa/update}"
-      th:object="${respEmpresa}" method="post">
-    <table>
-        <tr>
-            <td><label> Nick </label></td>
-            <td><input type="text" th:field="*{nick}"/></td>
-        </tr>
+<h2> Actualizar empresa </h2>
+<form action="#" th:action="@{/empresa/update}"
+      th:object="${empresa}" method="post">
+    <div class="form-group row">
 
-        <tr>
-            <td><label> Contraseña </label></td>
-            <td><input type="password" th:field="*{pass}"/></td>
-        </tr>
+        <div class="col-sm-6">
+            <label>Nombre de Empresa: </label>
+            <input type="text"  class="form-control" th:field="*{nombre}"/>
+        </div>
 
-        <tr>
-            <td><label> Nombre </label></td>
-            <td><input type="text" th:field="*{nombre}"/></td>
-        </tr>
-        <tr>
-            <td><label> CIF </label></td>
-            <td><input type="text" th:field="*{cif}"/></td>
-        </tr>
+        <div class="col-sm-6">
+            <label> DNI de responsable: </label>
+            <input type="text"  class="form-control" th:field="*{nif}"/>
+        </div>
+
+        <div class="col-sm-6">
+            <label> Telefono de contacto: </label>
+            <input type="text"   class="form-control"th:field="*{tlf}"/>
+        </div>
+
+
+        <div class="col-sm-6">
+            <td><label> Correo electrónico: </label></td>
+            <td><input type="text"  class="form-control" th:field="*{email}"/></td>
+        </div>
+
+        <div class="col-sm-6">
+            <label> (Solo si procede) <br> Número de plazas ofertadas</label>
+            <input type="number"  class="form-control" th:field="*{vacantes}"/>
+        </div>
+    </div>
 
         <!-- three more -->
 
@@ -42,11 +51,32 @@
             <td><input type="text" th:field="*{email}"/></td>
         </tr>
 
+    <div class="form-group row">
 
-        <tr>
-            <td colspan="2"><input type="submit" value="Actualizar empresa"/></td>
-        </tr>
-    </table>
+        <div class="col-sm-6">
+            <label> Servicio ofertado</label>
+
+            <input type="radio" th:field="*{tipo_empresa}" value="CATERING" id="tipo1"/>
+            <label th:for="tipo1">Cátering</label><br>
+
+            <input type="radio" th:field="*{tipo_empresa}" th:value="LIMPIEZA" id="tipo2"/>
+            <label th:for="tipo2"> Limpieza</label><br>
+
+            <input type="radio" th:field="*{tipo_empresa}" th:value="SANITARIA" id="tipo3"/>
+            <label th:for="tipo3"> Sanitaria</label><br>
+
+        </div>
+
+        <div class="col-sm-6">
+            <label> Nick de usuario </label>
+            <input  class="form-control" type="text" th:field="*{nick}"readonly/>
+        </div>
+
+
+        <div class="col-sm-6">
+            <td colspan="2"><input type="submit" value="Añade empresa"/></td>
+        </div>
+    </div>
 </form>
 </body>
 </html>

@@ -1,32 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
+    <!-- <link rel="stylesheet" type="text/css"
+          href="/css/natacio.css"
+          th:href="@{/css/natacio.css}"/> -->
+    <title> MaC - Home </title>
     <meta charset="UTF-8"/>
-    <title>EI1027</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<h1>Majors a casa</h1>
+<div layout:fragment="content">
+<h1>Majors a casa : Enlace a todas las vistas : División según actores</h1>
 
-<h2>Demandantes</h2>
+<h2>RespCas</h2>
 <ul>
-    <li><a href="demandante/add">Añadir demandantes</a></li>
-    <li><a href="demandante/list">Listado demandantes</a></li>
+    <li><a href="empresa/add">Añadir empresa</a></li>
+    <li><a href="empresa/list">Listado de empresas</a></li>
+</ul>
+
+
+<h2>Demandante / Asistente Social</h2>
+<ul>
+    <li><a href="demandante/add">Añadir info base demandantes</a></li>
+    <li><a href="servEmpresa/add"> Añadir petición servicio de pago</a></li>
+    <li><a href="servVoluntario/add"> Añadir petición servicio de voluntario</a></li>
 </ul>
 
 <hr>
 
-<h2>Voluntarios</h2>
-<ul>
-    <li><a href="voluntario/list">Listado de voluntarios</a></li>
+<h2>Voluntario</h2>
+    <ul>
+        <li><a href="voluntario/add">Añadir voluntario</a></li>
+        <li><a href="voluntario/fsv/add"> Añadir franja voluntario</a></li>
+    </ul>
+
+<h2>SupervisorCas</h2>
+    <ul>
+    <li><a href="voluntario/list">Listado de voluntarios TODOS</a></li>
     <li><a href="voluntario/add">Añadir voluntario</a></li>
 </ul>
 
-<h2>Responsables empresas</h2>
-<ul>
-    <li><a href="empresa/list">Listado de resp. empresas</a></li>
-    <li><a href="empresa/add">Añadir resp. empresa</a></li>
-</ul>
+<h2>ComiteCas</h2>
+    <ul>
+        <li><a href="demandante/list">Listado demandantes TODOS</a></li>
 
+    </ul>
+
+
+    </div>
 </body>
 </html>
