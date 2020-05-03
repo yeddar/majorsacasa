@@ -60,7 +60,7 @@ public class DemandanteController {
         usuarioDao.addUsuario(demandante);
         demandanteDao.addDemandante(demandante);
 
-        return "redirect:list";
+        return "redirect:../servEmpresa/add";
     }
 
     // Update methods

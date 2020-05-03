@@ -103,9 +103,11 @@ public class ServicioEmpresaController {
                                    @RequestParam(value="servicios", required = false) String[] servicios,
                                    @RequestParam(value = "dias_catering", required = false) String[] dias_semana,
                                    @RequestParam(value = "fecha_catering", required = false) String fecha_catering,
+                                   @RequestParam(value = "fecha_sanitario", required = false) String fecha_sanitario,
+                                   @RequestParam(value = "fecha_limpieza", required = false) String fecha_limpieza,
                                    BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors())
-            return "servicio_empresa/add";
+            return "servEmpresa/add";
 
         if(servicios != null){
             for(String servicio : servicios) {
@@ -113,10 +115,10 @@ public class ServicioEmpresaController {
                     ServicioEmpresa servEmpresaCat = new ServicioEmpresa();
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaCat.setNick_empresa("emp1");
+                    servEmpresaCat.setNick_empresa("empresa5");
                     servEmpresaCat.setNick_demandante("demandante2");
                     servCatering.setNick_demandante("demandante2");
-                    servCatering.setNick_empresa("emp1");
+                    servCatering.setNick_empresa("empresa5");
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
@@ -133,13 +135,13 @@ public class ServicioEmpresaController {
                     ServicioEmpresa servEmpresaSan = new ServicioEmpresa();
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaSan.setNick_empresa("emp8");
+                    servEmpresaSan.setNick_empresa("empresa1");
                     servEmpresaSan.setNick_demandante("demandante2");
                     servSanitario.setNick_demandante("demandante2");
-                    servSanitario.setNick_empresa("emp8");
+                    servSanitario.setNick_empresa("empresa1");
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
-                    LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
+                    LocalDate f_fin = fecha_sanitario.equals("") ? null : LocalDate.parse(fecha_sanitario);
                     servEmpresaSan.setF_fin(f_fin);
                     servEmpresaSan.setServ_status("SIN EVALUAR");
 
@@ -157,7 +159,7 @@ public class ServicioEmpresaController {
                     servLimpieza.setNick_empresa("empresa3");
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
-                    LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
+                    LocalDate f_fin = fecha_limpieza.equals("") ? null : LocalDate.parse(fecha_limpieza);
                     servEmpresaLim.setF_fin(f_fin);
                     servEmpresaLim.setServ_status("SIN EVALUAR");
 
@@ -168,6 +170,6 @@ public class ServicioEmpresaController {
             }
         }
 
-        return "redirect:../servicio_voluntario/add";
+        return "redirect:../servVoluntario/add";
     }
 }

@@ -13,12 +13,12 @@ public final class FsvRowMapper implements RowMapper<FranjaServicioVoluntario> {
         FranjaServicioVoluntario franjaServicioVoluntario = new FranjaServicioVoluntario();
 
         franjaServicioVoluntario.setId(rs.getInt("id"));
-        franjaServicioVoluntario.setNick(rs.getString("nick"));
+        franjaServicioVoluntario.setNick(rs.getString("nick_voluntario"));
         franjaServicioVoluntario.setDiaSemana(rs.getString("dia_semana"));
         Time t1 = rs.getTime("h_ini");
         franjaServicioVoluntario.sethIni(t1 != null ? t1.toLocalTime() : null);
         Time t2 = rs.getTime("h_fin");
-        franjaServicioVoluntario.sethIni(t2 != null ? t2.toLocalTime() : null);
+        franjaServicioVoluntario.sethFin(t2 != null ? t2.toLocalTime() : null);
 
         return franjaServicioVoluntario;
     }
