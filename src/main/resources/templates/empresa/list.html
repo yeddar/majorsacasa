@@ -14,10 +14,15 @@
     <tr>
         <th> nick</th>
         <th> nombre</th>
-        <th> cif</th>
+        <th> nif</th>
 
-        <th> Teléfono</th>
-        <th> Email</th>
+        <th> tlf</th>
+        <th> correo</th>
+        <th> tipo de empresa</th>
+
+        <th> vacantes</th>
+
+
 
 
     </tr>
@@ -26,10 +31,14 @@
     <tr th:each="empresa: ${empresas}">
         <td th:text="${empresa.nick}"></td>
         <td th:text="${empresa.nombre}"></td>
-        <td th:text="${empresa.cif}"></td>
+        <td th:text="${empresa.nif}"></td>
 
         <td th:text="${empresa.tlf}"></td>
         <td th:text="${empresa.email}"></td>
+        <td th:text="${empresa.tipo_empresa}"></td>
+
+        <td th:text="${empresa.vacantes}"></td>
+
 
 
         <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}"> Edita </a>

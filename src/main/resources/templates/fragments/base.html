@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+    />
+    <!-- app css
+    <link type="text/css" th:href="@{/css/natacio.css}" href="/css/natacio.css"
+          rel="stylesheet"/>
+    <title layout:title-pattern="$CONTENT_TITLE"> Club de natació </title>
+     -->
+</head>
+
+<body class="container">
+<header class="page-header">
+    <h1 style="text-align:center; background-color:LightCyan"> Majors a Casa </h1>
+</header>
+
+<!--
+<div th:replace="fragments/nav"></div>
+<div th:replace="fragments/logininfo"></div>
+-->
+<div class="tabla">
+    <div 30> </div>
+
+    <div 70> </div>
+</div>
+
+<div layout:fragment="content"></div>
+
+
+<footer>
+    <hr>
+    <p class="text-muted"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i Implementació de
+        Sistemes d'Informació </p>
+</footer>
+</body>
+</html>
