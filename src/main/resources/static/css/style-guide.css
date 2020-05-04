@@ -212,6 +212,7 @@ button:focus {
     transition: .4s;
     -moz-transition: .4s;
     -webkit-transition: .4s;
+    cursor: pointer;
 }
 .callToAction:hover {
     background: #FFF;
@@ -231,6 +232,7 @@ button:focus {
     transition: .4s;
     -moz-transition: .4s;
     -webkit-transition: .4s;
+    cursor: pointer;
 }
 .primaryAction:hover {
     background: #FFF;
@@ -250,6 +252,7 @@ button:focus {
     transition: .4s;
     -moz-transition: .4s;
     -webkit-transition: .4s;
+    cursor: pointer;
 }
 .secondaryAction:hover {
     background: #67c5ff;
@@ -269,6 +272,7 @@ button:focus {
     transition: .4s;
     -moz-transition: .4s;
     -webkit-transition: .4s;
+    cursor: pointer;
 }
 .terciaryAction:hover {
     background: #FFF;
