@@ -1,50 +1,412 @@
 /*
     Guia de estilo para la pagina web
-
-    TODAVIA EN PROGRESO
 */
 
+@import url('https://fonts.googleapis.com/css?family=Muli:400|Poppins:400');
+
 /* MODELADO de los ELEMENTOS*/
+
+html {
+    font-size: 100%; /* 16px */
+}
+
 body {
-    color: #000305;
-    font-size: 87.5%; /*Base font size is 14px*/
-    font-family: 'Muli', Open Sans;
-    line-height: 1.5;
-    text-align: left;
+    color: #000305; /* Text color */
+    font-family: 'Muli', sans-serif; /* Text typography */
+    line-height: 1.5; /* Distance between lines */
+    text-align: left; /* Alignment of the text */
 }
 
+
+h1, h2, h3, h4, h5 {
+    margin: 2.75rem 0 1.05rem;
+    font-weight: 400;
+    line-height: 1.15;
+}
+
+h1.top, h2.top, h3.top, h4.top, h5.top {
+    margin: 1.05rem 0 1.05rem;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 3.052em;
+}
+
+h2 {font-size: 2.441em;}
+
+h2.logo {
+    font-size: 130%;
+}
+
+h3 {font-size: 1.953em;}
+
+h4 {font-size: 1.563em;}
+
+h5 {font-size: 1.25em;}
+
+small, .text_small {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+p {
+    width: 92%; /* Occupied space of the paragraph */
+    margin: 2% auto; /* Free space margin -> [2%] up and down --- [auto] left and right */
+    color: #000305; /* Color of the text inside the paragraph */
+}
+
+
+/* Menu style links */
+.menu a {
+    text-decoration: none; /* Decoration added to the text = none (it refers to text-decoration-line, wich means it doesn't have an underline) */
+    text-transform: uppercase;
+}
+.menu a:link, .menu a:visited {
+    color: #3498db; /* Text color, changed when link and visited*/
+}
+.menu a:hover, .menu a:active {
+    background-color: #263645; /* Text background-color, changed when hover and active*/
+    color: #3498db; /* Text color, changed when hover and active*/
+}
+
+/* Normal style links*/
 a {
-    text-decoration: none;
+    text-decoration: none; /* Decoration added to the text = none (it refers to text-decoration-line, wich means it doesn't have an underline) */
+    text-transform: uppercase;
 }
-
 a:link, a:visited {
-    color: #CF5C3F;
+    color: #3498db; /* Text color, changed when link and visited*/
 }
 
 a:hover, a:active {
-    background-color: #CF5C3F;
-    color: #FFF;
+    text-decoration: underline;
+    color: #3498db; /* Text color, changed when hover and active*/
 }
+
+
+
+.header{
+    height: 100px;
+    background: #34495e;
+    margin: 20px 10px;
+    padding: 0 20px;
+    color: #fff;
+}
+.logo{
+    line-height: 65px;
+    float: left;
+    text-transform: uppercase;
+}
+
+.menu{
+    float: right;
+    line-height: 70px;
+}
+.menu a{
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 30px 10px;
+    transition: 0.4s;
+    border-radius: 5px;
+}
+.show-menu-btn,.hide-menu-btn{
+    transition: 0.4s;
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+}
+.show-menu-btn{
+    float: right;
+}
+.show-menu-btn i{
+    line-height: 100px;
+}
+.menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover{
+    color: #3498db;
+}
+
+#chk{
+    position: absolute;
+    visibility: hidden;
+    z-index: -1111;
+}
+
+@media screen and (max-width:800px) {
+    .show-menu-btn,.hide-menu-btn{
+        display: block;
+    }
+    .menu{
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #333;
+        right: -100%;
+        top: 0;
+        text-align: center;
+        padding: 80px 0;
+        line-height: normal;
+        transition: 0.7s;
+    }
+    .menu a{
+        display: block;
+        padding: 20px;
+    }
+    .hide-menu-btn{
+        position: absolute;
+        top: 40px;
+        right: 40px;
+    }
+    #chk:checked ~ .menu{
+        right: 0;
+    }
+}
+
 
 /* Metodos para resaltar mejor en que elemento estamos situados */
 :focus {
-    outline: none;
-    box-shadow: 0 0 0 4px #cd4dcc;
+    outline: none; /* Outline property when focus at one object. It removes the outline with none */
+    box-shadow: 0 0 0 4px #cd4dcc; /* Applies a box-shadow arround the object to make it appear clearer. 0 = H_Offset --- 0 = V_Offset --- 0 = Blur --- 4px = spread --- #cd4dcc = color */
 }
 input {
-    border: 2px solid #999;
+    border: 2px solid #999; /* Border property. Width = 2px --- Style = solid --- Color = #999 */
 }
 input:focus {
+    border-color: transparent; /* Boder property. Color transformed into = transparent */
+}
+
+
+/* ########################################################################################### */
+
+/* BUTTONS */
+/* Cambio del tipo de sombra en los botones para evitar efectos raros cuando estamos situados en ese boton */
+
+button:focus {
+    box-shadow: 0 0 0 4px #cd4dcc; /* , 0 15px 30px 0 #999; */
     border-color: transparent;
 }
 
-/* Cambio del tipo de sombra en los botones para evitar efectos raros cuando estamos situados en ese boton */
-button {
-    box-shadow: 0 15px 30px 0 #999;
+/* BUTTON TYPES */
+.button {
+    margin: 0.75em 0.37em; /* Free space margin -> [2%] up and down --- [auto] left and right */
 }
-button:focus {
-    box-shadow: 0 0 0 4px #cd4dcc, 0 15px 30px 0 #999;
+.importantButton {
+    width: 70%;
+    align-items: center;
+    justify-content: center;
 }
+
+/* Call to Action Button - Big Sized. Circular borders [RoundedButton = Max rounded border-radius]. Filled with colour. STYLE = Solid */
+.callToAction {
+    font-size: 100%;
+    display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
+    padding: 1em 2.93em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
+    background: #67c5ff;
+    text-decoration: none;
+    color: white;
+    border: solid 2px #67c5ff;
+    border-radius: 100em;
+    transition: .4s;
+    -moz-transition: .4s;
+    -webkit-transition: .4s;
+}
+.callToAction:hover {
+    background: #FFF;
+    color: #67c5ff;
+}
+
+/* Primary Action Button - Big Sized. Slightly rounded borders. Filled with colour. STYLE = Solid */
+.primaryAction {
+    font-size: 100%;
+    display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
+    padding: 1em 3em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
+    background: #67c5ff;
+    text-decoration: none;
+    color: white;
+    border: solid 2px #67c5ff;
+    border-radius: 5px;
+    transition: .4s;
+    -moz-transition: .4s;
+    -webkit-transition: .4s;
+}
+.primaryAction:hover {
+    background: #FFF;
+    color: #67c5ff;
+}
+
+/* Secondary Action Button - Big Sized. Slightly rounded borders. Not filled with colour. Transparent background. Outlined with the same colour as the Primary Button. STYLE = Line */
+.secondaryAction {
+    font-size: 100%;
+    display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
+    padding: 1em 3em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
+    background: #FFF;
+    text-decoration: none;
+    color: #67c5ff;
+    border: solid 2px #67c5ff;
+    border-radius: 5px;
+    transition: .4s;
+    -moz-transition: .4s;
+    -webkit-transition: .4s;
+}
+.secondaryAction:hover {
+    background: #67c5ff;
+    color: white;
+}
+
+/* Terciary Action Button - Medium/Small Sized. Slightly rounded borders. Filled with colour. */
+.terciaryAction {
+    font-size: 80%;
+    display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
+    padding: 0.4em 1.2em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
+    background: #67c5ff;
+    text-decoration: none;
+    color: white;
+    border: solid 2px #67c5ff;
+    border-radius: 5px;
+    transition: .4s;
+    -moz-transition: .4s;
+    -webkit-transition: .4s;
+}
+.terciaryAction:hover {
+    background: #FFF;
+    color: #67c5ff;
+}
+
+/* Floating Action Button - Big/Medium Sized. Circular borders. Filled with colour. Shadow to make it pop */
+.floatingAction {
+
+}
+
+
+/* ########################################################################################### */
+/* CUSTOM CHECKBOXES */
+
+/* The container */
+.containerCheck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Hide the browser's default checkbox */
+.containerCheck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+/* Create a custom checkbox */
+.checkmarkCheck {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+}
+/* On mouse-over, add a grey background color */
+.containerCheck:hover input ~ .checkmarkCheck {
+    background-color: #ccc;
+}
+/* When the checkbox is checked, add a blue background */
+.containerCheck input:checked ~ .checkmarkCheck {
+    background-color: #2196F3;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmarkCheck:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the checkmark when checked */
+.containerCheck input:checked ~ .checkmarkCheck:after {
+    display: block;
+}
+/* Style the checkmark/indicator */
+.containerCheck .checkmarkCheck:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* ########################################################################################### */
+
+/* CUSTOM RADIO BUTTONS */
+/* The container */
+.containerRadio {
+    position: relative;
+    display: block;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Hide the browser's default radio button */
+.containerRadio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+/* Create a custom radio button */
+.checkmarkRadio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+/* On mouse-over, add a grey background color */
+.containerRadio:hover input ~ .checkmarkRadio {
+    background-color: #ccc;
+}
+/* When the radio button is checked, add a blue background */
+.containerRadio input:checked ~ .checkmarkRadio {
+    background-color: #2196F3;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmarkRadio:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the indicator (dot/circle) when checked */
+.containerRadio input:checked ~ .checkmarkRadio:after {
+    display: block;
+}
+/* Style the indicator (dot/circle) */
+.containerRadio .checkmarkRadio:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+
+
+/* ########################################################################################### */
 
 /* MODELADO de las CLASES */
 .body {
@@ -53,54 +415,35 @@ button:focus {
     clear: both;
 }
 
-.mainHeader img {
-    width: 30%;
-    height: auto;
-    margin: 2% 0;
-}
-
-.mainHeader nav {
-    background-color: #666;
-    height: 40px;
+.contenedor {
+    background-color: #f9f9f9;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-}
-
-.mainHeader nav ul {
-    list-style: none;
-    margin: 0 auto;
-}
-
-.mainHeader nav ul li {
-    float: left;
-    display: inline;
-}
-
-.mainHeader nav a:link, .mainHeader nav a:visited {
-    color: #FFF;
-    display: inline-block;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
+    margin: 15px auto;
     padding: 10px 25px;
-    height: 20px;
 }
 
-.mainHeader nav a:hover, .mainHeader nav a:active,
-.mainHeader nav .active a:link, .mainHeader nav .active a:visited {
-    background-color: #CF5C3F;
-    text-shadow: none;
+.centeredContent {
+    text-align:center;
 }
 
-.mainHeader nav ul li a {
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+.sameLine {
+    display: inline;
+    /*padding: 3% 5%;*/
 }
+
+
+
+/* ########################################################################################### */
+
+/* OTROS CONTENIDOS */
 
 .mainContent {
     line-height: 25px;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     /* overflow: hidden;
     */
 }
@@ -114,8 +457,8 @@ button:focus {
 .topContent {
     background-color: #FFF;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     padding: 3% 5%;
     margin-top: 2px;
 }
@@ -123,8 +466,8 @@ button:focus {
 .bottomContent {
     background-color: #FFF;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     padding: 3% 5%;
     margin-top: 2px;
 }
@@ -134,8 +477,8 @@ button:focus {
     float: left;
     background-color: #FFF;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     margin: 2% 0 2% 3%;
     padding: 2% 3%;
 }
@@ -151,8 +494,8 @@ button:focus {
     float: left;
     background-color: #FFF;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     margin-left: 3%;
     margin-bottom: 2%;
     padding: 2% 3%;
@@ -163,8 +506,8 @@ button:focus {
     float: left;
     background-color: #FFF;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     margin-left: 3%;
     margin-bottom: 2%;
     padding: 2% 3%;
@@ -174,8 +517,8 @@ button:focus {
     width: 100%;
     float: left;
     border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
     background-color: #666;
     margin: 2% 0;
 }
