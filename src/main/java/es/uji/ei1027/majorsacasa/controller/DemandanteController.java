@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -51,7 +48,7 @@ public class DemandanteController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("demandante") Demandante demandante,
-                                   BindingResult bindingResult) {
+                                   BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors())
             return "demandante/add";
 
@@ -60,7 +57,7 @@ public class DemandanteController {
         usuarioDao.addUsuario(demandante);
         demandanteDao.addDemandante(demandante);
 
-        return "redirect:../servEmpresa/add";
+        return "redirect:/servEmpresa/add/"+demandante.getNick();
     }
 
     // Update methods

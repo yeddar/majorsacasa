@@ -9,14 +9,15 @@
 </head>
 <body>
     <div class="contenedor">
-        <div class="selector">
-            <b>¿Desea un servicio de acompañamiento?:</b>
-            <br>
-            <br><input type="radio" name="rd_servicio" th:value="si" checked> Sí
-            <br><input type="radio" name="rd_servicio" th:value="no"> No
-        </div>
         <div class="listado">
             <form action="#" th:action="@{/servVoluntario/add}" method="post">
+                <div class="selector">
+                    <b>¿Desea un servicio de acompañamiento?:</b>
+                    <br>
+                    <br><input type="radio" th:name="rd_servicio" th:value="true" checked> Sí
+                    <br><input type="radio" th:name="rd_servicio" th:value="false"> No
+                </div>
+
                 <table class="lista">
                     <thead>
                         <tr>
@@ -36,7 +37,7 @@
                             <td th:text="${aficiones[fr_vol.id]}"></td>
                             </th:block>
                             <td><a href="#">más info</a></td>
-                            <td><input type="checkbox" th:value="${fr_vol.id}" th:name="rd_seleccion"></td>
+                            <td><input type="checkbox" th:value="${fr_vol.id}" th:name="cb_seleccion"></td>
                         </tr>
                     <tr>
                         <td>(Si se requiere) Fecha finalización: </td>
@@ -44,6 +45,7 @@
                     </tr>
                     </tbody>
                 </table>
+                <input hidden="hidden" type="text"th:name="nickDem" th:value="${nick}">
                 <input type="submit" value="Continuar">
             </form>
         </div>

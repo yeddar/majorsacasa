@@ -74,5 +74,11 @@ public class DemandanteDao {
         jdbcTemplate.update("DELETE FROM Demandante WHERE nick=?", nick);
     }
 
+    public Demandante getLastDemandante(){
+        return jdbcTemplate.queryForObject(
+                "SELECT * FROM demandante LIMIT 1;", new DemandanteRowMapper()
+        );
+    }
+
 
 }

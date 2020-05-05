@@ -1,22 +1,13 @@
 package es.uji.ei1027.majorsacasa.controller;
 
 
-import es.uji.ei1027.majorsacasa.dao.ServicioCateringDao;
-import es.uji.ei1027.majorsacasa.dao.ServicioEmpresaDao;
-import es.uji.ei1027.majorsacasa.dao.ServicioLimpiezaDao;
-import es.uji.ei1027.majorsacasa.dao.ServicioSanitarioDao;
-import es.uji.ei1027.majorsacasa.model.ServicioCatering;
-import es.uji.ei1027.majorsacasa.model.ServicioEmpresa;
-import es.uji.ei1027.majorsacasa.model.ServicioLimpieza;
-import es.uji.ei1027.majorsacasa.model.ServicioSanitario;
+import es.uji.ei1027.majorsacasa.dao.*;
+import es.uji.ei1027.majorsacasa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +24,8 @@ public class ServicioEmpresaController {
     private ServicioCateringDao servCatDao;
     private ServicioSanitarioDao servSanDao;
     private ServicioLimpiezaDao servLimDao;
-    //private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private DemandanteDao demandanteDao;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public void setServicioEmpresaDao(ServicioEmpresaDao servEmpDao) {
@@ -55,15 +47,21 @@ public class ServicioEmpresaController {
         this.servLimDao = servLimDao;
     }
 
+    @Autowired
+    public void setDemandanteDao(DemandanteDao demandanteDao) {
+        this.demandanteDao = demandanteDao;
+    }
+
     /* Add methods
      *
      */
 
-    @RequestMapping(value = "/add")
-    public String addServicioEmpresa(Model model) {
+    @RequestMapping(value = "/add/{nick_demandante}")
+    public String addServicioEmpresa(@PathVariable("nick_demandante") String nick, Model model) {
         model.addAttribute("servCatering", new ServicioCatering());
         model.addAttribute("servSanitario", new ServicioSanitario());
         model.addAttribute("servLimpieza", new ServicioLimpieza());
+        model.addAttribute("nick", nick);
         return "servicio_empresa/add";
     }
 
@@ -97,7 +95,8 @@ public class ServicioEmpresaController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String processAddSubmit(@ModelAttribute("servCatering") ServicioCatering servCatering,
+    public String processAddSubmit(@RequestParam("nickDem") String nick,
+                                   @ModelAttribute("servCatering") ServicioCatering servCatering,
                                    @ModelAttribute("servSanitario") ServicioSanitario servSanitario,
                                    @ModelAttribute("servLimpieza") ServicioLimpieza servLimpieza,
                                    @RequestParam(value="servicios", required = false) String[] servicios,
@@ -109,16 +108,18 @@ public class ServicioEmpresaController {
         if (bindingResult.hasErrors())
             return "servEmpresa/add";
 
-        if(servicios != null){
-            for(String servicio : servicios) {
+
+        //Demandante demandante = demandanteDao.getLastDemandante();
+        if(servicios != null) {
+            for (String servicio : servicios) {
                 if (servicio.equals("catering")) {
                     ServicioEmpresa servEmpresaCat = new ServicioEmpresa();
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaCat.setNick_empresa("empresa5");
-                    servEmpresaCat.setNick_demandante("demandante2");
-                    servCatering.setNick_demandante("demandante2");
-                    servCatering.setNick_empresa("empresa5");
+                    servEmpresaCat.setNick_empresa("empresa5"); // ESTATICO
+                    servEmpresaCat.setNick_demandante(nick);
+                    servCatering.setNick_demandante(nick);
+                    servCatering.setNick_empresa("empresa5"); // ESTATICO
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
@@ -135,10 +136,10 @@ public class ServicioEmpresaController {
                     ServicioEmpresa servEmpresaSan = new ServicioEmpresa();
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaSan.setNick_empresa("empresa1");
-                    servEmpresaSan.setNick_demandante("demandante2");
-                    servSanitario.setNick_demandante("demandante2");
-                    servSanitario.setNick_empresa("empresa1");
+                    servEmpresaSan.setNick_empresa("empresa1"); // ESTATICO
+                    servEmpresaSan.setNick_demandante(nick);
+                    servSanitario.setNick_demandante(nick);
+                    servSanitario.setNick_empresa("empresa1"); // ESTATICO
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_sanitario.equals("") ? null : LocalDate.parse(fecha_sanitario);
@@ -154,8 +155,8 @@ public class ServicioEmpresaController {
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
                     servEmpresaLim.setNick_empresa("empresa3");
-                    servEmpresaLim.setNick_demandante("demandante2");
-                    servLimpieza.setNick_demandante("demandante2");
+                    servEmpresaLim.setNick_demandante(nick);
+                    servLimpieza.setNick_demandante(nick);
                     servLimpieza.setNick_empresa("empresa3");
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
@@ -170,6 +171,6 @@ public class ServicioEmpresaController {
             }
         }
 
-        return "redirect:../servVoluntario/add";
+        return "redirect:/servVoluntario/add/"+nick;
     }
 }
