@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -24,6 +25,8 @@ public class ServicioEmpresaController {
     private ServicioCateringDao servCatDao;
     private ServicioSanitarioDao servSanDao;
     private ServicioLimpiezaDao servLimDao;
+    private EmpresaDao empDao;
+    //private final Logger log = LoggerFactory.getLogger(this.getClass());
     private DemandanteDao demandanteDao;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -45,6 +48,11 @@ public class ServicioEmpresaController {
     @Autowired
     public void setServicioLimpiezaDao(ServicioLimpiezaDao servLimDao) {
         this.servLimDao = servLimDao;
+    }
+
+    @Autowired
+    public void setEmpresaDao(EmpresaDao empDao) {
+        this.empDao = empDao;
     }
 
     @Autowired
@@ -173,4 +181,22 @@ public class ServicioEmpresaController {
 
         return "redirect:/servVoluntario/add/"+nick;
     }
+
+    // List by type method
+    @RequestMapping("/listWithType")
+    public String listEmpresas(Model model) {
+        List<ServicioEmpresa> serviciosEmpresa = servEmpDao.getServiciosEmpresa();
+        model.addAttribute("servicios_empresa",serviciosEmpresa );
+
+        HashMap servsTipo = new HashMap();
+        for(ServicioEmpresa servicioEmpresa : serviciosEmpresa){
+            String nickEmpresa = servicioEmpresa.getNick_empresa();
+            Empresa empresa = empDao.getEmpresa(nickEmpresa);
+            servsTipo.put(nickEmpresa,empresa.getTipo_empresa());
+        }
+        model.addAttribute("servsTipo", servsTipo);
+
+        return "servicio_empresa/listWithType";
+    }
+
 }

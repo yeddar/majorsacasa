@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Servicios de empresas</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<h1> Listado de servicio de empresas </h1>
+<table>
+    <thead>
+    <tr>
+        <th> Nick de Empresa </th>
+        <th> Nick de Demandante </th>
+        <th> Fecha de fin (si fue requerido) </th>
+
+        <th> Estado del servicio</th>
+        <th> Tipo servicio</th>
+    </tr>
+
+
+    </thead>
+    <tbody>
+    <tr th:each="servicio_empresa: ${servicios_empresa}">
+        <td th:text="${servicio_empresa.nick_empresa}"></td>
+        <td th:text="${servicio_empresa.nick_demandante}"></td>
+        <td th:text="${servicio_empresa.f_fin}"></td>
+
+        <td th:text="${servicio_empresa.serv_status}"></td>
+        <td th:text="${servsTipo[servicio_empresa.nick_empresa]}"></td>
+
+
+   <!--     <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}"> Aceptar petición </a>
+        </td>
+        <td><a th:href="@{/empresa/delete/{nick}(nick=${empresa.nick})}"> Cancelar petición </a>
+        </td>
+        -->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
