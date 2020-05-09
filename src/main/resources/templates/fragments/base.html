@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<title> Añadir Empresa </title>
+<style type="text/css" media="screen">
+    * {
+        margin: 0;
+    }
+    html, body {
+        height: 100%;
+    }
+    .lateralNav{
+        float: left;
+        width: 20%;
+        background-color:#3498db;
+        padding: 10px;
+    }
+
+    .basicContainer {
+        float: left;
+        width: 80%;
+        background-color:#67c5ff;
+        padding: 10px;
+    }
+
+    .f {
+        width: 100%;
+        float: left;
+
+        background-color:#999999;
+        padding: 10px;
+    }
+
+</style>
+
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8"/>
@@ -18,24 +50,36 @@
 </head>
 
 <body class="container">
-<header class="page-header">
-    <h1 style="text-align:center; background-color:LightCyan"> Majors a Casa </h1>
+<header style="background-color:LightCyan">
+
+        <div id="epicFlower" style="width: 25%;float:left">
+            <img src = "../static/images/icono.png" th:src="@{/images/icono.png}"
+                 style="width:150px;height:139px" alt="image not found">
+        </div>
+        <div style="width: 75%; float:right">
+            <h1 style="; font-size: 600%"> Majors a Casa </h1>
+        </div>
+
+    <div style="width: 100%;">  _______________________</div>
 </header>
 <div th:replace="fragments/nav"></div>
-<div th:replace="fragments/logininfo"></div> <!-- Información sobre el login -->
-<div class="tabla">
-    <div 30> </div>
 
-    <div 70> </div>
+<div class="row">
+    <div class="lateralNav">
+        <div th:replace="fragments/lateralNav"></div>
+    </div>
+    <div class="basicContainer">
+        <BR>
+        <div layout:fragment="content"></div>
+    </div>
 </div>
 
-<div layout:fragment="content"></div>
 
-
-<footer>
+<div class="f">
     <hr>
-    <p class="text-muted"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i Implementació de
+    <p class="text-muted" style="text-align:center"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i Implementació de
         Sistemes d'Informació </p>
-</footer>
+</div>
+
 </body>
 </html>

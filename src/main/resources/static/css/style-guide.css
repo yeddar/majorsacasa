@@ -18,10 +18,14 @@ body {
 }
 
 
+
+
+
 h1, h2, h3, h4, h5 {
     margin: 2.75rem 0 1.05rem;
     font-weight: 400;
     line-height: 1.15;
+    font-family: 'Muli', sans-serif; /* Text typography */
 }
 
 h1.top, h2.top, h3.top, h4.top, h5.top {
@@ -517,15 +521,7 @@ button:focus {
     padding: 2% 3%;
 }
 
-.mainFooter {
-    width: 100%;
-    float: left;
-    border-radius: 5px;
-    -moz-border-radius: 5px; /* Firefox */
-    -webkit-border-radius: 5px; /* Safari and Chrome */
-    background-color: #666;
-    margin: 2% 0;
-}
+
 
 .mainFooter p {
     width: 92%;

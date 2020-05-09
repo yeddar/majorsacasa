@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Lateral Nav </title>
+    <meta charset="UTF-8"/>
+    <link
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<br>
+<h2>Opciones</h2>
+
+<div th:object="${session}">
+    <div th:if="*{user == null}">
+
+    <ul>
+        <li><a href="/empresa/add">Añadir empresa</a></li>
+        <li><a href="/empresa/list">Listado de empresas</a></li>
+        <li><a href="/servEmpresa/listWithType">Listado serv de empresas en sistema</a></li>
+    </ul>
+
+    </div>
+
+    <div th:if="*{user!= null}">
+
+        <!-- <div th:switch="${user.role}">
+            <p th:case="'admin'">User is an administrator</p>
+            <p th:case="#{roles.manager}">User is a manager</p>
+            <p th:case="*">User is some other thing</p>
+        </div> -->
+        <div th:if="*{user.rol.equals('DEMANDANTE')}">
+            <li><a href="#">Ver estado de solicitudes</a></li>
+            <li><a href="#">Modificar perfil</a></li>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

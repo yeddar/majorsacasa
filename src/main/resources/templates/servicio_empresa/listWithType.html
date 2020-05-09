@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
-    <title> Servicios de empresas</title>
+    <!-- <link rel="stylesheet" type="text/css"
+          href="/css/natacio.css"
+          th:href="@{/css/natacio.css}"/> -->
+    <title> MaC - Servicios Empresa </title>
     <meta charset="UTF-8"/>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 
 <body>
+<div layout:fragment="content">
+
 <h1> Listado de servicio de empresas </h1>
 <table>
     <thead>
@@ -40,5 +47,6 @@
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

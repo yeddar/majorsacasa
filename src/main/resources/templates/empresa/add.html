@@ -1,86 +1,98 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
+      layout:decorate="~{fragments/base}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
     <!-- <link rel="stylesheet" type="text/css"
           href="/css/natacio.css"
           th:href="@{/css/natacio.css}"/> -->
     <title> MaC - Alta Empresa </title>
     <meta charset="UTF-8"/>
-    <link
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
+
 <body>
 <div layout:fragment="content">
 
-<h2 style="text-align:center"> Formulario de alta a Empresa </h2>
-<hr>
+    <h2 style="text-align:center"> Formulario de alta a Empresa </h2>
+    <hr>
 
-<div class="container py-8">
-    <div class="row">
-        <div class="col-md-10 mx-auto">
+    <div class="container py-8">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
 
-<!--/*@thymesVar id="empresa" type="java"*/-->
-<form action="#" th:action="@{/empresa/add}"
-      th:object="${empresa}" method="post">
+                <!--/*@thymesVar id="empresa" type="java"*/-->
+                <form action="#" th:action="@{/empresa/add}"
+                      th:object="${empresa}" method="post">
 
-    <div class="form-group row">
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>Nombre de Empresa: </label>
+                            <input type="text" class="form-control" th:field="*{nombre}"/>
+                        </div>
 
-        <div class="col-sm-6">
-            <label>Nombre de Empresa: </label>
-            <input type="text"  class="form-control" th:field="*{nombre}"/>
+                        <div class="col-sm-3">
+                            <label> DNI de responsable: </label>
+                            <input type="text" class="form-control" th:field="*{nif}"/>
+                        </div>
+
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <td><label> Correo electrónico: </label></td>
+                            <td><input type="text" class="form-control" th:field="*{email}"/></td>
+                        </div>
+                        <div class="col-sm-3">
+                            <label> Telefono de contacto: </label>
+                            <input type="text" class="form-control" th:field="*{tlf}"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label> Nick de usuario </label>
+                            <input class="form-control" type="text" th:field="*{nick}"/>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <label>Servicio ofertado</label>
+                            <select th:field="*{tipo_empresa}" class="form-control">
+                                <option selected th:value="CATERING">CATERING</option>
+                                <option th:value="LIMPIEZA">LIMPIEZA</option>
+                                <option th:value="SANITARIA">SANITARIA</option>
+                            </select>
+                        </div>
+                    </div>
+                        <div class="form-group row">
+                        <div class="col-sm-4">
+                            <label> Número de plazas (Optativo) </label>
+                            <input type="number" class="form-control" th:field="*{vacantes}"/>
+                        </div>
+                    </div>
+                    <!--
+                    <input type="radio" th:field="*{tipo_empresa}"  id="tipo1"/>
+                    <label th:for="tipo1">Cátering</label><br>
+
+                    <input type="radio" th:field="*{tipo_empresa}"  id="tipo2"/>
+                    <label th:for="tipo2"> Limpieza</label><br>
+
+                    <input type="radio" th:field="*{tipo_empresa}"  id="tipo3"/>
+                    <label th:for="tipo3"> Sanitaria</label><br>
+                    -->
+
+                    <div class="form-group row" style="justify-content:center">
+                        <div class="col-sm-6" style="justify-content:center">
+                            <td colspan="2">
+                                <input type="submit" value="Añade empresa"/>
+                            </td>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-
-        <div class="col-sm-6">
-            <label> DNI de responsable: </label>
-            <input type="text"  class="form-control" th:field="*{nif}"/>
-        </div>
-
-        <div class="col-sm-6">
-            <label> Telefono de contacto: </label>
-            <input type="text"   class="form-control"th:field="*{tlf}"/>
     </div>
-
-
-    <div class="col-sm-6">
-            <td><label> Correo electrónico: </label></td>
-            <td><input type="text"  class="form-control" th:field="*{email}"/></td>
-        </div>
-
-        <div class="col-sm-6">
-            <label> (Solo si procede) <br> Número de plazas ofertadas</label>
-            <input type="number"  class="form-control" th:field="*{vacantes}"/>
-        </div>
-    </div>
-
-    <div class="form-group row">
-
-        <div class="col-sm-6">
-            <label> Servicio ofertado</label>
-
-                <input type="radio" th:field="*{tipo_empresa}" value="CATERING" id="tipo1"/>
-                <label th:for="tipo1">Cátering</label><br>
-
-                <input type="radio" th:field="*{tipo_empresa}" th:value="LIMPIEZA" id="tipo2"/>
-                <label th:for="tipo2"> Limpieza</label><br>
-
-                <input type="radio" th:field="*{tipo_empresa}" th:value="SANITARIA" id="tipo3"/>
-                <label th:for="tipo3"> Sanitaria</label><br>
-
-        </div>
-
-        <div class="col-sm-6">
-           <label> Nick de usuario </label>
-            <input  class="form-control" type="text" th:field="*{nick}"/>
-        </div>
-
-
-        <div class="col-sm-6">
-            <td colspan="2"><input type="submit" value="Añade empresa"/></td>
-        </div>
-    </div>
-</form>
 </div>
 </body>
 </html>
