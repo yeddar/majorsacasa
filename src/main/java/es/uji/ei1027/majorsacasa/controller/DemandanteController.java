@@ -49,9 +49,14 @@ public class DemandanteController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("demandante") Demandante demandante,
                                    BindingResult bindingResult, Model model) {
+        // Comprobación de errores
+        DemandanteValidator dv = new DemandanteValidator();
+        dv.validate(demandante, bindingResult);
+
         if (bindingResult.hasErrors())
             return "demandante/add";
 
+        // Campos estáticos
         demandante.setRol(ROL_USUARIO.DEMANDANTE);
         demandante.setStatus("SIN REVISAR");
         usuarioDao.addUsuario(demandante);

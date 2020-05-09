@@ -13,7 +13,7 @@ public class UsuarioRowMapper implements RowMapper<Usuario> {
 
         usuario.setNick(rs.getString("nick"));
         usuario.setPass(rs.getString("pass"));
-        usuario.setRol((ROL_USUARIO) rs.getObject("tipo"));
+        //usuario.setRol((ROL_USUARIO) rs.getObject("rol"));
 
         return usuario;
     }

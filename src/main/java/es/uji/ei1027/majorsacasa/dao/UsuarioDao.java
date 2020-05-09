@@ -1,6 +1,7 @@
 package es.uji.ei1027.majorsacasa.dao;
 
 import es.uji.ei1027.majorsacasa.model.Usuario;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -30,7 +31,7 @@ public class UsuarioDao {
 
     public Usuario getUsuario(String nickUsuario) {
         try {
-            return jdbcTemplate.queryForObject("SELECT FROM Usuario WHERE nick=?", new UsuarioRowMapper(), nickUsuario);
+            return jdbcTemplate.queryForObject("SELECT * FROM Usuario WHERE nick=?", new UsuarioRowMapper(), nickUsuario);
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
@@ -53,6 +54,25 @@ public class UsuarioDao {
 
     void deleteUsuario(Usuario u) {
         jdbcTemplate.update("DELETE FROM Usuario WHERE nick=?", u.getNick());
+    }
+
+
+    public Usuario loadUserByNick(String nick, String password) {
+        // Buscar usuario
+        Usuario user = getUsuario(nick);
+        if (user == null)
+            return null; // Usuari no encontrado
+        // Contraseña
+        // TODO: Implementar cifrado de contraseñasen todos los usuarios (práctica 6)
+//        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+//        if (passwordEncryptor.checkPassword(password, user.getPass())) {
+        if (user.getPass().equals(password)) { // Provisional
+            // TODO: Borrar password de forma segura
+            return user;
+        }
+        else {
+            return null; // bad login!
+        }
     }
 
 

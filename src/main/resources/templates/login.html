@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+
+
+<!-- Para usar el CSS
+<link rel="stylesheet" type="text/css"
+          href="/css/natacio.css"
+          th:href="@{/css/natacio.css}"/>-->
+
+
+
+    <title>Login</title>
+    <meta charset="UTF-8"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"/>
+
+</head>
+<link rel="stylesheet" type="text/css"
+      href="/static/css/natacio.css"
+      th:href="@{/static/css/login.css}"/>
+<body>
+<div layout:fragment="content">
+<h2>Acceso</h2>
+<form action="#" th:action="@{/login}"
+      th:object="${user}" method="post">
+    <table>
+        <tr>
+            <td><label>Nick:</label></td>
+            <td>
+            <input class="form_control" type="text" th:field="*{nick}"/>
+            <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
+            </td>
+        </tr>
+        <tr>
+            <td><label>Contraseña:</label></td>
+            <td>
+            <input class="form_control" type="password" th:field="*{pass}"/>
+            <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit" value="Acceder" />
+</form>
+
+</body>
+</html>
