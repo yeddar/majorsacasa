@@ -108,7 +108,7 @@ public class ServicioVoluntarioController {
                     // ASIGNAMOS EL ULTIMO VOLUNTARIO REGISTRADO EN LA BASE DE DATOS
                     asignacionVoluntario.setNick_demandante(nick);
 
-                    asignacionVoluntario.setServ_status("SIN REVISAR");
+                    asignacionVoluntario.setServ_status("SIN EVALUAR");
                     asignacionVoluntarioDao.addAsignacionVoluntario(asignacionVoluntario);
                 }
             }else{
@@ -119,6 +119,24 @@ public class ServicioVoluntarioController {
             // SELECCIONO QUE NO QUIERE SERVICIO VOLUNTARIO
         }
 
-        return "redirect:/";
+        return "redirect:/servEmpresa/add/"+nick;
+    }
+
+    /*
+    Accept state
+     */
+    @RequestMapping(value="/accept/{idFranja}/{nickDem}")
+    public String acceptState(@PathVariable int idFranja, @PathVariable String nickDem){
+        asignacionVoluntarioDao.setTypeStatus(idFranja, "ESPERA VOLUNTARIO");
+        return "redirect:/demandante/solicitudes/"+nickDem;
+    }
+
+    /*
+    Cancel state
+     */
+    @RequestMapping(value="/cancel/{idFranja}/{nickDem}")
+    public String cancelState(@PathVariable int idFranja, @PathVariable String nickDem){
+        asignacionVoluntarioDao.setTypeStatus(idFranja, "CANCELADO");
+        return "redirect:/demandante/solicitudes/"+nickDem;
     }
 }

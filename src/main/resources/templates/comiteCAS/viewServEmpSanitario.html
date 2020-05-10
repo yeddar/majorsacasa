@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitud de pago</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="servicios_pago">
+
+    <h1><b>DETALLES DEL SERVICIO</b></h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Necesidad</th>
+            <th>Día de visita</th>
+            <th>Franja de visita</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${servicioSanitario.necesidad}"></td>
+            <td th:text="${servicioSanitario.dia_visita}"></td>
+            <td th:text="${servicioSanitario.manana_tarde}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br><br>
+<span th:if="${status == 'SIN EVALUAR'}">
+<button th:value="Aceptar"><a th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}">Aceptar</a></button>
+</span>
+<button th:value="Rechazar"><a th:href="@{/servEmpresa/cancel/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}">Cancelar</a></button>
+</body>
+</html>

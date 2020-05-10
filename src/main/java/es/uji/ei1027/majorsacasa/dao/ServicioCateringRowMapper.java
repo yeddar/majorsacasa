@@ -14,6 +14,7 @@ public final class ServicioCateringRowMapper implements RowMapper<ServicioCateri
         servicioCatering.setNick_demandante(resultSet.getString("nick_demandante"));
         servicioCatering.setNick_empresa(resultSet.getString("nick_empresa"));
         servicioCatering.setTipo_comida(resultSet.getString("tipo_comida"));
+        servicioCatering.setDias_semana(resultSet.getString("dias_semana"));
         servicioCatering.setHora_aprox(resultSet.getObject("hora_aprox", LocalTime.class));
         return servicioCatering;
     }

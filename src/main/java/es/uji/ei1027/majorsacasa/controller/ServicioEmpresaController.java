@@ -116,8 +116,6 @@ public class ServicioEmpresaController {
         if (bindingResult.hasErrors())
             return "servEmpresa/add";
 
-
-        //Demandante demandante = demandanteDao.getLastDemandante();
         if(servicios != null) {
             for (String servicio : servicios) {
                 if (servicio.equals("catering")) {
@@ -179,7 +177,7 @@ public class ServicioEmpresaController {
             }
         }
 
-        return "redirect:/servVoluntario/add/"+nick;
+        return "redirect:/";
     }
 
     // List by type method
@@ -199,4 +197,50 @@ public class ServicioEmpresaController {
         return "servicio_empresa/listWithType";
     }
 
+    /*
+    View methods
+     */
+    @RequestMapping(value = "/view/{nickEmp}/{nickDem}")
+    public String view(@PathVariable String nickEmp, @PathVariable String nickDem, Model model){
+        String tipo = empDao.getEmpresa(nickEmp).getTipo_empresa();
+        ServicioEmpresa servEmp = servEmpDao.getServicioEmpresaStatus(nickDem, nickEmp);
+        model.addAttribute("status", servEmp.getServ_status());
+
+        if(tipo.equals("CATERING")){
+            ServicioCatering servCat = servCatDao.getServicioCatering(nickEmp, nickDem);
+            log.info(servCat.getTipo_comida());
+            model.addAttribute("servicioCatering", servCat);
+            return "comiteCas/viewServEmpCatering";
+
+        }else if(tipo.equals("SANITARIA")){
+            ServicioSanitario servSan = servSanDao.getServicioSanitario(nickEmp, nickDem);
+            model.addAttribute("servicioSanitario", servSan);
+            return "comiteCas/viewServEmpSanitario";
+
+        }else{
+            ServicioLimpieza servLimp = servLimDao.getServicioLimpieza(nickEmp, nickDem);
+            log.info(servLimp.getNick_demandante());
+            log.info(""+servLimp.getHoras());
+            model.addAttribute("servicioLimpieza", servLimp);
+            return "comiteCas/viewServEmpLimpieza";
+        }
+    }
+
+    /*
+    Accept state
+     */
+    @RequestMapping(value = "/accept/{nickEmp}/{nickDem}")
+    public String acceptState(@PathVariable String nickEmp, @PathVariable String nickDem){
+        servEmpDao.setTypeStatus(nickEmp, nickDem, "ESPERA EMPRESA");
+        return "redirect:/demandante/solicitudes/"+nickDem;
+    }
+
+    /*
+    Cancel state
+     */
+    @RequestMapping(value = "/cancel/{nickEmp}/{nickDem}")
+    public String cancelState(@PathVariable String nickDem, @PathVariable String nickEmp){
+        servEmpDao.setTypeStatus(nickEmp, nickDem, "CANCELADO");
+        return "redirect:/demandante/solicitudes/"+nickDem;
+    }
 }

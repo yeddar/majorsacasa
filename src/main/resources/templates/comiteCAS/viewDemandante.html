@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Solicitudes</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="servicios_pago">
+
+    <h1><b>SERVICIOS DE PAGO</b></h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Demandante</th>
+            <th>Empresa</th>
+            <th>Fecha inicio</th>
+            <th>Fecha finalización</th>
+            <th>Estado del servicio</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servEmpresa: ${serviciosEmpresa}">
+            <span th:if="${servEmpresa.serv_status != 'CANCELADO'}">
+                <td th:text="${servEmpresa.nick_demandante}"></td>
+                <td th:text="${servEmpresa.nick_empresa}"></td>
+                <td th:text="${servEmpresa.f_ini}"></td>
+                <td th:text="${servEmpresa.f_fin}"></td>
+                <td th:text="${servEmpresa.serv_status}"></td>
+                <td><a th:href="@{/servEmpresa/view/{nickEmp}/{nickDem}(nickEmp=${servEmpresa.nick_empresa}, nickDem=${servEmpresa.nick_demandante})}"> Detalles</a></td>
+            </span>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<br>
+<br>
+<div class="servicios_voluntario">
+
+    <h1><b>SERVICIOS DE VOLUNTARIOS</b></h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Id franja</th>
+            <th>Demandante</th>
+            <th>Fecha inicio</th>
+            <th>Fecha finalización</th>
+            <th>Estado del servicio</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servVoluntario: ${serviciosVoluntario}">
+            <span th:if="${servVoluntario.serv_status != 'CANCELADO'}">
+                <td th:text="${servVoluntario.id_franja}"></td>
+                <td th:text="${servVoluntario.nick_demandante}"></td>
+                <td th:text="${servVoluntario.f_ini}"></td>
+                <td th:text="${servVoluntario.f_fin}"></td>
+                <td th:text="${servVoluntario.serv_status}"></td>
+                <span th:if="${servVoluntario.serv_status == 'SIN EVALUAR'}">
+                    <td><button><a th:href="@{/servVoluntario/accept/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}">Aceptar</a></button></td>
+                </span>
+                <td><button><a th:href="@{/servVoluntario/cancel/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}">Cancelar</a></button></td>
+            </span>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

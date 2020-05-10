@@ -2,6 +2,7 @@ package es.uji.ei1027.majorsacasa.dao;
 
 import es.uji.ei1027.majorsacasa.model.ServicioCatering;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +46,16 @@ public class ServicioCateringDao {
                     new ServicioCateringRowMapper());
         } catch (Exception e) {
             return new ArrayList<ServicioCatering>();
+        }
+    }
+
+    public ServicioCatering getServicioCatering(String nickEmp, String nickDem) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM servicio_catering WHERE nick_demandante='"+nickDem+"' and nick_empresa='"+nickEmp+"'",
+                    new ServicioCateringRowMapper()
+                    );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 }

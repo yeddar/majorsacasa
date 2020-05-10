@@ -3,6 +3,7 @@ package es.uji.ei1027.majorsacasa.dao;
 import es.uji.ei1027.majorsacasa.model.ServicioEmpresa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -46,6 +47,31 @@ public class ServicioEmpresaDao {
                     new ServicioEmpresaRowMapper());
         } catch (Exception e) {
             return new ArrayList<ServicioEmpresa>();
+        }
+    }
+
+    public List<ServicioEmpresa> getServiciosEmpresaDemandante(String nick) {
+        try{
+            return jdbcTemplate.query("SELECT * FROM servicio_empresa WHERE nick_demandante = '"+nick+"'", new ServicioEmpresaRowMapper());
+        }catch (Exception e){
+            return new ArrayList<>();
+        }
+    }
+
+    public void setTypeStatus(String nickEmp, String nickDem, String status) {
+        jdbcTemplate.update("UPDATE servicio_empresa SET serv_status=?" +
+                        " WHERE nick_empresa=? AND nick_demandante=?",
+                status, nickEmp, nickDem
+        );
+    }
+
+    public ServicioEmpresa getServicioEmpresaStatus(String nickDem, String nickEmp) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM servicio_empresa WHERE nick_demandante='"+nickDem+"' and nick_empresa='"+nickEmp+"'",
+                    new ServicioEmpresaRowMapper()
+                    );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
         }
     }
 

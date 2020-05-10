@@ -1,15 +1,20 @@
 package es.uji.ei1027.majorsacasa.controller;
 
+import es.uji.ei1027.majorsacasa.dao.AsignacionVoluntarioDao;
 import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
+import es.uji.ei1027.majorsacasa.dao.ServicioEmpresaDao;
 import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
-import es.uji.ei1027.majorsacasa.model.Demandante;
-import es.uji.ei1027.majorsacasa.model.ROL_USUARIO;
-import es.uji.ei1027.majorsacasa.model.Usuario;
+import es.uji.ei1027.majorsacasa.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -17,6 +22,9 @@ import org.springframework.web.bind.annotation.*;
 public class DemandanteController {
     private DemandanteDao demandanteDao;
     private UsuarioDao usuarioDao;
+    private ServicioEmpresaDao servEmpresaDao;
+    private AsignacionVoluntarioDao asignacionVoluntarioDao;
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public void setDemandanteDao(DemandanteDao demandanteDao) {
@@ -26,6 +34,16 @@ public class DemandanteController {
     @Autowired
     public void setUsuarioDao(UsuarioDao usuarioDao) {
         this.usuarioDao = usuarioDao;
+    }
+
+    @Autowired
+    public void setServEmpresaDao(ServicioEmpresaDao servEmpresaDao) {
+        this.servEmpresaDao = servEmpresaDao;
+    }
+
+    @Autowired
+    public void setAsignacionVoluntarioDao(AsignacionVoluntarioDao asignacionVoluntarioDao) {
+        this.asignacionVoluntarioDao = asignacionVoluntarioDao;
     }
 
     // List method
@@ -62,7 +80,7 @@ public class DemandanteController {
         usuarioDao.addUsuario(demandante);
         demandanteDao.addDemandante(demandante);
 
-        return "redirect:/servEmpresa/add/"+demandante.getNick();
+        return "redirect:/servVoluntario/add/"+demandante.getNick();
     }
 
     // Update methods
@@ -91,5 +109,21 @@ public class DemandanteController {
         return "redirect:../list";
     }
 
+    // View method
+    @RequestMapping(value = "/solicitudes/{nick}")
+    public String mostrarSolicitudes(@PathVariable String nick, Model model){
+        // Coger todas las solicitudes de pago
+        List<ServicioEmpresa> serviciosEmpresa = servEmpresaDao.getServiciosEmpresaDemandante(nick);
+        // Coger todas las solicitudes de voluntario
+        List<AsignacionVoluntario> serviciosVoluntario = asignacionVoluntarioDao.getServiciosVoluntarioDemandante(nick);
+
+        log.info("TAMAÑO DE LA LISTA VOLUNTARIO: "+serviciosVoluntario.size());
+        log.info("TAMAÑO DE LA LISTA EMPRESA: "+serviciosEmpresa.size());
+
+        model.addAttribute("serviciosEmpresa", serviciosEmpresa);
+        model.addAttribute("serviciosVoluntario", serviciosVoluntario);
+
+        return "comiteCas/viewDemandante";
+    }
 
 }

@@ -71,5 +71,19 @@ public class AsignacionVoluntarioDao {
         }
     }
 
+    public List<AsignacionVoluntario> getServiciosVoluntarioDemandante(String nick) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM asignacion_voluntario WHERE nick_demandante = '"+nick+"'",
+                    new AsignacionVoluntarioRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<AsignacionVoluntario>();
+        }
+    }
 
+    public void setTypeStatus(int idFranja, String status) {
+        jdbcTemplate.update("UPDATE asignacion_voluntario SET serv_status=?" +
+                        " WHERE id_franja=?",
+                status, idFranja
+        );
+    }
 }

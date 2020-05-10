@@ -22,7 +22,7 @@
 
         <th>cod_asist</th>
         <th>status</th>
-
+        <th></th>
 
     </tr>
     </thead>
@@ -42,6 +42,9 @@
         <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
         </td>
         <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Elimina </a>
+        </td>
+        <td>
+            <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a>
         </td>
     </tr>
     </tbody>
