@@ -28,10 +28,43 @@
             <p th:case="#{roles.manager}">User is a manager</p>
             <p th:case="*">User is some other thing</p>
         </div> -->
+
+        <div th:if="*{user.rol.equals('RESP_CAS')}">
+            <li><a href="/empresa/add">Añadir empresa</a></li>
+            <li><a href="/empresa/list">Listado de empresas</a></li>
+            <li><a href="/servEmpresa/listWithType">Listado serv de empresas en sistema</a></li>
+        </div>
+
+        <div th:if="*{user.rol.equals('COMITE_CAS')}">
+            <li><a href="#">Añadir empresa</a></li>
+            <li><a href="#">Listado de empresas</a></li>
+            <li><a href="#">Listado serv de empresas en sistema</a></li>
+        </div>
+
+        <div th:if="*{user.rol.equals('SUPERVISOR_CAS')}">
+            <li><a href="#">Añadir empresa</a></li>
+            <li><a href="#">Listado de empresas</a></li>
+            <li><a href="#">Listado serv de empresas en sistema</a></li>
+        </div>
+
         <div th:if="*{user.rol.equals('DEMANDANTE')}">
             <li><a href="#">Ver estado de solicitudes</a></li>
             <li><a href="#">Modificar perfil</a></li>
         </div>
+
+        <div th:if="*{user.rol.equals('VOLUNTARIO')}">
+            <li><a href="voluntario/fsv/add"> Añadir franja voluntario</a></li>
+            <li> <a href="#">Feedback a Demandantes en Espera </a></li>
+            <li> <a href="#">Franjas Asignadas y Demandannte</a></li>
+            <li> <a href="#">Lstar (y Modificar) franjas</a> </li>
+            <li><a href="#"> Darse de baja</a> </li>
+        </div>
+
+        <div th:if="*{user.rol.equals('EMPRESA')}">
+            <li> <a href="#">Feedback a Demandantes en Espera </a></li>
+            <li> <a href="#">Servicios activos </a> </li>
+        </div>
+
     </div>
     </div>
 </body>
