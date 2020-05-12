@@ -1,73 +1,121 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragments/base}">
+      layout:decorate="~{fragments/base}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
     <!-- <link rel="stylesheet" type="text/css"
           href="/css/natacio.css"
           th:href="@{/css/natacio.css}"/> -->
     <title> MaC - Home </title>
+    <style type="text/css" media="screen">
+        * {
+            margin: 0;
+        }
+        html, body {
+            height: 100%;
+        }
+        .lateralNav{
+            float: left;
+            width: 20%;
+            background-color:#3498db;
+            padding: 10px;
+        }
+
+        .indexBasicContainer {
+            float: left;
+            width: 100%;
+            background-color:#67c5ff;
+            padding: 20px;
+        }
+
+        .f {
+            width: 100%;
+            float: left;
+
+            background-color:#999999;
+            padding: 10px;
+        }
+
+    </style>
     <meta charset="UTF-8"/>
-    <link
-            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
+
 <body>
-<div layout:fragment="content">
-<h1>Majors a casa : Enlace a todas las vistas : División según actores</h1>
+<body class="container">
+<header style="background-color:LightCyan">
 
-<h2>RespCas</h2>
-<ul>
-    <li><a href="empresa/add">Añadir empresa</a></li>
-    <li><a href="empresa/list">Listado de empresas</a></li>
-    <li><a href="servEmpresa/listWithType">Listado serv de empresas en sistema</a></li>
-</ul>
+    <div id="epicFlower" style="width: 25%;float:left">
+        <img src = "images/icono.png" th:src="@{/images/icono.png}"
+             style="width:150px;height:139px" alt="image not found">
 
-
-<h2>Demandante / Asistente Social</h2>
-<ul>
-    <li><a href="demandante/add">Registro demandante</a> (form demandante + petición serv emp +
-        petición serv vol)</li>
-    <!--<li><a href="servEmpresa/add"> Añadir petición servicio de pago</a></li>
-    <li><a href="servVoluntario/add"> Añadir petición servicio de voluntario</a></li>-->
-</ul>
-
-<hr>
-
-<h2>Voluntario</h2>
-    <ul>
-        <li><a href="voluntario/add">Añadir voluntario</a></li>
-        <li><a href="voluntario/fsv/add"> Añadir franja voluntario</a></li>
-        <li> Feedback a Demandantes en Espera </li>
-        <li> Franjas Asignadas y Demandannte</li>
-        <li> Lstar (y Modificar) franjas </li>
-        <li> Darse de baja </li>
-    </ul>
-
-    <h2>Empresa</h2>
-    <ul>
-        <li> Feedback servicio de Demandante </li>
-        <li> Listado Demandante Asignados (Opción cerrar)</li>
-    </ul>
-
-
-
-<h2>SupervisorCas</h2>
-    <ul>
-        <li> Alta voluntario (sin revisar a ACEPTADO - CANCELADO) </li>
-        <li><a href="voluntario/list">Listado de voluntarios TODOS</a></li>
-</ul>
-
-<h2>ComiteCas</h2>
-    <ul>
-        <li><a href="demandante/list">Listado demandantes TODOS ( + gestion de solicitudes de pago y voluntario)</a></li>
-    </ul>
-
-
-    <h2>Login</h2>
-    <ul>
-        <li><a href="login">Login</a></li>
-    </ul>
 
     </div>
+    <div style="width: 75%; float:right">
+        <h1 style="; font-size: 600%"> Majors a Casa </h1>
+    </div>
+
+    <div style="width: 100%;">  _______________________</div>
+</header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Majors a casa</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/demandante.html">Ayuda a domicilio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Quiero ayudar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           <li> <div class="my-2 my-sm-0"> <div class="loggeduser" th:object="${session}">
+                    <a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a>                    No autenticado <a href="/login" th:href="@{/login}">
+                    <span class="glyphicon glyphicon-log-in"> </span>
+                    Entrar</a>
+
+            </li>
+        </ul>
+
+                <!--
+                <p th:unless="*{user == null}">
+                    Autenticado como <span th:text="*{user.nick}"></span> <a
+                        href="/logout" th:href="@{/logout}">Salir</a>
+                </p>
+                -->
+            </div>
+            </div>
+
+
+    </div>
+</nav>
+
+
+<div class="indexBasicContainer">
+        <BR>
+        <h1> Ahora más que nunca: MajorsACasa </h1>
+    </div>
+</div>
+
+
+
+
+
+<div class="f">
+    <hr>
+    <p class="text-muted" style="text-align:center"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i Implementació de
+        Sistemes d'Informació </p>
+</div>
+
+</div>
 </body>
-</html>

@@ -123,7 +123,7 @@ public class DemandanteController {
         model.addAttribute("serviciosEmpresa", serviciosEmpresa);
         model.addAttribute("serviciosVoluntario", serviciosVoluntario);
 
-        return "comiteCas/viewDemandante";
+        return "comiteCAS/viewDemandante";
     }
 
 }

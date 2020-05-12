@@ -4,9 +4,6 @@
       layout:decorate="~{fragments/base}" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout ">
 <head>
-    <!-- <link rel="stylesheet" type="text/css"
-          href="/css/natacio.css"
-          th:href="@{/css/natacio.css}"/> -->
     <title> MaC - Alta Empresa </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -15,10 +12,10 @@
 <body>
 <div layout:fragment="content">
 
-    <h2 style="text-align:center"> Formulario de alta a Empresa </h2>
+    <h2> Formulario de alta a Empresa </h2>
     <hr>
 
-    <div class="container py-8">
+    <div class="container py-10 ml-lg-5 mt-2">
         <div class="row">
             <div class="col-md-10 mx-auto">
 
@@ -32,7 +29,7 @@
                             <input type="text" class="form-control" th:field="*{nombre}"/>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <label> DNI de responsable: </label>
                             <input type="text" class="form-control" th:field="*{nif}"/>
                         </div>
@@ -45,19 +42,19 @@
                             <td><label> Correo electrónico: </label></td>
                             <td><input type="text" class="form-control" th:field="*{email}"/></td>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <label> Telefono de contacto: </label>
                             <input type="text" class="form-control" th:field="*{tlf}"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-6">
-                            <label> Nick de usuario </label>
+                            <label> Nick de usuario: </label>
                             <input class="form-control" type="text" th:field="*{nick}"/>
                         </div>
 
-                        <div class="col-sm-3">
-                            <label>Servicio ofertado</label>
+                        <div class="col-sm-4">
+                            <label>Servicio ofertado: </label>
                             <select th:field="*{tipo_empresa}" class="form-control">
                                 <option selected th:value="CATERING">CATERING</option>
                                 <option th:value="LIMPIEZA">LIMPIEZA</option>
@@ -66,10 +63,18 @@
                         </div>
                     </div>
                         <div class="form-group row">
-                        <div class="col-sm-4">
-                            <label> Número de plazas (Optativo) </label>
-                            <input type="number" class="form-control" th:field="*{vacantes}"/>
+                        <div class="col-sm-2">
+                            <label> (Optativo) Vacantes:  </label>
+                            <input type="number" min="0" class="form-control" th:field="*{vacantes}"/>
                         </div>
+                            <div class="col-sm-8">
+                            <div class="alert alert-info">
+                                Al clicar en <strong>Añadir Empresa</strong>
+                                se enviará un correo
+                                al email indicado su nick y
+                                una contraseña generada por el sistema
+                            </div>
+                            </div>
                     </div>
                     <!--
                     <input type="radio" th:field="*{tipo_empresa}"  id="tipo1"/>
@@ -82,10 +87,12 @@
                     <label th:for="tipo3"> Sanitaria</label><br>
                     -->
 
+
+
                     <div class="form-group row" style="justify-content:center">
                         <div class="col-sm-6" style="justify-content:center">
                             <td colspan="2">
-                                <input type="submit" value="Añade empresa"/>
+                                <input type="submit" value="Añadir empresa"/>
                             </td>
                         </div>
                     </div>
@@ -93,6 +100,6 @@
             </div>
         </div>
     </div>
-</div>
+
 </body>
 </html>

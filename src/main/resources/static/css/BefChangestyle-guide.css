@@ -27,31 +27,18 @@ label{
     font-family: 'Muli', sans-serif; /* Text typography */
 }
 
-input[type=submit]{
-    border: 2px solid green;
-
+input {
+    border: none;
     padding: 16px 32px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 100em;
-    background: #1abd9a;
-    transition: 0.3s;
-}
-
-input[type=submit]{
-    cursor: pointer;
-}
-
-input[type=submit]:hover{
-    background: #15a085;
-    opacity: 1;
 }
 
 .row {
     margin-right: 0;
     margin-left: 0;
-    position: center;
 }
 
 .lateralNav{
@@ -60,25 +47,16 @@ input[type=submit]:hover{
     background-color:#F1F1F1;
     padding: 10px;
     display: block;
+
 }
 
-
-.lateralNav a:link, a:visited {
-    /* padding: 8px 8px 8px 32px; */
-    background-color: #F1F1F1;
-    color: black;
-    padding: 14px 25px;
-    text-align: center;
+.lateralNav a {
+    padding: 8px 8px 8px 32px;
     text-decoration: none;
+    color: #818181;
     display: block;
     transition: 0.3s;
-    font-size: 1.2em;
 }
-
-.lateralNav a:hover, a:active {
-    background-color: #cccccc;
-}
-
 
 .sidenav a:hover {
     color: #f1f1f1;
@@ -127,10 +105,10 @@ html, body {
 
 h1 {
     margin-top: 0;
-    font-size: 3.52em;
+    font-size: 3.052em;
 }
 
-h2 {font-size: 2.8em;}
+h2 {font-size: 2.441em;}
 
 h2.logo {
     font-size: 130%;
@@ -151,6 +129,20 @@ p {
     width: 92%; /* Occupied space of the paragraph */
     margin: 2% auto; /* Free space margin -> [2%] up and down --- [auto] left and right */
     color: #000305; /* Color of the text inside the paragraph */
+}
+
+
+/* Menu style links */
+.menu a {
+    text-decoration: none; /* Decoration added to the text = none (it refers to text-decoration-line, wich means it doesn't have an underline) */
+    text-transform: uppercase;
+}
+.menu a:link, .menu a:visited {
+    color: #3498db; /* Text color, changed when link and visited*/
+}
+.menu a:hover, .menu a:active {
+    background-color: #263645; /* Text background-color, changed when hover and active*/
+    color: #3498db; /* Text color, changed when hover and active*/
 }
 
 /* Normal style links*/
@@ -180,6 +172,36 @@ a:hover, a:active {
     line-height: 65px;
     float: left;
     text-transform: uppercase;
+}
+
+.menu{
+    float: right;
+    line-height: 70px;
+}
+.menu a{
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 30px 10px;
+    transition: 0.4s;
+    border-radius: 5px;
+}
+.show-menu-btn,.hide-menu-btn{
+    transition: 0.4s;
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+}
+.show-menu-btn{
+    float: right;
+}
+.show-menu-btn i{
+    line-height: 100px;
+}
+.menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover{
+    color: #15a085;
 }
 
 #chk{
@@ -255,7 +277,7 @@ button:focus {
     font-size: 100%;
     display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
     padding: 1em 2.93em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
-    background: #15a085;
+    background: #67c5ff;
     text-decoration: none;
     color: white;
     border: solid 2px #67c5ff;
@@ -295,7 +317,7 @@ button:focus {
     font-size: 100%;
     display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
     padding: 1em 3em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
-    background: #15a085;
+    background: #FFF;
     text-decoration: none;
     color: #67c5ff;
     border: solid 2px #67c5ff;
@@ -315,7 +337,7 @@ button:focus {
     font-size: 80%;
     display: inline-block; /* Displays an element as an inline-level block container. The element itself is formatted as an inline element, but you can apply height and width values */
     padding: 0.4em 1.2em; /* generate space around an element's content, inside of any defined borders. Relative to the font-size of the element same as % (2em means 2 times the size of the current font) */
-    background: #15a085;
+    background: #67c5ff;
     text-decoration: none;
     color: white;
     border: solid 2px #67c5ff;

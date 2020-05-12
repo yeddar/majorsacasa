@@ -1,37 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
+
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <title> Añadir Empresa </title>
-<style type="text/css" media="screen">
-    * {
-        margin: 0;
-    }
-    html, body {
-        height: 100%;
-    }
-    .lateralNav{
-        float: left;
-        width: 20%;
-        background-color:#3498db;
-        padding: 10px;
-    }
-
-    .basicContainer {
-        float: left;
-        width: 80%;
-        background-color:#67c5ff;
-        padding: 10px;
-    }
-
-    .f {
-        width: 100%;
-        float: left;
-
-        background-color:#999999;
-        padding: 10px;
-    }
-
-</style>
+<link rel="stylesheet" type="text/css" href="../static/css/style-guide.css" th:href="@{/css/style-guide.css}"/>
 
 <head>
     <!-- Required meta tags -->
@@ -68,7 +40,7 @@
     <div class="lateralNav">
         <div th:replace="fragments/lateralNav"></div>
     </div>
-    <div class="basicContainer">
+    <div class="indexBasicContainer">
         <BR>
         <div layout:fragment="content"></div>
     </div>
