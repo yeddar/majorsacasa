@@ -67,7 +67,7 @@ public class LoginController {
             session.removeAttribute("nextURL"); // Borramos atributo que no vamos a volver a usar
             return "redirect:" + nextUrl;
         }
-        return "redirect:/";
+        return "common/home";
     }
 
     @RequestMapping("/logout")

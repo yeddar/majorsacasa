@@ -20,8 +20,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-
-        <div th:if="*{user== null}">
+        <div th:object="${session}">
+        <div th:if="*{user == null}">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Inicio</a>
@@ -51,6 +51,7 @@
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Quiero ayudar</a>
                 </li>
             </ul>
+        </div>
         </div>
 
         <ul class="navbar-nav ml-auto">

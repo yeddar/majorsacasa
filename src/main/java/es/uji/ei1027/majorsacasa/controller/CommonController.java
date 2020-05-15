@@ -19,8 +19,13 @@ public class CommonController {
     }
 
     @RequestMapping(value = "/rootIndex")
-    public String allView(Model model) {
+    public String allView() {
         return "root/rootIndex";
+    }
+
+    @RequestMapping(value = "/home")
+    public String goHome() {
+        return "common/home";
     }
 
 }
