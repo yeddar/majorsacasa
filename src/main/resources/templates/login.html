@@ -26,25 +26,38 @@
 <h2>Acceso</h2>
 <form action="#" th:action="@{/login}"
       th:object="${user}" method="post">
-    <table>
-        <tr>
-            <td><label>Nick:</label></td>
-            <td>
-            <input class="form_control" type="text" th:field="*{nick}"/>
-            <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
-            </td>
-        </tr>
-        <tr>
-            <td><label>Contraseña:</label></td>
-            <td>
-            <input class="form_control" type="password" th:field="*{pass}"/>
-            <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
-            </td>
-        </tr>
-    </table>
-    <br>
-    <input type="submit" value="Acceder" />
+
+    <div class="logBox">
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>Usuario:  </label>
+                    <input class="form_control" type="text" th:field="*{nick}"/>
+                    <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>Contraseña: </label>
+                    <input class="form_control" type="password" th:field="*{pass}"/>
+                    <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <br>
+        <input type="submit" value="Acceder" />
+            </div>
+    </div>
+    </div>
+
+
+
 </form>
 
+</div>
 </body>
 </html>
