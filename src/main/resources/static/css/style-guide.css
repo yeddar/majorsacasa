@@ -12,9 +12,8 @@ html {
 
 body {
     color: #000305; /* Text color */
-    font-family: 'Muli', sans-serif; /* Text typography */
+    font-family: 'Muli', sans-serif  !important; /* Text typography */
     line-height: 1.5; /* Distance between lines */
-    text-align: left; /* Alignment of the text */
 }
 
 h1,h2{
@@ -54,6 +53,29 @@ input[type=submit]:hover{
     position: center;
 }
 
+/* Caja de loggeo */
+
+.logBox{
+    border-radius: 10px;
+    border: 3px solid #999999;
+
+    width: 40%;
+
+    position: relative;
+    top: 10%;
+    left: 30%;
+    right: 60%;
+    bottom: 10%;
+    padding: 40px;
+
+}
+
+
+
+/*
+    COMPONENTE DE NAVEGACION LATERAL
+ */
+
 .lateralNav{
     float: left;
     width: 20%;
@@ -61,7 +83,6 @@ input[type=submit]:hover{
     padding: 10px;
     display: block;
 }
-
 
 .lateralNav a:link, a:visited {
     /* padding: 8px 8px 8px 32px; */
@@ -79,10 +100,78 @@ input[type=submit]:hover{
     background-color: #cccccc;
 }
 
-
 .sidenav a:hover {
     color: #f1f1f1;
 }
+
+.loggeduser {
+    float: right;
+}
+
+
+/*
+    COMPONENTE DE CONTENEDOR GENERAL
+*/
+.indexBasicContainer {
+    float: right;
+    width: 80%;
+    background-color:#90c6ed;
+    padding: 10px;
+    text-align: center;
+}
+
+.table {
+
+    overflow: auto;
+    border: 2.3px solid black;
+
+}
+
+th {
+    background-color: #159376;
+    color: white;
+    text-align: center;
+    text-align:-moz-center;
+}
+
+tr{
+    background-color: #23b99e;
+}
+
+.flaticon-can{
+    color:red;
+}
+
+tr:nth-child(even){background-color: #d2f0f0}
+
+.editButton{
+
+    border: 2px solid green;
+
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 100em;
+    background: #f3c70e;
+    transition: 0.3s;
+
+    color: #333333;
+    border-top: 0.5px solid #CCCCCC;
+    border-right: 0.5px solid #333333;
+    border-bottom: 0.5px solid #333333;
+    border-left: 0.5px solid #CCCCCC;
+}
+
+.deleteButton{
+    -webkit-appearance: button;
+    -moz-appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+
 
 
 h1, h2, h3, h4, h5 {
@@ -104,12 +193,7 @@ html, body {
 
 
 
-.indexBasicContainer {
-    float: left;
-    width: 80%;
-    background-color:#67c5ff;
-    padding: 10px;
-}
+
 
 .f {
     width: 100%;
@@ -156,7 +240,7 @@ p {
 /* Normal style links*/
 a {
     text-decoration: none; /* Decoration added to the text = none (it refers to text-decoration-line, wich means it doesn't have an underline) */
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 a:link, a:visited {
     color: #3498db; /* Text color, changed when link and visited*/

@@ -3,55 +3,66 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <head>
-    <title> MaC - Alta Empresa </title>
+    <title> MaC - Listar Empresas </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 
 <body>
+
+
 <div layout:fragment="content">
 
     <h2 style="text-align:center"> Listado de empresas </h2>
     <hr>
 
-<div class="table-responsive">
-<table class="table">
-    <thead>
-    <tr>
-        <th> Nick</th>
-        <th> Nombre</th>
-        <th> NIF de responsable</th>
+    <div class="container py-10 mt-2">
+        <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Nick</th>
+                <th> Nombre</th>
+                <th> NIF de responsable</th>
 
-        <th> Telefono </th>
-        <th> Correo </th>
-        <th> Tipo de servicio </th>
+                <th> Telefono </th>
+                <th> Correo </th>
+                <th> Tipo de servicio </th>
 
-        <th> Vacantes</th>
-        <th> </th>
-        <th> </th>
+                <th> Vacantes</th>
+                <th> </th>
+                <th> </th>
 
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="empresa: ${empresas}">
-        <td th:text="${empresa.nick}"></td>
-        <td th:text="${empresa.nombre}"></td>
-        <td th:text="${empresa.nif}"></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="empresa: ${empresas}">
+                <td th:text="${empresa.nick}"></td>
+                <td th:text="${empresa.nombre}"></td>
+                <td th:text="${empresa.nif}"></td>
 
-        <td th:text="${empresa.tlf}"></td>
-        <td th:text="${empresa.email}"></td>
-        <td th:text="${empresa.tipo_empresa}"></td>
+                <td th:text="${empresa.tlf}"></td>
+                <td th:text="${empresa.email}"></td>
+                <td th:text="${empresa.tipo_empresa}"></td>
 
-        <td th:text="${empresa.vacantes}"></td>
+                <td th:text="${empresa.vacantes}"></td>
 
-        <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}"> Edita </a>
-        </td>
-        <td><a th:href="@{/empresa/delete/{nick}(nick=${empresa.nick})}"> Elimina </a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+                <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}" >
+                    <i class="flaticon-interface"></i>
+                </a>
+                </td>
+                <td><a th:href="@{/empresa/delete/{nick}(nick=${empresa.nick})}" >
+                    <i class="flaticon-can"></i>
+                </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
+        </div>
+
 </div>
 </body>
 </html>

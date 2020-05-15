@@ -33,8 +33,6 @@
                             <label> DNI de responsable: </label>
                             <input type="text" class="form-control" th:field="*{nif}"/>
                         </div>
-
-
                     </div>
 
                     <div class="form-group row">
@@ -47,12 +45,12 @@
                             <input type="text" class="form-control" th:field="*{tlf}"/>
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label> Nick de usuario: </label>
                             <input class="form-control" type="text" th:field="*{nick}"/>
                         </div>
-
                         <div class="col-sm-4">
                             <label>Servicio ofertado: </label>
                             <select th:field="*{tipo_empresa}" class="form-control">
@@ -62,6 +60,8 @@
                             </select>
                         </div>
                     </div>
+
+
                         <div class="form-group row">
                         <div class="col-sm-2">
                             <label> (Optativo) Vacantes:  </label>
@@ -99,6 +99,7 @@
                 </form>
             </div>
         </div>
+    </div>
     </div>
 
 </body>
