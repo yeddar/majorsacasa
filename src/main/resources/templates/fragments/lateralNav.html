@@ -14,9 +14,9 @@
 <div th:object="${session}">
     <div th:if="*{user == null}">
 
-    <a href="/empresa/add">Añadir empresa</a>
-    <a href="/empresa/list">Listado de empresas</a>
-    <a href="/servEmpresa/listWithType">Listado servicios empresas</a>
+    <a href="/empresa/add">AÑADIR EMPRESA</a>
+    <a href="/empresa/list">GESTIÓN DE EMPRESAS</a>
+    <a href="/servEmpresa/listWithType"> LISTADO SERVICIOS EMPRESAS</a>
 
 
     </div>
@@ -30,9 +30,9 @@
         </div> -->
 
         <div th:if="*{user.rol.equals('RESP_CAS')}">
-            <li><a href="/empresa/add">Añadir empresa</a></li>
-            <li><a href="/empresa/list">Listado de empresas</a></li>
-            <li><a href="/servEmpresa/listWithType">Listado serv de empresas en sistema</a></li>
+            <a href="/empresa/add">AÑADIR EMPRESA</a>
+            <a href="/empresa/list">LISTADO DE EMPRESAS</a>
+            <a href="/servEmpresa/listWithType"> LISTADO SERVICIOS EMPRESAS</a>
         </div>
 
         <div th:if="*{user.rol.equals('COMITE_CAS')}">
