@@ -3,14 +3,14 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <head>
-    <title> Lista todos demandantes </title>
+    <title> Lista demandantes aceptados </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1> Listado de demandantes en el sistema</h1>
+    <h1> Listado de demandantes con solicitudes sin revisar </h1>
     <table>
         <thead>
         <tr>
@@ -25,7 +25,7 @@
 
             <th>cod_asist</th>
             <th>status</th>
-            <!--<th></th>-->
+            <th></th>
 
         </tr>
         </thead>
@@ -42,13 +42,11 @@
             <td th:text="${demandante.cod_asist}"></td>
             <td th:text="${demandante.status}"></td>
 
-           <!-- <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
-            </td>
-            <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Elimina </a>
+            <td><button><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Cancelar </a></button>
             </td>
             <td>
-                <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a>
-            </td>-->
+                <button><a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a></button>
+            </td>
         </tr>
         </tbody>
     </table>

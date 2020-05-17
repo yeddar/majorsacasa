@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -57,5 +59,21 @@ public class ServicioCateringDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public List<ServicioCatering> getAsignaciones(String nick_empresa) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM servicio_catering WHERE nick_empresa = '"+nick_empresa+"'",
+                    new ServicioCateringRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<ServicioCatering>();
+        }
+    }
+
+    public void setFeedback(String nickEmp, String nick, Date hora_servicio) {
+        jdbcTemplate.update("UPDATE servicio_catering SET hora_aprox=?" +
+                        " WHERE nick_empresa=? AND nick_demandante=?",
+                hora_servicio, nickEmp, nick
+        );
     }
 }

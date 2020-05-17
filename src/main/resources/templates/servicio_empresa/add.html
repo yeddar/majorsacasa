@@ -1,36 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitar servicio de pago</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--<link rel="stylesheet" type="text/css" href="solServEmpresa.css" th:href="@{solServEmpresa.css}">-->
 </head>
 <body>
-
+<div layout:fragment="content">
 <header class="header"> CABECERA </header>
 <h2>SELECCIONAR SERVICIO DE PAGO</h2>
 <div class="contenedor">
-    <aside class="aside">MENU IZQUIERDA</aside>
-
-    <article class="article">
+    <div>
         <form action="#" th:action="@{/servEmpresa/add}" method="post">
-            <div class="formulario">
-                <div class="zonaServicios">
+            <div >
+                <div>
 
-                    <div class="selectorServicios">
+                    <div>
                         <b>Servicios disponibles:</b>
                         <br>
                         <br><input type="checkbox" th:value="catering" th:name="servicios"> Servicio catering
                         <br><input type="checkbox" th:value="sanitario" th:name="servicios"> Servicio sanitario
                         <br><input type="checkbox" th:value="limpieza" th:name="servicios"> Servicio limpieza
                     </div>
-                    <div class="infoSelector">
+                    <div>
                         Se habilitarán las casillas de información de la derecha en función de las opciones que haya elegido en el cuadro superior.
                     </div>
-                    <div class="infoPrecio">
+                    <div>
                         <b>TABLA DE PRECIOS</b>
                         <br>
                         <br>Servicio sanitario:	    		5 euros/visita<br>
@@ -40,11 +39,11 @@
                     </div>
                 </div>
 
-                <div class="zonaOpciones">
-                    <div class="catering">
+                <div>
+                    <div>
                         <u><b>SERVICIO CATERING:</b></u>
                         <br>
-                        <table class="formCatering">
+                        <table>
                             <tr>
                                 <td><b>Tipo de menu:</b> </td>
                                 <td><input type="radio" name="menu" th:field ="${servCatering.tipo_comida}" th:value="DIABETICO"> Diabético</td>
@@ -66,9 +65,9 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="sanitario">
+                    <div>
                         <u><b>SERVICIO SANITARIO</b></u>
-                        <table class="formSanitario">
+                        <table>
                             <tr>
                                 <td><b>Descripción: </b></td>
                                 <td><input type="text" th:field="${servSanitario.necesidad}"></td>
@@ -79,9 +78,9 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="limpieza">
+                    <div>
                         <u><b>SERVICIO LIMPIEZA</b></u>
-                        <table class="formLimpieza">
+                        <table>
                             <tr>
                                 <td><b>Horas semanales: </b></td>
                                 <td><input type="number" th:field="${servLimpieza.horas}"></td>
@@ -94,11 +93,10 @@
                     </div>
                 </div>
             </div>
-            <input hidden="hidden" type="text"th:name="nickDem" th:value="${nick}">
             <button type="submit" value="Finalizar">Finalizar</button>
         </form>
-    </article>
+    </div>
 </div>
-<footer class="footer">PIE DE PAGINA</footer>
+</div>
 </body>
 </html>

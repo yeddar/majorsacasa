@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de demandante</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body layout:fragment="content">
+    <table>
+        <tr>
+            <td><label> Nick </label></td>
+            <td><input readonly type="text" th:field="${demandante.nick}"/></td>
+        </tr>
+        <tr>
+            <td><label> Nombre </label></td>
+            <td><input readonly type="text" th:field="${demandante.nombre}"/></td>
+        </tr>
+        <tr>
+            <td><label> Edad </label></td>
+            <td><input readonly type="number" th:field="${demandante.edad}"/></td>
+        </tr>
+        <tr>
+            <td><label> Teléfono </label></td>
+            <td><input readonly type="text" th:field="${demandante.tlf}"/></td>
+        </tr>
+        <tr>
+            <td><label> Email</label></td>
+            <td><input readonly type="text" th:field="${demandante.email}"/></td>
+        </tr>
+        <tr>
+            <td><label> Dirección </label></td>
+            <td><input readonly type="text" th:field="${demandante.direccion}"/></td>
+        </tr>
+        <tr>
+            <td><label> Código asistente </label></td>
+            <td><input readonly type="number" th:field="${demandante.cod_asist}"/></td>
+        </tr>
+    </table>
+</body>
+</html>

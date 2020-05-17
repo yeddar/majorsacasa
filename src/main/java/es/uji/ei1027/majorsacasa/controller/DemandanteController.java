@@ -5,14 +5,13 @@ import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
 import es.uji.ei1027.majorsacasa.dao.ServicioEmpresaDao;
 import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
 import es.uji.ei1027.majorsacasa.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,6 @@ public class DemandanteController {
     private UsuarioDao usuarioDao;
     private ServicioEmpresaDao servEmpresaDao;
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public void setDemandanteDao(DemandanteDao demandanteDao) {
@@ -49,9 +47,24 @@ public class DemandanteController {
     // List method
 
     @RequestMapping("/list")
-    public String listDemandantes(Model model) {
+    public String listDemandantes(Model model, HttpSession session) {
         model.addAttribute("demandantes", demandanteDao.getDemandantes());
+        session.setAttribute("lastURL", "../list");
         return "demandante/list";
+    }
+
+    @RequestMapping("/listSinRevisar")
+    public String listDemandantesPendientes(Model model, HttpSession session){
+        model.addAttribute("demandantes", demandanteDao.getDemandantesPendientes());
+        session.setAttribute("lastURL", "../listSinRevisar");
+        return "demandante/listSinRevisar";
+    }
+
+    @RequestMapping("/listAceptados")
+    public String listDemandantesAceptados(Model model, HttpSession session){
+        model.addAttribute("demandantes", demandanteDao.getDemandantesAceptados());
+        session.setAttribute("lastURL", "../listAceptados");
+        return "demandante/listAceptados";
     }
 
     /* Add methods
@@ -66,7 +79,7 @@ public class DemandanteController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("demandante") Demandante demandante,
-                                   BindingResult bindingResult, Model model) {
+                                   BindingResult bindingResult, Model model, HttpSession session) {
         // Comprobación de errores
         DemandanteValidator dv = new DemandanteValidator();
         dv.validate(demandante, bindingResult);
@@ -80,7 +93,9 @@ public class DemandanteController {
         usuarioDao.addUsuario(demandante);
         demandanteDao.addDemandante(demandante);
 
-        return "redirect:/servVoluntario/add/"+demandante.getNick();
+        session.setAttribute("nick", demandante.getNick());
+        session.setAttribute("pass", demandante.getPass());
+        return "redirect:/servVoluntario/add";
     }
 
     // Update methods
@@ -104,9 +119,33 @@ public class DemandanteController {
     // Delete method
 
     @RequestMapping(value = "/delete/{nick}")
-    public String processDelete(@PathVariable String nick) {
+    public String processDelete(@PathVariable String nick, HttpSession session) {
         demandanteDao.deleteDemandante(nick);
-        return "redirect:../list";
+        return "redirect:"+session.getAttribute("lastURL");
+    }
+
+    // Accept user method
+
+    @RequestMapping(value = "/accept/{nick}")
+    public String processAccept(@PathVariable String nick){
+        demandanteDao.acceptDemandante(nick);
+        return "redirect:../listSinRevisar";
+    }
+
+    @RequestMapping(value = "/accept/codAsist/{nick}")
+    public String putCodAsist(@PathVariable String nick, Model model){
+        model.addAttribute("demandante", nick);
+        return "demandante/putCodAsist";
+    }
+
+    @RequestMapping(value = "/accept/{nick}", method = RequestMethod.POST)
+    public String processPOSTAccept(@RequestParam(value="cod_asist") String cod,
+                                    @PathVariable String nick){
+        Demandante dem = demandanteDao.getDemandante(nick);
+        dem.setCod_asist(cod);
+        demandanteDao.updateDemandante(dem);
+        demandanteDao.acceptDemandante(nick);
+        return "redirect:../listSinRevisar";
     }
 
     // View method
@@ -117,13 +156,17 @@ public class DemandanteController {
         // Coger todas las solicitudes de voluntario
         List<AsignacionVoluntario> serviciosVoluntario = asignacionVoluntarioDao.getServiciosVoluntarioDemandante(nick);
 
-        log.info("TAMAÑO DE LA LISTA VOLUNTARIO: "+serviciosVoluntario.size());
-        log.info("TAMAÑO DE LA LISTA EMPRESA: "+serviciosEmpresa.size());
-
         model.addAttribute("serviciosEmpresa", serviciosEmpresa);
         model.addAttribute("serviciosVoluntario", serviciosVoluntario);
 
         return "comiteCAS/viewDemandante";
+    }
+
+    @RequestMapping(value = "/viewProfile/{nick}")
+    public String verPerfil (@PathVariable String nick, Model model){
+        Demandante dem = demandanteDao.getDemandante(nick);
+        model.addAttribute("demandante", dem);
+        return "demandante/viewProfile";
     }
 
 }

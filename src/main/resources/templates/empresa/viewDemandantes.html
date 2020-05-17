@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <!-- <link rel="stylesheet" type="text/css"
+          href="/css/natacio.css"
+          th:href="@{/css/natacio.css}"/> -->
+    <title> MaC - Demandantes asignados </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <h2 style="text-align:center"> Listado de Demandantes asignados </h2>
+    <hr>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Nick demandante</th>
+                <th> Fecha de inicio</th>
+                <th> Fecha de fin</th>
+
+                <div th:switch="${tipo_empresa}">
+                    <div th:case="'CATERING'">
+                        <th> Tipo de comida </th>
+                        <th> Días de servicio </th>
+                        <th> Hora de servicio </th>
+                    </div>
+                    <div th:case="'SANITARIA'">
+                        <th> Necesidad </th>
+                        <th> Día visita </th>
+                        <th> Franja de servicio </th>
+                    </div>
+                    <div th:case="*">
+                        <th> Horas semanales </th>
+                    </div>
+                </div>
+
+                <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="asignaciones: ${asignaciones_empresa}">
+                <div th:if="${asignaciones.serv_status} == 'ACEPTADO'">
+                    <td th:text="${asignaciones.nick_demandante}"></td>
+                    <td th:text="${asignaciones.f_ini}"></td>
+                    <td th:text="${asignaciones.f_fin}"></td>
+
+                    <div th:switch="${tipo_empresa}">
+                        <div th:case="'CATERING'">
+                            <td th:text="${asignacion[asignaciones.nick_demandante].tipo_comida}"></td>
+                            <td th:text="${asignacion[asignaciones.nick_demandante].dias_semana}"></td>
+                            <td th:text="${asignacion[asignaciones.nick_demandante].hora_aprox}"></td>
+                        </div>
+                        <div th:case="'SANITARIA'">
+                            <td th:text="${asignacion[asignaciones.nick_demandante].necesidad}"></td>
+                            <td th:text="${asignacion[asignaciones.nick_demandante].dia_visita}"></td>
+                            <td th:text="${asignacion[asignaciones.nick_demandante].manana_tarde}"></td>
+                        </div>
+                        <div th:case="*">
+                            <td th:text="${asignacion[asignaciones.nick_demandante].horas}"></td>
+                        </div>
+                    </div>
+
+                    <td><button><a th:href="@{/empresa/cancel/{nick}(nick=${asignaciones.nick_demandante})}"> Cancelar servicio </a></button>
+                    </td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

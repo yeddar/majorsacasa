@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Introducir Feedback</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <b><h1>Introducción de los datos del servicio</h1></b>
+    <div th:switch="${tipo_empresa}">
+        <div th:case="'CATERING'">
+            <form action="#" th:action="@{/servEmpresa/feedback-catering/{nick}(nick=${demandante})}" method="post">
+                <label>Introduzca la hora del servicio: </label><input type="time" th:name="hora_servicio">
+                <br><input type="submit" value="Aceptar">
+            </form>
+        </div>
+        <div th:case="'SANITARIA'">
+            <form action="#" th:action="@{/servEmpresa/feedback-sanitario/{nick}(nick=${demandante})}" method="post">
+                <label>Introduzca el día de visita: </label><input type="date" th:name="dia_visita">
+                <br><label>Introduzca la franja del servicio: </label>
+                <input type="radio" th:name="franja" th:value="manana"> Mañana
+                <input type="radio" th:name="franja" th:value="tarde"> Tarde
+                <br><input type="submit" value="Aceptar">
+            </form>
+        </div>
+        <div th:case="*">
+            <!-- COLOCAR LISTA DE FRANJAS SEGUN VAYAN METIENDOSE -->
+            <table>
+                <thead>
+                    <th>id_franja</th>
+                    <th>nick_empresa</th>
+                    <th>nick_demandante</th>
+                    <th>dia_semana</th>
+                    <th>hora inicio</th>
+                    <th>hora final</th>
+
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr th:each="franja: ${franjas_demandante}">
+                        <td th:text="${franja.id_franja}"></td>
+                        <td th:text="${franja.nick_empresa}"></td>
+                        <td th:text="${franja.nick_demandante}"></td>
+                        <td th:text="${franja.diaSemana}"></td>
+                        <td th:text="${franja.hIni}"></td>
+                        <td th:text="${franja.hFin}"></td>
+
+                        <td><button><a th:href="@{/franja-limpieza/borrar-franja/{nick}/{id}(nick=${demandante}, id=${franja.id_franja})}">Eliminar</a></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- COLOCAR BOTON PARA CREARLAS -->
+            <button><a th:href="@{/franja-limpieza/add/{nick}(nick=${demandante})}">Añadir nueva franja</a></button>
+            <button><a th:href="@{/servEmpresa/feedback-limpieza/{nick}(nick=${demandante})}">Aceptar</a></button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

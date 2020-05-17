@@ -59,6 +59,8 @@ public class LoginController {
         // Autenticación correctat.
         // Guardamos los datos de el usuario autenticado en la session.
         session.setAttribute("user", user);
+        session.setAttribute("nick", user.getNick());
+        session.setAttribute("pass", user.getPass());
 
         // Torna a la pàgina principal
         String nextUrl = (String)session.getAttribute("nextURL");

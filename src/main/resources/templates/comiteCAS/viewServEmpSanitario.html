@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
     <title>Solicitud de pago</title>
@@ -7,7 +9,7 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
 <body>
-<div class="servicios_pago">
+<div layout:fragment="content">
 
     <h1><b>DETALLES DEL SERVICIO</b></h1>
 
@@ -27,11 +29,12 @@
         </tr>
         </tbody>
     </table>
-</div>
+
 <br><br>
 <span th:if="${status == 'SIN EVALUAR'}">
 <button th:value="Aceptar"><a th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}">Aceptar</a></button>
 </span>
 <button th:value="Rechazar"><a th:href="@{/servEmpresa/cancel/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}">Cancelar</a></button>
+</div>
 </body>
 </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir código asistente</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <form action="#" th:action="@{/demandante/accept/{nick}(nick=${demandante})}" method="post">
+        <label>Introduzca el código de asistente que le asignará: </label>
+        <input type="text" th:name="cod_asist">
+        <input type="submit" value="Aceptar">
+    </form>
+</div>
+</body>
+</html>

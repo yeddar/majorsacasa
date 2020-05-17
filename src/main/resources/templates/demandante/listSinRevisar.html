@@ -3,14 +3,16 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <head>
-    <title> Lista todos demandantes </title>
+    <title> Lista demandantes pendientes </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1> Listado de demandantes en el sistema</h1>
+    <h1> Listado de demandantes sin revisar </h1>
     <table>
         <thead>
         <tr>
@@ -25,7 +27,7 @@
 
             <th>cod_asist</th>
             <th>status</th>
-            <!--<th></th>-->
+            <th></th>
 
         </tr>
         </thead>
@@ -42,13 +44,22 @@
             <td th:text="${demandante.cod_asist}"></td>
             <td th:text="${demandante.status}"></td>
 
-           <!-- <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
-            </td>
-            <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Elimina </a>
-            </td>
             <td>
-                <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a>
-            </td>-->
+                <div th:switch="${demandante.cod_asist}">
+                    <div th:case="''">
+                        <button><a th:href="@{/demandante/accept/codAsist/{nick}(nick=${demandante.nick})}">
+                            Aceptar
+                        </a>
+                        </button>
+                    </div>
+                    <div th:case="*">
+                        <button><a th:href="@{/demandante/accept/{nick}(nick=${demandante.nick})}"> Aceptar </a></button>
+                    </div>
+                </div>
+            </td>
+
+            <td><button><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Rechazar </a></button>
+            </td>
         </tr>
         </tbody>
     </table>

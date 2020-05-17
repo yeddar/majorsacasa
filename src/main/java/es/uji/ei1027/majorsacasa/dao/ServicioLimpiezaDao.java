@@ -56,4 +56,13 @@ public class ServicioLimpiezaDao {
             return null;
         }
     }
+
+    public List<ServicioLimpieza> getAsignaciones(String nick_empresa) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM servicio_limpieza WHERE nick_empresa = '"+nick_empresa+"'",
+                    new ServicioLimpiezaRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<ServicioLimpieza>();
+        }
+    }
 }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title> Lista solicitudes pendientes </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1> Dar feedback a solicitudes pendientes </h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th> nombre demandante</th>
+            <th> edad</th>
+            <th> asistente social</th>
+
+            <div th:switch="${tipo_empresa}">
+                <div th:case="'CATERING'">
+                    <th> Tipo de comida </th>
+                    <th> Días de servicio </th>
+                </div>
+                <div th:case="'SANITARIA'">
+                    <th> Necesidad </th>
+                </div>
+                <div th:case="*">
+                    <th> Horas semanales </th>
+                </div>
+            </div>
+
+            <th> </th>
+            <th> </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servEmpresa: ${serviciosEmpresa}">
+            <div th:if="${servEmpresa.serv_status == 'ESPERA EMPRESA'}">
+                <td th:text="${servicios[servEmpresa.nick_demandante].nombre}"></td>
+                <td th:text="${servicios[servEmpresa.nick_demandante].edad}"></td>
+                <td th:text="${servicios[servEmpresa.nick_demandante].cod_asist}"></td>
+
+                <div th:switch="${tipo_empresa}">
+                    <div th:case="'CATERING'">
+                        <td th:text="${servEspec[servEmpresa.nick_demandante].tipo_comida}"></td>
+                        <td th:text="${servEspec[servEmpresa.nick_demandante].dias_semana}"></td>
+                    </div>
+                    <div th:case="'SANITARIA'">
+                        <td th:text="${servEspec[servEmpresa.nick_demandante].necesidad}"></td>
+                    </div>
+                    <div th:case="*">
+                        <td th:text="${servEspec[servEmpresa.nick_demandante].horas}"></td>
+                    </div>
+                </div>
+
+                <td>
+                    <button><a th:href="@{/demandante/viewProfile/{nick}(nick=${servEmpresa.nick_demandante})}">Ver detalles demandante</a></button>
+                </td>
+                <td>
+                    <button> <a th:href="@{/servEmpresa/loadFeedback/{nick}(nick=${servEmpresa.nick_demandante})}">Aceptar</a></button>
+                </td>
+                <td>
+                    <button><a th:href="@{/empresa/cancel/{nickDem}(nickDem=${servEmpresa.nick_demandante})}"> Rechazar</a></button>
+                </td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

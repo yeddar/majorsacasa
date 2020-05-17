@@ -71,6 +71,34 @@ public class DemandanteDao {
     // Delete method
 
     public void deleteDemandante(String nick) {
-        jdbcTemplate.update("DELETE FROM Demandante WHERE nick=?", nick);
+        // PRIMERO PASAMOS EL ESTADO DEL CLIENTE A CANCELADO
+        jdbcTemplate.update("UPDATE demandante SET status = 'CANCELADO' WHERE nick = '"+nick+"'");
+        // Y DESPUES PASAMOS A CANCELADO LOS SERVICIOS QUE ÉSTE TENÍA
+        // DE PAGO
+        jdbcTemplate.update("UPDATE servicio_empresa SET serv_status = 'CANCELADO' WHERE nick_demandante = '"+nick+"'");
+        // DE VOLUNTARIADO
+        jdbcTemplate.update("UPDATE asignacion_voluntario SET serv_status = 'CANCELADO' WHERE nick_demandante = '"+nick+"'");
+    }
+
+    public List<Demandante> getDemandantesPendientes() {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Demandante WHERE status ='SIN REVISAR'",
+                    new DemandanteRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<Demandante>();
+        }
+    }
+
+    public List<Demandante> getDemandantesAceptados(){
+        try {
+            return jdbcTemplate.query("SELECT * FROM Demandante WHERE status ='ACEPTADO'",
+                    new DemandanteRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<Demandante>();
+        }
+    }
+
+    public void acceptDemandante(String nick) {
+        jdbcTemplate.update("UPDATE demandante SET status = 'ACEPTADO' WHERE nick = '"+nick+"'");
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,29 +76,33 @@ public class ServicioEmpresaDao {
         }
     }
 
-        /*
-    AsignacionEmpresa getAsignacionEmpresaPorDemandante(Demandante d) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_empresa WHERE nick=?",
-                    new AsignacionEmpresaRowMapper(), d.getNick(empresa.getNick()));
-        } catch (EmptyResultDataAccessException e) {
-            return null;
+    public List<ServicioEmpresa> getServiciosEmpresaByNickEmpresa(String nick_empresa) {
+        try{
+            return jdbcTemplate.query("SELECT * FROM servicio_empresa WHERE nick_empresa = '"+nick_empresa+"'", new ServicioEmpresaRowMapper());
+        }catch (Exception e){
+            return new ArrayList<>();
         }
     }
 
-     */
-
-    /*
-    AsignacionEmpresa getAsignacionEmpresaPorEmpresa(RespEmpresa e){
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_empresa WHERE nick=?",
-                    new DemandanteRowMapper(),
-                    nickDemandante);
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null ;
-        }
+    public void setF_Ini(String nickEmp, String nick) {
+        jdbcTemplate.update("UPDATE servicio_empresa SET f_ini=?" +
+                        " WHERE nick_empresa=? AND nick_demandante=?",
+                LocalDate.now(), nickEmp, nick
+        );
     }
 
-     */
+    public void setF_Fin(String nickEmp, String nick) {
+        jdbcTemplate.update("UPDATE servicio_empresa SET f_fin=?" +
+                        " WHERE nick_empresa=? AND nick_demandante=?",
+                LocalDate.now(), nickEmp, nick
+        );
+    }
+
+    public List<ServicioEmpresa> getSinRevisarDemandante(String nickDem) {
+        try{
+            return jdbcTemplate.query("SELECT * FROM servicio_empresa WHERE nick_demandante = '"+nickDem+"' and serv_status = 'SIN EVALUAR'", new ServicioEmpresaRowMapper());
+        }catch (Exception e){
+            return new ArrayList<>();
+        }
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ServicioSanitarioDao {
     }
 
     public void updateServicioSanitario(ServicioSanitario servicioSanitario) {
-        jdbcTemplate.update("UPDATE servicio_catering SET necesidad=?, dia_visita=?, manana_tarde=?" +
+        jdbcTemplate.update("UPDATE servicio_sanitario SET necesidad=?, dia_visita=?, manana_tarde=?" +
                         " WHERE nick_empresa=? AND nick_demandante=?",
                 servicioSanitario.getNecesidad(), servicioSanitario.getDia_visita(), servicioSanitario.getManana_tarde(),
                 servicioSanitario.getNick_empresa(), servicioSanitario.getNick_demandante()
@@ -57,5 +58,21 @@ public class ServicioSanitarioDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
+    }
+
+    public List<ServicioSanitario> getAsignaciones(String nick_empresa) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM servicio_sanitario WHERE nick_empresa = '"+nick_empresa+"'",
+                    new ServicioSanitarioRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<ServicioSanitario>();
+        }
+    }
+
+    public void setFeedback(String nickEmp, String nick, LocalDate dia_visita, char franja_dia) {
+        jdbcTemplate.update("UPDATE servicio_sanitario SET dia_visita=?, manana_tarde=?" +
+                        " WHERE nick_empresa=? AND nick_demandante=?",
+                dia_visita, franja_dia, nickEmp, nick
+        );
     }
 }
