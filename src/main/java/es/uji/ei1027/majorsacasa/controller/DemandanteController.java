@@ -79,7 +79,7 @@ public class DemandanteController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("demandante") Demandante demandante,
-                                   BindingResult bindingResult, Model model, HttpSession session) {
+                                   BindingResult bindingResult, HttpSession session) {
         // Comprobación de errores
         DemandanteValidator dv = new DemandanteValidator();
         dv.validate(demandante, bindingResult);
@@ -90,11 +90,8 @@ public class DemandanteController {
         // Campos estáticos
         demandante.setRol(ROL_USUARIO.DEMANDANTE);
         demandante.setStatus("SIN REVISAR");
-        usuarioDao.addUsuario(demandante);
-        demandanteDao.addDemandante(demandante);
 
-        session.setAttribute("nick", demandante.getNick());
-        session.setAttribute("pass", demandante.getPass());
+        session.setAttribute("demandante_registro", demandante);
         return "redirect:/servVoluntario/add";
     }
 

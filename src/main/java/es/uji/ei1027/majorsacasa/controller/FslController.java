@@ -52,8 +52,12 @@ public class FslController {
 
         // La metemos en la cache (session)
         HashMap<String, List<FranjaServicioLimpieza>> map_franjas = (HashMap<String, List<FranjaServicioLimpieza>>) session.getAttribute("franjas");
+        HashMap<String, Integer> id_franjas = (HashMap<String, Integer>) session.getAttribute("id_franja");
+        fsl.setId_franja(id_franjas.get(nick));
+        id_franjas.put(nick, id_franjas.get(nick)+1);
         map_franjas.get(nick).add(fsl);
         session.setAttribute("franjas", map_franjas);
+        session.setAttribute("id_franja", id_franjas);
         // Metemos en el modelo todos los datos
         model.addAttribute("tipo_empresa", "LIMPIEZA");
         model.addAttribute("demandante", nick);
@@ -70,10 +74,13 @@ public class FslController {
     public String deleteCache(@PathVariable String nick,
                               @PathVariable int id, HttpSession session, Model model){
         HashMap<String, List<FranjaServicioLimpieza>> mapFranjas = (HashMap<String, List<FranjaServicioLimpieza>>) session.getAttribute("franjas");
+
+        int pos = -1;
         for(FranjaServicioLimpieza fsl : mapFranjas.get(nick)){
             if(fsl.getId_franja() == id)
-                mapFranjas.get(nick).remove(fsl);
+                pos = mapFranjas.get(nick).indexOf(fsl);
         }
+        mapFranjas.get(nick).remove(pos);
         // ACTUALIZAMOS DATOS DE LA VISTA
         session.setAttribute("franjas", mapFranjas);
         model.addAttribute("tipo_empresa", "LIMPIEZA");

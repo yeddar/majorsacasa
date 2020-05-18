@@ -19,8 +19,8 @@ public class FslDao {
 
     public void addFranja(FranjaServicioLimpieza fsl) {
         jdbcTemplate.update(
-                "INSERT INTO franja_limpieza VALUES(?,?,?,?,?,?)",
-                fsl.getId_franja(), fsl.getNick_empresa(), fsl.getNick_demandante(),
+                "INSERT INTO franja_limpieza (nick_empresa, nick_demandante, dia_semana, h_ini, h_fin) VALUES(?,?,?,?,?)",
+                fsl.getNick_empresa(), fsl.getNick_demandante(),
                 fsl.getDiaSemana(), fsl.gethIni(), fsl.gethFin()
         );
     }

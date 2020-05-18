@@ -61,4 +61,13 @@ public class EmpresaDao {
             return new ArrayList<Empresa>();
         }
     }
+
+    public List<Empresa> getEmpresaByType(String tipo_empresa) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Empresa WHERE tipo_empresa = '"+tipo_empresa+"'",
+                    new EmpresaRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<Empresa>();
+        }
+    }
 }

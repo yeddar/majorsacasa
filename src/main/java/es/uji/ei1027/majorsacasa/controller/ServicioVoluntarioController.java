@@ -99,6 +99,9 @@ public class ServicioVoluntarioController {
         if (bindingResult.hasErrors())
             return "servVoluntario/add";
 
+        Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
+        ArrayList<AsignacionVoluntario> selecciones_demandante = new ArrayList<>();
+
         if(decision){
             if(selecciones != null){
                 for(int id : selecciones){
@@ -109,10 +112,11 @@ public class ServicioVoluntarioController {
                     asignacionVoluntario.setId_franja(id);
 
                     // ASIGNAMOS EL ULTIMO VOLUNTARIO REGISTRADO EN LA BASE DE DATOS
-                    asignacionVoluntario.setNick_demandante((String) session.getAttribute("nick"));
+                    asignacionVoluntario.setNick_demandante(demandante.getNick());
 
                     asignacionVoluntario.setServ_status("SIN EVALUAR");
-                    asignacionVoluntarioDao.addAsignacionVoluntario(asignacionVoluntario);
+                    selecciones_demandante.add(asignacionVoluntario);
+                    session.setAttribute("servicios_demandante_voluntario", selecciones_demandante);
                 }
             }else{
                 //  NO SE SELECCIONARON, ERROR O NO HAY FRANJAS VACIAS

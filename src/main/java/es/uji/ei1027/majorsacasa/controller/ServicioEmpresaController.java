@@ -19,6 +19,8 @@ import java.util.*;
 @Controller
 @RequestMapping("/servEmpresa")
 public class ServicioEmpresaController {
+    private UsuarioDao usuarioDao;
+    private AsignacionVoluntarioDao asigVolDao;
     private ServicioEmpresaDao servEmpDao;
     private ServicioCateringDao servCatDao;
     private ServicioSanitarioDao servSanDao;
@@ -27,6 +29,16 @@ public class ServicioEmpresaController {
     private DemandanteDao demandanteDao;
     private FslDao fslDao;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    public void setUsuarioDao(UsuarioDao usuarioDao) {
+        this.usuarioDao = usuarioDao;
+    }
+
+    @Autowired
+    public void setAsigVolDao(AsignacionVoluntarioDao asigVolDao) {
+        this.asigVolDao = asigVolDao;
+    }
 
     @Autowired
     public void setServicioEmpresaDao(ServicioEmpresaDao servEmpDao) {
@@ -66,6 +78,17 @@ public class ServicioEmpresaController {
     /* Add methods
      *
      */
+
+    private Empresa seleccionEmpresa(String tipo_empresa){
+        List<Empresa> empresas = empDao.getEmpresaByType(tipo_empresa);
+        Empresa mayorVacantes = new Empresa();
+        mayorVacantes.setVacantes(0);
+        for (Empresa empresa : empresas){
+            if(empresa.getVacantes() > mayorVacantes.getVacantes())
+                mayorVacantes=empresa;
+        }
+        return mayorVacantes;
+    }
 
     @RequestMapping(value = "/add")
     public String addServicioEmpresa(Model model) {
@@ -117,16 +140,32 @@ public class ServicioEmpresaController {
         if (bindingResult.hasErrors())
             return "servEmpresa/add";
 
+        Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
+
+        usuarioDao.addUsuario(demandante);
+        demandanteDao.addDemandante(demandante);
+
+        ArrayList<AsignacionVoluntario> asignaciones = (ArrayList<AsignacionVoluntario>) session.getAttribute("servicios_demandante_voluntario");
+        asignaciones = asignaciones == null ? new ArrayList<>(): asignaciones;
+        for(AsignacionVoluntario asignacion : asignaciones){
+            asigVolDao.addAsignacionVoluntario(asignacion);
+        }
+
+
         if(servicios != null) {
             for (String servicio : servicios) {
                 if (servicio.equals("catering")) {
                     ServicioEmpresa servEmpresaCat = new ServicioEmpresa();
+                    Empresa empresa_seleccionada = seleccionEmpresa("CATERING");
+
+                    if(empresa_seleccionada.getNick() == null)
+                        throw new IllegalArgumentException("NO DISPONEMOS DE EMPRESAS PARA OFRECER ESTE SERVICIO.");
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaCat.setNick_empresa("empresa5"); // ESTATICO
-                    servEmpresaCat.setNick_demandante((String) session.getAttribute("nick"));
-                    servCatering.setNick_demandante((String) session.getAttribute("nick"));
-                    servCatering.setNick_empresa("empresa5"); // ESTATICO
+                    servEmpresaCat.setNick_empresa(empresa_seleccionada.getNick()); // ESTATICO
+                    servEmpresaCat.setNick_demandante(demandante.getNick());
+                    servCatering.setNick_demandante(demandante.getNick());
+                    servCatering.setNick_empresa(empresa_seleccionada.getNick()); // ESTATICO
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
@@ -141,12 +180,16 @@ public class ServicioEmpresaController {
 
                 } else if (servicio.equals("sanitario")) {
                     ServicioEmpresa servEmpresaSan = new ServicioEmpresa();
+                    Empresa empresa_seleccionada = seleccionEmpresa("SANITARIA");
+
+                    if(empresa_seleccionada.getNick() == null)
+                        throw new IllegalArgumentException("NO DISPONEMOS DE EMPRESAS PARA OFRECER ESTE SERVICIO.");
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaSan.setNick_empresa("empresa1"); // ESTATICO
-                    servEmpresaSan.setNick_demandante((String) session.getAttribute("nick"));
-                    servSanitario.setNick_demandante((String) session.getAttribute("nick"));
-                    servSanitario.setNick_empresa("empresa1"); // ESTATICO
+                    servEmpresaSan.setNick_empresa(empresa_seleccionada.getNick()); // ESTATICO
+                    servEmpresaSan.setNick_demandante(demandante.getNick());
+                    servSanitario.setNick_demandante(demandante.getNick());
+                    servSanitario.setNick_empresa(empresa_seleccionada.getNick()); // ESTATICO
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_sanitario.equals("") ? null : LocalDate.parse(fecha_sanitario);
@@ -159,12 +202,16 @@ public class ServicioEmpresaController {
 
                 } else if (servicio.equals("limpieza")) {
                     ServicioEmpresa servEmpresaLim = new ServicioEmpresa();
+                    Empresa empresa_seleccionada = seleccionEmpresa("LIMPIEZA");
+
+                    if(empresa_seleccionada.getNick() == null)
+                        throw new IllegalArgumentException("NO DISPONEMOS DE EMPRESAS PARA OFRECER ESTE SERVICIO.");
 
                     // AÑADIMOS DEMANDANTE Y EMPRESA
-                    servEmpresaLim.setNick_empresa("empresa3");
-                    servEmpresaLim.setNick_demandante((String) session.getAttribute("nick"));
-                    servLimpieza.setNick_demandante((String) session.getAttribute("nick"));
-                    servLimpieza.setNick_empresa("empresa3");
+                    servEmpresaLim.setNick_empresa(empresa_seleccionada.getNick());
+                    servEmpresaLim.setNick_demandante(demandante.getNick());
+                    servLimpieza.setNick_demandante(demandante.getNick());
+                    servLimpieza.setNick_empresa(empresa_seleccionada.getNick());
 
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_limpieza.equals("") ? null : LocalDate.parse(fecha_limpieza);
@@ -263,10 +310,15 @@ public class ServicioEmpresaController {
         model.addAttribute("tipo_empresa", tipoEmpresa);
         if(tipoEmpresa.equals("LIMPIEZA")){
             HashMap<String, List<FranjaServicioLimpieza>> franjas_dem = session.getAttribute("franjas") != null ? (HashMap<String, List<FranjaServicioLimpieza>>) session.getAttribute("franjas") :new HashMap<>();
+            HashMap<String, Integer> id_franja = (HashMap<String, Integer>) session.getAttribute("id_franja") != null ? (HashMap<String, Integer>) session.getAttribute("id_franja") : new HashMap<>();
             if(!franjas_dem.containsKey(nick))
                 franjas_dem.put(nick,new ArrayList<>());
 
+            if(!id_franja.containsKey(nick))
+                id_franja.put(nick, 0);
+
             session.setAttribute("franjas", franjas_dem);
+            session.setAttribute("id_franja", id_franja);
             model.addAttribute("franjas_demandante", franjas_dem.get(nick));
         }
         model.addAttribute("demandante", nick);
@@ -309,12 +361,16 @@ public class ServicioEmpresaController {
         servEmpDao.setTypeStatus(nickEmp, nick, "ACEPTADO");
         servEmpDao.setF_Ini(nickEmp, nick);
         // ACTUALIZAMOS LOS VALORES DEL FEEDBACK DE LA TABLA SERVICIO LIMPIEZA
+        HashMap<String, Integer> id_franja = (HashMap<String, Integer>) session.getAttribute("id_franja");
         HashMap<String, List<FranjaServicioLimpieza>> franjas_creadas = (HashMap<String, List<FranjaServicioLimpieza>>) session.getAttribute("franjas");
         for(FranjaServicioLimpieza fsl : franjas_creadas.get(nick)){
             fslDao.addFranja(fsl);
         }
-        // BORRAMOS DE LA CACHE
-        session.removeAttribute("franjas");
+        // BORRAMOS DE LA CACHE EL USUARIO
+        franjas_creadas.remove(nick);
+        id_franja.remove(nick);
+        session.setAttribute("franjas", franjas_creadas);
+        session.setAttribute("id_franja", id_franja);
 
         return "redirect:/empresa/listPendientes";
     }
