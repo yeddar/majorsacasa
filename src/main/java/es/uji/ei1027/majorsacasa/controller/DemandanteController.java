@@ -97,8 +97,21 @@ public class DemandanteController {
 
     // Update methods
 
+    /*
+        MODIFICACION DEL PERFIL DE UN DEMANDANTE ESPECIFICO DESDE EL COMITE
+    */
     @RequestMapping(value = "/update/{nick}", method = RequestMethod.GET)
     public String editDemandante(Model model, @PathVariable String nick) {
+        model.addAttribute("demandante", demandanteDao.getDemandante(nick));
+        return "demandante/update";
+    }
+
+    /*
+        MODIFICACION DEL PERFIL DEDE EL PROPIO DEMANDANTE
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String editDemandante(Model model, HttpSession session) {
+        String nick = (String) session.getAttribute("nick");
         model.addAttribute("demandante", demandanteDao.getDemandante(nick));
         return "demandante/update";
     }
@@ -106,10 +119,17 @@ public class DemandanteController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String processUpdateSubmit(
             @ModelAttribute("demandante") Demandante demandante,
+            HttpSession session,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "demandante/update";
         demandanteDao.updateDemandante(demandante);
+
+        Usuario user = (Usuario) session.getAttribute("user");
+
+        if (user.getRol().equals("DEMANDANTE")){
+            return "redirect:/common/home";
+        }
         return "redirect:list";
     }
 

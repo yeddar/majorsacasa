@@ -1,64 +1,97 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-    <title> Edita un demandante </title>
+    <title> Modificar demandante </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 
-
 <body>
-<h2> Modificar demandante </h2>
-<form action="#" th:action="@{/demandante/update}"
-      th:object="${demandante}" method="post">
-    <table>
-        <tr>
-            <td><label> Nick </label></td>
-            <td><input type="text" th:field="*{nick}"/></td>
-        </tr>
+<div layout:fragment="content">
 
-        <tr>
-            <td><label> Nombre </label></td>
-            <td><input type="text" th:field="*{nombre}"/></td>
-        </tr>
+    <h2 style="text-align:center"> Modificar perfil </h2>
+    <hr>
 
-        <tr>
-            <td><label> Edad </label></td>
-            <td><input type="number" th:field="*{edad}"/></td>
-        </tr>
+    <div class="container py-10 ml-lg-5 mt-2">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <!--/*@thymesVar id="demandante" type=""*/-->
+                <form action="#" th:action="@{/demandante/update}"
+                      th:object="${demandante}" method="post">
 
-        <!-- three more -->
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Nombre y apellidos: </label>
+                            <input type="text"  class="form-control" th:field="*{nombre}"/>
+                        </div>
 
-        <tr>
-            <td><label> Teléfono </label></td>
-            <td><input type="text" th:field="*{tlf}"/></td>
-        </tr>
-        <tr>
-            <td><label> Email</label></td>
-            <td><input type="text" th:field="*{email}"/></td>
-        </tr>
-        <tr>
-            <td><label> Dirección </label></td>
-            <td><input type="text" th:field="*{direccion}"/></td>
-        </tr>
+                        <div class="col-sm-2">
+                            <label>Edad: </label>
+                            <input type="number"  class="form-control" th:field="*{edad}"/>
+                        </div>
+                    </div>
 
-        <!-- two more -->
 
-        <tr>
-            <td><label> Código asistente </label></td>
-            <td><input type="number" th:field="*{cod_asist}"/></td>
-        </tr>
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label>Nick: </label>
+                            <input type="text"  class="form-control" th:field="*{nick}"/>
+                        </div>
 
-        <tr>
-            <td><label> Status </label></td>
-            <td><input type= "text" th:field= "*{status}" /></td>
-        </tr>
+                        <div class="col-sm-5">
+                            <label>Contraseña: </label>
+                            <input type="password"  class="form-control" th:field="*{pass}"/>
+                        </div>
+                    </div>
 
-        <tr>
-            <td colspan="2"><input type="submit" value="Modifica demandante"/></td>
-        </tr>
-    </table>
-</form>
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label>Teléfono: </label>
+                            <input type="text"  class="form-control" th:field="*{tlf}"/>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <label>Email: </label>
+                            <input type="text"  class="form-control" th:field="*{email}"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>Dirección: </label>
+                            <input type="text"  class="form-control" th:field="*{direccion}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <div class="alert alert-warning">
+                                El <strong> codigo de asistente</strong> solo debe completarse si el usuario
+                                que realiza la petición es un asistente social
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Codigo de asistente*: </label>
+                            <input type="number"  class="form-control" th:field="*{cod_asist}"/>
+                        </div>
+
+                        <input hidden="hidden" th:field="*{status}">
+
+                        <div class="col-sm-6">
+                            <td colspan="2"><input type="submit" value="Modificar perfil"/></td>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
 </body>
 </html>
