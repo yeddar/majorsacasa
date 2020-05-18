@@ -15,7 +15,7 @@
     <h2 style="text-align:center"> Registrarse como demandante </h2>
     <hr>
 
-    <div class="container py-8">
+    <div class="container py-10 ml-lg-5 mt-2">
         <div class="row">
             <div class="col-md-10 mx-auto">
 <!--/*@thymesVar id="demandante" type=""*/-->
@@ -23,71 +23,81 @@
       th:object="${demandante}" method="post">
 
     <div class="form-group row">
-
-        <div class="col-sm-6">
-            <br>
-            <label>Nick: </label>
-            <input type="text"  class="form-control" th:field="*{nick}"/>
-            <br>
-        </div>
-
-        <div class="col-sm-6">
-            <br>
-            <label>Contraseña: </label>
-            <input type="password"  class="form-control" th:field="*{pass}"/>
-            <br>
-        </div>
-
-        <div class="col-sm-6">
-            <br>
+        <div class="col-sm-8">
             <label>Nombre y apellidos: </label>
             <input type="text"  class="form-control" th:field="*{nombre}"/>
-            <br>
         </div>
 
-
-        <div class="col-sm-6">
-        <br>
-        <label>Edad: </label>
-        <input type="number"  class="form-control" th:field="*{edad}"/>
-        <br>
-        </div>
-
-        <div class="col-sm-6">
-            <br>
-            <label>Teléfono: </label>
-            <input type="text"  class="form-control" th:field="*{tlf}"/>
-            <br>
-        </div>
-
-        <div class="col-sm-6">
-            <br>
-            <label>Email: </label>
-            <input type="text"  class="form-control" th:field="*{email}"/>
-            <br>
-        </div>
-
-        <div class="col-sm-6">
-            <br>
-            <label>Dirección: </label>
-            <input type="text"  class="form-control" th:field="*{direccion}"/>
-            <br>
-        </div>
-
-
-        <div class="col-sm-6">
-            <br>
-            <label>Cod. asistente: </label>
-            <input type="number"  class="form-control" th:field="*{cod_asist}"/>
-            <br>
-
-        </div>
-        <div class="col-sm-6">
-            <td colspan="2"><input type="submit" value="Añade demandante"/></td>
+        <div class="col-sm-2">
+            <label>Edad: </label>
+            <input type="number"  class="form-control" th:field="*{edad}"/>
         </div>
     </div>
 
 
+    <div class="form-group row">
+        <div class="col-sm-5">
+            <label>Nick: </label>
+            <input type="text"  class="form-control" th:field="*{nick}"/>
+        </div>
+
+        <div class="col-sm-5">
+            <label>Contraseña: </label>
+            <input type="password"  class="form-control" th:field="*{pass}"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-5">
+            <label>Teléfono: </label>
+            <input type="text"  class="form-control" th:field="*{tlf}"/>
+        </div>
+
+        <div class="col-sm-5">
+            <label>Email: </label>
+            <input type="text"  class="form-control" th:field="*{email}"/>
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label>Dirección: </label>
+            <input type="text"  class="form-control" th:field="*{direccion}"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <div class="alert alert-warning">
+                El <strong> codigo de asistente</strong> solo debe completarse si el usuario
+                que realiza la petición es un asistente social
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label>Codigo de asistente*: </label>
+            <input type="number"  class="form-control" th:field="*{cod_asist}"/>
+        </div>
+
+        <div class="col-sm-6">
+            <td colspan="2"><input type="submit" value="Añade demandante"/></td>
+        </div>
+    </div>
 </form>
+            </div>
+
+
+    </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+</div>
+</div>
 </body>
 </html>

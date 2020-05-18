@@ -128,6 +128,7 @@ article {
     float: right;
     width: 80%;
     background-color:#90c6ed;
+    /* background-color:#34495e; temática más oscura*/
     padding: 10px;
     text-align: center;
 }
@@ -153,6 +154,25 @@ tr{
 .flaticon-can{
     color:red;
 }
+
+
+.form-group{
+    justify-content:center;
+}
+
+
+/*
+    Las tres columnas para
+
+ */
+
+.column{
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+}
+
+
 
 tr:nth-child(even){background-color: #d2f0f0}
 

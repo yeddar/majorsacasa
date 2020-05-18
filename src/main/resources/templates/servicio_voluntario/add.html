@@ -6,15 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solicitar servicio voluntario</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="contenedor">
+
         <div class="listado">
             <form action="#" th:action="@{/servVoluntario/add}" method="post">
-                <div class="selector">
+                <div class="contenedor">
                     <h2> Servicio de acompañamiento</h2>
                     <h4> Los servicios de acompañamiento son gratuitos,
                         llevados por voluntarios adscritos en nuestra aplicación.
@@ -23,21 +21,34 @@
                         ¡Déjese cuidar!
                     </h4>
 
-                    <br>
 
-                    <h3>¿Desea un servicio de acompañamiento?:</h3>
+                    <h3>¿Desea un servicio de acompañamiento?</h3>
 
-                    <br><input type="radio" th:name="rd_servicio" th:value="true" checked> Sí
-                    <br><input type="radio" th:name="rd_servicio" th:value="false"> No
+
+                    <div class="form-check form-check-inline">
+                        <input  class="h3" type="radio" th:name="rd_servicio"
+                                id="inlineCheckbox2" th:value="true" checked>
+                        <label class="h3" for="inlineCheckbox2">  Sí  </label>
+                    </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="h3" type="radio" th:name="rd_servicio"
+                           id="inlineCheckbox1" th:value="false">
+                    <label class="h3" for="inlineCheckbox1">  No  </label>
                 </div>
 
+                </div>
+
+
+                <div class="contenedor">
+                    <br>
                 <div class="alert alert-info">
                     Solo tendrán efecto los valores aquí seleccionados
                     si marcó sí en la pregunta anterior
                 </div>
 
 
-                <table class="lista">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Día</th>
@@ -58,14 +69,17 @@
                             <td><a href="#">más info</a></td>
                             <td><input type="checkbox" th:value="${fr_vol.id}" th:name="cb_seleccion"></td>
                         </tr>
-                    <tr>
-                        <td>(Si se requiere) Fecha finalización: </td>
-                        <td><input type="date" th:name="fecha_voluntrario"></td>
-                    </tr>
                     </tbody>
                 </table>
-                <input hidden="hidden" type="text"th:name="nickDem" th:value="${nick}">
+
+
+                        <label>(Si se requiere) Fecha finalización: </label>
+                        <input type="date" th:name="fecha_voluntrario">
+
+
+                <input hidden="hidden" type="text" th:name="nickDem" th:value="${nick}">
                 <input type="submit" value="Continuar">
+                </div>
             </form>
         </div>
     </div>
