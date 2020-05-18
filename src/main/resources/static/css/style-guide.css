@@ -29,7 +29,7 @@ label{
 input[type=submit]{
     border: 2px solid green;
 
-    padding: 16px 32px;
+    padding: 5px 20px;
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
@@ -142,10 +142,10 @@ article {
 }
 
 .table {
-
-    overflow: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
     border: 2.3px solid black;
-
 }
 
 th {
@@ -153,11 +153,13 @@ th {
     color: white;
     text-align: center;
     text-align:-moz-center;
+    padding: 15px;
 }
 
 tr{
     background-color: #23b99e;
 }
+
 
 .flaticon-can{
     color:red;
@@ -230,9 +232,6 @@ h1.top, h2.top, h3.top, h4.top, h5.top {
 html, body {
     height: 100%;
 }
-
-
-
 
 
 .f {

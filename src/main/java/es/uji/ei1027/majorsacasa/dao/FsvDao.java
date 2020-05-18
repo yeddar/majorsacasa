@@ -21,21 +21,23 @@ public class FsvDao {
     }
 
     public void addFranjaServicioVoluntario(FranjaServicioVoluntario fsv) throws DataAccessException {
-        int id = fsv.getId();
         String nick = fsv.getNick();
         String diaSemana = fsv.getDiaSemana();
         LocalTime hInicio = fsv.gethIni();
         LocalTime hFin = fsv.gethFin();
 
         jdbcTemplate.update(
-                "INSERT INTO franja_voluntario VALUES(?, ?, ?, ?, ?)",
-                id, nick, diaSemana,
+                "INSERT INTO franja_voluntario(nick_voluntario,dia_semana,h_ini,h_fin) VALUES(?, ?, ?, ?)", nick, diaSemana,
                 hInicio, hFin
         );
     }
 
     public void deleteFsv(FranjaServicioVoluntario fsv) {
-        jdbcTemplate.update("DELETE FROM franja_voluntario WHERE if=?", fsv.getId());
+        jdbcTemplate.update("DELETE FROM franja_voluntario WHERE id=?", fsv.getId());
+    }
+
+    public void deleteFsv(int id) {
+        jdbcTemplate.update("DELETE FROM franja_voluntario WHERE id=?", id);
     }
 
     public FranjaServicioVoluntario getFsv(String id) {

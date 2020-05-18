@@ -1,12 +1,12 @@
 package es.uji.ei1027.majorsacasa.controller;
 
+import es.uji.ei1027.majorsacasa.dao.FsvDao;
 import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
 import es.uji.ei1027.majorsacasa.dao.VoluntarioDao;
-import es.uji.ei1027.majorsacasa.model.Demandante;
-import es.uji.ei1027.majorsacasa.model.ROL_USUARIO;
-import es.uji.ei1027.majorsacasa.model.Usuario;
-import es.uji.ei1027.majorsacasa.model.Voluntario;
+import es.uji.ei1027.majorsacasa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+
 @Controller
 @RequestMapping("/voluntario")
 public class VoluntarioController {
     private VoluntarioDao voluntarioDao;
     private UsuarioDao usuarioDao;
+    private FsvDao fsvDao;
 
     @Autowired
     public void setVoluntarioDao(VoluntarioDao voluntarioDao) {
@@ -31,6 +35,9 @@ public class VoluntarioController {
         this.usuarioDao = usuarioDao;
     }
 
+    @Autowired
+    public void setFsvDao(FsvDao fsvDao) { this.fsvDao = fsvDao;}
+
     @RequestMapping("/list")
     public String listVoluntarios(Model model) {
         model.addAttribute("voluntarios", voluntarioDao.getVoluntarios());
@@ -38,22 +45,77 @@ public class VoluntarioController {
     }
 
     @RequestMapping(value = "/add")
-    public String addDemandante(Model model) {
+    public String addVoluntario(Model model) {
         model.addAttribute("voluntario", new Voluntario());
         return "voluntario/add";
+    }
+
+    @RequestMapping(value = "/register")
+    public String volunteerReg(Model model) {
+        model.addAttribute("voluntario", new Voluntario());
+        return "voluntario/volunteer_register";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("voluntario") Voluntario voluntario,
                                    BindingResult bindingResult) {
+
+        // Checks
+        UserValidator validator = new UserValidator();
+        validator.validate(voluntario, bindingResult);
+
         if (bindingResult.hasErrors())
             return "voluntario/add";
 
-
+        // Static fields
         voluntario.setRol(ROL_USUARIO.VOLUNTARIO);
         voluntario.setStatus("SIN REVISAR");
         usuarioDao.addUsuario(voluntario);
         voluntarioDao.addVoluntaio(voluntario);
+
+
+        return "redirect:list";
+    }
+
+    @RequestMapping(value = "/vol_register", method = RequestMethod.POST)
+    public String processAddSubmit(Model model, HttpSession session,
+                                   @ModelAttribute("voluntario") Voluntario voluntario,
+                                   BindingResult bindingResult) {
+
+        // Checks
+        UserValidator validator = new UserValidator();
+        validator.validate(voluntario, bindingResult);
+
+        if (bindingResult.hasErrors())
+            return "voluntario/volunteer_register";
+
+        session.setAttribute("vol", voluntario);
+        return "redirect:/voluntario/fsv/schedule";
+    }
+
+    @RequestMapping(value = "/vol_request")
+    public String volRequest(HttpSession session) {
+
+        // Obtener de la sesión
+        Voluntario vol = (Voluntario)session.getAttribute("vol");
+        ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
+
+        // Borrar atributos sesión
+        session.removeAttribute("vol");
+        session.removeAttribute("franjas");
+        
+        // Añadir voluntario
+        vol.setRol(ROL_USUARIO.VOLUNTARIO);
+        vol.setStatus("SIN REVISAR");
+        System.out.println(vol.toString());
+        usuarioDao.addUsuario(vol);
+        voluntarioDao.addVoluntaio(vol);
+
+        // Añadir franjas
+        for (FranjaServicioVoluntario fsv: franjas){
+            fsv.setNick(vol.getNick());;
+            fsvDao.addFranjaServicioVoluntario(fsv);
+        }
         return "redirect:list";
     }
 
