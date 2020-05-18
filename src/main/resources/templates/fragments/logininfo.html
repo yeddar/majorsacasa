@@ -3,7 +3,7 @@
         No autenticado <a href="/login" th:href="@{/login}">Entrar</a>
     </li>
     <li th:unless="*{user == null}">
-        Autenticado como <span th:text="*{user.nick}"></span> <a
-            href="/logout" th:href="@{/logout}">    Salir</a>
+        Autenticado como <b><span th:text="*{user.nick}">  </span> </b> - <a
+            href="/logout" th:href="@{/logout}">   Salir</a>
     </li>
 </div>

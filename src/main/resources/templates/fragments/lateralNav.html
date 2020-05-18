@@ -13,12 +13,11 @@
 
 <div th:object="${session}">
     <div th:if="*{user == null}">
-
-    <a href="/empresa/add">AÑADIR EMPRESA</a>
-    <a href="/empresa/list">GESTIÓN DE EMPRESAS</a>
-    <a href="/servEmpresa/listWithType"> LISTADO SERVICIOS EMPRESAS</a>
-
-
+        <!--
+        <a href="/empresa/add">AÑADIR EMPRESA</a>
+        <a href="/empresa/list">GESTIÓN DE EMPRESAS</a>
+        <a href="/servEmpresa/listWithType"> LISTADO SERVICIOS EMPRESAS</a>
+        -->
     </div>
 
     <div th:if="*{user!= null}">
@@ -42,22 +41,22 @@
         </div>
 
         <div th:if="*{user.rol.equals('SUPERVISOR_CAS')}">
-            <li><a href="#">Añadir empresa</a></li>
-            <li><a href="#">Listado de empresas</a></li>
-            <li><a href="#">Listado serv de empresas en sistema</a></li>
+            <a href="#">Añadir empresa</a>
+            <a href="#">Listado de empresas</a>
+            <a href="#">Listado serv de empresas en sistema</a>
         </div>
 
         <div th:if="*{user.rol.equals('DEMANDANTE')}">
-            <li><a href="#">Ver estado de solicitudes</a></li>
-            <li><a href="#">Modificar perfil</a></li>
+            <a href="#">Ver estado de solicitudes</a>
+            <a href="#">Modificar perfil</a>
         </div>
 
         <div th:if="*{user.rol.equals('VOLUNTARIO')}">
-            <li><a href="/voluntario/fsv/add"> Añadir franja voluntario</a></li>
-            <li> <a href="#">Feedback a Demandantes en Espera </a></li>
-            <li> <a href="#">Franjas Asignadas y Demandannte</a></li>
-            <li> <a href="#">Lstar (y Modificar) franjas</a> </li>
-            <li><a href="#"> Darse de baja</a> </li>
+            <a href="servVoluntario/asignaciones/list">Feedback a Demandantes en Espera </a>
+            <a href="voluntario/fsv/add"> Añadir franja voluntario</a>
+            <a href="#">Franjas Asignadas y Demandannte</a>
+            <a href="#">Lstar (y Modificar) franjas</a>
+            <a href="#"> Darse de baja</a>
         </div>
 
         <div th:if="*{user.rol.equals('EMPRESA')}">
