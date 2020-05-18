@@ -4,6 +4,9 @@ import es.uji.ei1027.majorsacasa.dao.AsignacionVoluntarioDao;
 import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
 import es.uji.ei1027.majorsacasa.dao.FsvDao;
 import es.uji.ei1027.majorsacasa.dao.VoluntarioDao;
+import es.uji.ei1027.majorsacasa.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import es.uji.ei1027.majorsacasa.model.AsignacionVoluntario;
 import es.uji.ei1027.majorsacasa.model.FranjaServicioVoluntario;
 import es.uji.ei1027.majorsacasa.model.Voluntario;
@@ -11,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -19,12 +24,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/servVoluntario")
 public class ServicioVoluntarioController {
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
     private VoluntarioDao voluntarioDao;
     private FsvDao franjaServicioVoluntarioDao;
+
     private DemandanteDao demandanteDao;
 
     @Autowired
@@ -78,6 +85,7 @@ public class ServicioVoluntarioController {
         }
         model.addAttribute("aficiones", aficiones);
 
+        //model.addAttribute("nick", nick);
         return "servicio_voluntario/add";
     }
 
@@ -134,4 +142,34 @@ public class ServicioVoluntarioController {
         asignacionVoluntarioDao.setTypeStatus(idFranja, "CANCELADO");
         return "redirect:/demandante/solicitudes/"+nickDem;
     }
+
+
+    @RequestMapping(value="/asignaciones/list")
+    public String listWithDemandantes(Model model, HttpSession session){
+        Usuario user = (Usuario) session.getAttribute("user");
+        model.addAttribute("asignaciones", asignacionVoluntarioDao.getEsperaVoluntario(user.getNick()));
+        System.out.print(asignacionVoluntarioDao.getEsperaVoluntario(user.getNick()).toString());
+        return "voluntario/asignaciones/list";
+    }
+
+
+
+    @RequestMapping(value="/feed/{id_franja}", method = RequestMethod.GET)
+    public String feedbackAsignacion(Model model, @PathVariable int id_franja){
+        asignacionVoluntarioDao.setTypeStatus(id_franja, "ACEPTADO");
+        /*LoginValidator loginValidator = new LoginValidator();
+        loginValidator.validate(user, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return "voluntario/asignaciones/list";
+        }
+
+         */
+        return "redirect:/servVoluntario/asignaciones/list";
+    }
+
+
+
+
+
 }

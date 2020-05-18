@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Lista voluntarios </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<h1> Feedback a Demandantes </h1>
+<table>
+    <thead>
+    <tr>
+        <th> Demandante </th>
+        <th> Fecha de aprobacion </th>
+        <th> Fecha de fin </th>
+
+        <th> Feedback </th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="asignacion: ${asignaciones}">
+
+        <td th:text="${asignacion.nick_demandante}"></td>
+        <td th:text="${asignacion.f_ini}"></td>
+
+        <td th:text="${asignacion.f_fin}"></td>
+        <td th:text="${asignacion.serv_status}"></td>
+        <td>
+            <button type="submit" value=""></button>
+        <td><a th:href="@{/servVoluntario/feed/{id}(id=${asignacion.id_franja})}"> feedback </a>
+            <!--
+            <form action="#" th:action="+ ${{asignacion.id_franja}}"
+                  th:field="${asignacion.feedback_voluntario}" method="post">
+            </form>
+                <input type="text" class="form-control" th:field="${asignacion.feedback_voluntario}" >
+                -->
+
+
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+</body>
+</html>

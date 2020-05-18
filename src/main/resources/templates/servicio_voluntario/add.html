@@ -15,11 +15,27 @@
         <div class="listado">
             <form action="#" th:action="@{/servVoluntario/add}" method="post">
                 <div class="selector">
-                    <b>¿Desea un servicio de acompañamiento?:</b>
+                    <h2> Servicio de acompañamiento</h2>
+                    <h4> Los servicios de acompañamiento son gratuitos,
+                        llevados por voluntarios adscritos en nuestra aplicación.
+                        comprometidos con la ayuda a aquellos que más lo necesitan.
+                        Podrá ser acompañad@ a comprar, guardar la compra, dar un paseo o jugar a algún juego de mesa.
+                        ¡Déjese cuidar!
+                    </h4>
+
                     <br>
+
+                    <h3>¿Desea un servicio de acompañamiento?:</h3>
+
                     <br><input type="radio" th:name="rd_servicio" th:value="true" checked> Sí
                     <br><input type="radio" th:name="rd_servicio" th:value="false"> No
                 </div>
+
+                <div class="alert alert-info">
+                    Solo tendrán efecto los valores aquí seleccionados
+                    si marcó sí en la pregunta anterior
+                </div>
+
 
                 <table class="lista">
                     <thead>
