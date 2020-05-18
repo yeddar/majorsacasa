@@ -53,6 +53,14 @@ input[type=submit]:hover{
     position: center;
 }
 
+/* Navegacion superior */
+
+.navbar-expand-lg {
+    background-color: #f1f2f3;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
 /* Caja de loggeo */
 
 .logBox{

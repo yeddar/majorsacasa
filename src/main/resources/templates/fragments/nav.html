@@ -24,13 +24,18 @@
         <div th:if="*{user == null}">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Inicio</a>
+                    <a class="nav-link" href="#" title="Página de inicio">Inicio</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" title="Conozca a MomoPB" >Quienes somos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/demandante.html">Ayuda a domicilio</a>
+                    <a class="nav-link" href="/demandante.html"
+                       title="Realizar petición de ayuda a domicilio">Ayuda a domicilio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Quiero ayudar</a>
+                    <a class="nav-link" href="#"
+                       title="Realizar petición para ser voluntario">Quiero ayudar</a>
                 </li>
             </ul>
         </div>
@@ -38,17 +43,19 @@
         <div th:if="*{user!= null}">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="common/home">Inicio</a>
+                    <a class="nav-link" href="/common/home" title="Página de inicio">Inicio</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Quienes somos</a>
+                    <a class="nav-link" href="#" title="Conozca a MomoPB">Quienes somos</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="/demandante.html" tabindex="-1" aria-disabled="true">Ayuda a domicilio</a>
+                    <a class="nav-link disabled"  href="#" tabindex="-1"
+                       aria-disabled="true" title="Opción accesible solo para usuario no registrado" >Ayuda a domicilio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Quiero ayudar</a>
+                    <a class="nav-link disabled" href="#" tabindex="-1"
+                       aria-disabled="true" title="Opción accesible solo para usuario no registrado">Quiero ayudar</a>
                 </li>
             </ul>
         </div>

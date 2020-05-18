@@ -35,9 +35,9 @@
         </div>
 
         <div th:if="*{user.rol.equals('COMITE_CAS')}">
-            <li><a href="/demandante/listSinRevisar">Listado de demandantes sin revisar</a></li>
-            <li><a href="/demandante/listAceptados">Listado de demandantes aceptados</a></li>
-            <li><a href="/demandante/list">Listado de demandantes en sistema</a></li>
+            <a href="/demandante/listSinRevisar">Listado de demandantes sin revisar</a>
+            <a href="/demandante/listAceptados">Listado de demandantes aceptados</a>
+            <a href="/demandante/list">Listado de demandantes en sistema</a>
         </div>
 
         <div th:if="*{user.rol.equals('SUPERVISOR_CAS')}">
@@ -48,7 +48,7 @@
 
         <div th:if="*{user.rol.equals('DEMANDANTE')}">
             <a href="#">Ver estado de solicitudes</a>
-            <a href="#">Modificar perfil</a>
+            <a href="/demandante/update">Modificar perfil</a>
         </div>
 
         <div th:if="*{user.rol.equals('VOLUNTARIO')}">
@@ -60,8 +60,8 @@
         </div>
 
         <div th:if="*{user.rol.equals('EMPRESA')}">
-            <li> <a href="/empresa/listPendientes">Feedback a Demandantes en Espera </a></li>
-            <li> <a href="/empresa/listAsignaciones">Servicios activos</a></li>
+            <a href="/empresa/listPendientes">Feedback a Demandantes en Espera </a>
+            <a href="/empresa/listAsignaciones">Servicios activos</a>
         </div>
 
     </div>
