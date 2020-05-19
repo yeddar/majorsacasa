@@ -21,7 +21,6 @@
         <table class="table">
             <thead>
             <tr>
-                <th> Nick</th>
                 <th> Nombre</th>
                 <th> NIF de responsable</th>
 
@@ -38,7 +37,6 @@
             </thead>
             <tbody>
             <tr th:each="empresa: ${empresas}">
-                <td th:text="${empresa.nick}"></td>
                 <td th:text="${empresa.nombre}"></td>
                 <td th:text="${empresa.nif}"></td>
 
