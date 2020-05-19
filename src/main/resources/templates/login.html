@@ -30,15 +30,15 @@
     <div class="logBox">
 
         <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-10">
+                <br>
                 <label>Usuario:  </label>
                     <input class="form_control" type="text" th:field="*{nick}"/>
                     <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
             </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-12">
+            <br>
+            <div class="col-sm-10">
+                <br>
                 <label>Contraseña: </label>
                     <input class="form_control" type="password" th:field="*{pass}"/>
                     <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
@@ -47,7 +47,7 @@
 
 
         <div class="form-group row">
-            <div class="col-sm-12">
+            <div class="col-sm-6">
                 <br>
         <input type="submit" value="Acceder" />
             </div>
