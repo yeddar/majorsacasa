@@ -103,7 +103,7 @@ public class VoluntarioController {
         // Borrar atributos sesión
         session.removeAttribute("vol");
         session.removeAttribute("franjas");
-        
+
         // Añadir voluntario
         vol.setRol(ROL_USUARIO.VOLUNTARIO);
         vol.setStatus("SIN REVISAR");
@@ -117,6 +117,21 @@ public class VoluntarioController {
             fsvDao.addFranjaServicioVoluntario(fsv);
         }
         return "redirect:list";
+    }
+
+    @RequestMapping(value = "/modif_franjas")
+    public String modifFranjas(HttpSession session) {
+        String nick = (String)session.getAttribute("nick");
+        ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
+
+        for(FranjaServicioVoluntario fsv : franjas){
+            if(fsvDao.getFsv(fsv.getId()) == null){
+                fsvDao.addFranjaServicioVoluntario(fsv);
+            }
+        }
+        session.removeAttribute("franjas");
+        return "/index.html";
+
     }
 
     // Update methods

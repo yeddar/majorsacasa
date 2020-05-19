@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 @RequestMapping("/voluntario/fsv")
@@ -58,6 +59,16 @@ public class FsvController {
         return "voluntario/fsv/add_schedule";
     }
 
+    @RequestMapping(value = "/modif_schedule")
+    public String modifSchedule(Model model, HttpSession session) {
+        model.addAttribute("fsv", new FranjaServicioVoluntario());
+        List<FranjaServicioVoluntario> franjas = fsvDao.getFsvList();
+        session.setAttribute("franjas", franjas);
+        session.setAttribute("id", franjas.size());
+        model.addAttribute("franjas", franjas);
+        return "voluntario/schedule";
+    }
+
 
     @RequestMapping(value = "/add_franja", method = RequestMethod.POST)
     public String addFranja(Model model,
@@ -70,7 +81,7 @@ public class FsvController {
 
         fsv.setId(id);
         fsv.setDiaSemana(diaSemana);
-        System.out.println("holaa");
+
         // Añadir franja a lista
         franjas.add(fsv);
         session.setAttribute("franjas", franjas);
@@ -85,7 +96,13 @@ public class FsvController {
     public String delFranja(Model modelo, HttpSession session, @PathVariable int id) {
         ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
 
+        // Borrar franja del listado
         franjas.removeIf(fr -> fr.getId() == id);
+
+        // Borrar franja de la base de datos si existe
+        if(fsvDao.getFsv(id) != null) {
+            fsvDao.deleteFsv(id);
+        }
 
         session.setAttribute("franjas", franjas);
         modelo.addAttribute("franjas",franjas);

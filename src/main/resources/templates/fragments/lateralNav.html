@@ -52,11 +52,10 @@
         </div>
 
         <div th:if="*{user.rol.equals('VOLUNTARIO')}">
-            <a href="servVoluntario/asignaciones/list">Feedback a Demandantes en Espera </a>
-            <a href="voluntario/fsv/add"> Añadir franja voluntario</a>
-            <a href="#">Franjas Asignadas y Demandannte</a>
-            <a href="#">Lstar (y Modificar) franjas</a>
-            <a href="#"> Darse de baja</a>
+            <a href="servVoluntario/asignaciones/list">Solicitudes pendientes</a>
+            <a href="#">Mis ayudas</a>
+            <a href="/voluntario/fsv/modif_schedule">Modificar disponibilidad</a>
+            <a href="#"> Darse de baja </a>
         </div>
 
         <div th:if="*{user.rol.equals('EMPRESA')}">

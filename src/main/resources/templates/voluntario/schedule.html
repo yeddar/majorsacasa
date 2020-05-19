@@ -10,17 +10,17 @@
 </head>
 <body>
 <div layout:fragment="content">
-<h2 style="text-align:center"> Disponibilidad para ofrecer ayuda </h2>
-<hr>
-<h3>
-    Añadir franjas horarias:
-</h3>
+    <h2 style="text-align:center"> Disponibilidad para ofrecer ayuda </h2>
+    <hr>
+    <h3>
+        Añadir franjas horarias:
+    </h3>
     <div th:replace="fragments/franjas" >...</div>
 
 
     <div class="container">
         <div class="button">
-            <a th:href="@{/voluntario/vol_request}">Solicitar</a>
+            <a th:href="@{/voluntario/modif_franjas}">Modificar</a>
         </div>
     </div>
 

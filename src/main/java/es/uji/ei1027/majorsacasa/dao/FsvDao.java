@@ -40,7 +40,7 @@ public class FsvDao {
         jdbcTemplate.update("DELETE FROM franja_voluntario WHERE id=?", id);
     }
 
-    public FranjaServicioVoluntario getFsv(String id) {
+    public FranjaServicioVoluntario getFsv(int id) {
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM franja_voluntario WHERE id=?",
                     new FsvRowMapper(),
