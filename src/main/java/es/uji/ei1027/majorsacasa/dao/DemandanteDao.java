@@ -101,4 +101,5 @@ public class DemandanteDao {
     public void acceptDemandante(String nick) {
         jdbcTemplate.update("UPDATE demandante SET status = 'ACEPTADO' WHERE nick = '"+nick+"'");
     }
+
 }

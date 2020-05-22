@@ -19,10 +19,10 @@ public class AsignacionVoluntarioDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-
     /*
         CRUD BASICO DE ASIGNACION DE VOLUNTARIO
      */
+
     public void addAsignacionVoluntario(AsignacionVoluntario asignacionVoluntario) {
         jdbcTemplate.update("INSERT INTO asignacion_voluntario VALUES(?, ?, ?, ?, ?, ?)",
                 asignacionVoluntario.getId_franja(), asignacionVoluntario.getNick_demandante(), asignacionVoluntario.getF_ini(),
@@ -41,19 +41,6 @@ public class AsignacionVoluntarioDao {
             return new ArrayList<AsignacionVoluntario>();
         }
     }
-
-
-    /*
-    AsignacionVoluntario getAsignacionVoluntarioPorDemandante(Demandante d) {
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE nick=?",
-                    new AsignacionVoluntarioRowMapper(), d.getNick(empresa.getNick()));
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-        }
-    }
-
-     */
 
     /*
     AsignacionVoluntario getAsignacionVoluntarioPorVoluntario(Voluntario v){
@@ -74,9 +61,12 @@ public class AsignacionVoluntarioDao {
     }
      */
 
+   /*
+        GETTERS ESPECIALES
+    */
 
-
-    public List<AsignacionVoluntario> getServiciosVoluntarioDemandante(String nick) {
+   // por voluntario
+    public List<AsignacionVoluntario> getByVoluntario(String nick) {
         try {
             return jdbcTemplate.query("SELECT * FROM asignacion_voluntario WHERE nick_demandante = '"+nick+"'",
                     new AsignacionVoluntarioRowMapper());
@@ -85,17 +75,7 @@ public class AsignacionVoluntarioDao {
         }
     }
 
-    public void setTypeStatus(int idFranja, String status) {
-        jdbcTemplate.update("UPDATE asignacion_voluntario SET serv_status=?" +
-                        "WHERE id_franja=?",
-                status, idFranja);
-    }
-
-
-    /*
-        OBTENCIONES ESPECIALES
-     */
-
+    // por la franja - relacion 1a1
     public AsignacionVoluntario getByFranja(int id_franja){ // TODO ¿es necesario crear un nuevo objeto si no se encuentra?
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ?",
@@ -126,7 +106,8 @@ public class AsignacionVoluntarioDao {
         }
     }
 
-    public List<AsignacionVoluntario> getEsperaVoluntario(String id_voluntario){
+    //solo aquellas que están en espera y por voluntario
+    public List<AsignacionVoluntario> getEsperaVoluntarioByVoluntario(String id_voluntario){
         try {
             return jdbcTemplate.query( "SELECT id_franja, nick_demandante, f_ini, f_fin, serv_status, feedback_voluntario\n" +
                             "FROM asignacion_voluntario JOIN franja_voluntario\n" +
@@ -142,5 +123,36 @@ public class AsignacionVoluntarioDao {
 
     }
 
+    // por demandante
+    public List<AsignacionVoluntario> getByDemandante (String nick_demandante){
+        try{
+            return jdbcTemplate.query("SELECT *\n" +
+                            "FROM asignacion_voluntario\n " +
+                            "WHERE nick_demandante = ?;",
+                    new AsignacionVoluntarioRowMapper(),
+                    nick_demandante);
+        }
+        catch (Exception e){
+            return new ArrayList<AsignacionVoluntario>();
+        }
+    }
+
+
+    public List<AsignacionVoluntario> getServiciosVoluntarioDemandante(String nick) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM asignacion_voluntario WHERE nick_demandante = '"+nick+"'",
+                    new AsignacionVoluntarioRowMapper());
+        } catch (Exception e) {
+            return new ArrayList<AsignacionVoluntario>();
+        }
+    }
+
+    // Modificar estado de asignacion
+
+    public void setTypeStatus(int idFranja, String status) {
+        jdbcTemplate.update("UPDATE asignacion_voluntario SET serv_status=?" +
+                        "WHERE id_franja=?",
+                status, idFranja);
+    }
 
 }

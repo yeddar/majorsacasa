@@ -5,8 +5,6 @@ import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
 import es.uji.ei1027.majorsacasa.dao.FsvDao;
 import es.uji.ei1027.majorsacasa.dao.VoluntarioDao;
 import es.uji.ei1027.majorsacasa.model.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import es.uji.ei1027.majorsacasa.model.AsignacionVoluntario;
 import es.uji.ei1027.majorsacasa.model.FranjaServicioVoluntario;
 import es.uji.ei1027.majorsacasa.model.Voluntario;
@@ -14,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -150,8 +146,8 @@ public class ServicioVoluntarioController {
     @RequestMapping(value="/asignaciones/list")
     public String listWithDemandantes(Model model, HttpSession session){
         Usuario user = (Usuario) session.getAttribute("user");
-        model.addAttribute("asignaciones", asignacionVoluntarioDao.getEsperaVoluntario(user.getNick()));
-        System.out.print(asignacionVoluntarioDao.getEsperaVoluntario(user.getNick()).toString());
+        model.addAttribute("asignaciones", asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick()));
+        System.out.print(asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick()).toString());
         return "voluntario/asignaciones/list";
     }
 

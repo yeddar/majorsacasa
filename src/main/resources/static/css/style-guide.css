@@ -224,7 +224,12 @@ tr{
     padding: 10px;
 }
 
+.column_50{
+    float: left;
+    width: 50%;
+    padding: 20px;
 
+}
 
 tr:nth-child(even){background-color: #d2f0f0}
 

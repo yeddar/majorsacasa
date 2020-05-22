@@ -41,18 +41,17 @@
         </div>
 
         <div th:if="*{user.rol.equals('SUPERVISOR_CAS')}">
-            <a href="#">Añadir empresa</a>
-            <a href="#">Listado de empresas</a>
-            <a href="#">Listado serv de empresas en sistema</a>
+            <a href="#">Alta voluntario</a>
+            <a href="#">Listado de voluntarios TODOS</a>
         </div>
 
         <div th:if="*{user.rol.equals('DEMANDANTE')}">
-            <a href="#">Conocer estado de solicitudes</a>
+            <a href="/demandante/solicitudes">Conocer estado de solicitudes</a>
             <a href="/demandante/update">Modificar perfil</a>
         </div>
 
         <div th:if="*{user.rol.equals('VOLUNTARIO')}">
-            <a href="servVoluntario/asignaciones/list">Solicitudes pendientes</a>
+            <a href="/servVoluntario/asignaciones/list">Solicitudes pendientes</a>
             <a href="/voluntario/vol_applicants_list">Demandantes asignados</a>
             <a href="/voluntario/fsv/modif_schedule">Modificar disponibilidad</a>
             <a href="#"> Darse de baja </a>

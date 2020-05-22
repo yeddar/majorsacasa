@@ -26,13 +26,18 @@ public class DemandanteController {
     private ServicioLimpiezaDao servLimDao;
     private DemandanteDao demandanteDao;
     private UsuarioDao usuarioDao;
-    private ServicioEmpresaDao servEmpresaDao;
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
 
     @Autowired
     public void setAsigVolDao(AsignacionVoluntarioDao asigVolDao) {
         this.asigVolDao = asigVolDao;
     }
+
+    private ServicioEmpresaDao servEmpresaDao;
+    private ServicioCateringDao servicioCateringDao;
+    private ServicioSanitarioDao servicioSanitarioDao;
+    private ServicioLimpiezaDao servicioLimpiezaDao;
+
 
     @Autowired
     public void setDemandanteDao(DemandanteDao demandanteDao) {
@@ -45,23 +50,13 @@ public class DemandanteController {
     }
 
     @Autowired
-    public void setServicioCateringDao(ServicioCateringDao servCatDao) {
-        this.servCatDao = servCatDao;
-    }
-
-    @Autowired
-    public void setServicioSanitarioDao(ServicioSanitarioDao servSanDao) {
-        this.servSanDao = servSanDao;
-    }
-
-    @Autowired
-    public void setServicioLimpiezaDao(ServicioLimpiezaDao servLimDao) {
-        this.servLimDao = servLimDao;
-    }
-
-    @Autowired
     public void setUsuarioDao(UsuarioDao usuarioDao) {
         this.usuarioDao = usuarioDao;
+    }
+
+    @Autowired
+    public void setAsignacionVoluntarioDao(AsignacionVoluntarioDao asignacionVoluntarioDao) {
+        this.asignacionVoluntarioDao = asignacionVoluntarioDao;
     }
 
     @Autowired
@@ -70,11 +65,24 @@ public class DemandanteController {
     }
 
     @Autowired
-    public void setAsignacionVoluntarioDao(AsignacionVoluntarioDao asignacionVoluntarioDao) {
-        this.asignacionVoluntarioDao = asignacionVoluntarioDao;
+    public void setServicioCateringDao(ServicioCateringDao servicioCateringDao) {
+        this.servicioCateringDao = servicioCateringDao;
     }
 
-    // List method
+    @Autowired
+    public void setServicioSanitarioDao(ServicioSanitarioDao servicioSanitarioDao) {
+        this.servicioSanitarioDao = servicioSanitarioDao;
+    }
+
+    @Autowired
+    public void setServicioLimpiezaDao(ServicioLimpiezaDao servicioLimpiezaDao) {
+        this.servicioLimpiezaDao = servicioLimpiezaDao;
+    }
+
+
+    /*
+        List method
+     */
 
     @RequestMapping("/list")
     public String listDemandantes(Model model, HttpSession session) {
@@ -97,8 +105,8 @@ public class DemandanteController {
         return "demandante/listAceptados";
     }
 
-    /* Add methods
-    *
+    /*
+    * Add methods
     */
 
     @RequestMapping(value = "/add")
@@ -125,20 +133,22 @@ public class DemandanteController {
         return "redirect:/servVoluntario/add";
     }
 
-    // Update methods
-
     /*
-        MODIFICACION DEL PERFIL DE UN DEMANDANTE ESPECIFICO DESDE EL COMITE
-    */
+     * Update methods
+     */
+
+
+     // MODIFICACION DESDE EL COMITECAS
+
     @RequestMapping(value = "/update/{nick}", method = RequestMethod.GET)
     public String editDemandante(Model model, @PathVariable String nick) {
         model.addAttribute("demandante", demandanteDao.getDemandante(nick));
         return "demandante/update";
     }
 
-    /*
-        MODIFICACION DEL PERFIL DEDE EL PROPIO DEMANDANTE
-     */
+
+    // DESDE EL PROPIO DEMANDANTE
+
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String editDemandante(Model model, HttpSession session) {
         String nick = (String) session.getAttribute("nick");
@@ -163,7 +173,9 @@ public class DemandanteController {
         return "redirect:list";
     }
 
-    // Delete method
+    /*
+     * Delete method
+     */
 
     @RequestMapping(value = "/delete/{nick}")
     public String processDelete(@PathVariable String nick, HttpSession session) {
@@ -171,20 +183,25 @@ public class DemandanteController {
         return "redirect:"+session.getAttribute("lastURL");
     }
 
-    // Accept user method
+    /*
+     * Accept user method
+     */
 
+    // DEMANDANTE ACEPTADO
     @RequestMapping(value = "/accept/{nick}")
     public String processAccept(@PathVariable String nick){
         demandanteDao.acceptDemandante(nick);
         return "redirect:../listSinRevisar";
     }
 
+    // MOD DEL COD_ASIST
     @RequestMapping(value = "/accept/codAsist/{nick}")
     public String putCodAsist(@PathVariable String nick, Model model){
         model.addAttribute("demandante", nick);
         return "demandante/putCodAsist";
     }
 
+    // POST METHOD
     @RequestMapping(value = "/accept/{nick}", method = RequestMethod.POST)
     public String processPOSTAccept(@RequestParam(value="cod_asist") String cod,
                                     @PathVariable String nick){
@@ -195,13 +212,27 @@ public class DemandanteController {
         return "redirect:../listSinRevisar";
     }
 
-    // View method
+    /*
+     * views method
+     */
+
+    // Demandante view method
+    @RequestMapping(value = "/viewProfile/{nick}")
+    public String verPerfil (@PathVariable String nick, Model model){
+        Demandante dem = demandanteDao.getDemandante(nick);
+        model.addAttribute("demandante", dem);
+        return "demandante/viewProfile";
+    }
+
+
     @RequestMapping(value = "/solicitudes/{nick}")
     public String mostrarSolicitudes(@PathVariable String nick, Model model){
         // Coger todas las solicitudes de pago
-        List<ServicioEmpresa> serviciosEmpresa = servEmpresaDao.getServiciosEmpresaDemandante(nick);
+        List<ServicioEmpresa> serviciosEmpresa =
+                servEmpresaDao.getServiciosEmpresaDemandante(nick);
         // Coger todas las solicitudes de voluntario
-        List<AsignacionVoluntario> serviciosVoluntario = asignacionVoluntarioDao.getServiciosVoluntarioDemandante(nick);
+        List<AsignacionVoluntario> serviciosVoluntario =
+                asignacionVoluntarioDao.getServiciosVoluntarioDemandante(nick);
 
         model.addAttribute("serviciosEmpresa", serviciosEmpresa);
         model.addAttribute("serviciosVoluntario", serviciosVoluntario);
@@ -209,11 +240,61 @@ public class DemandanteController {
         return "comiteCAS/viewDemandante";
     }
 
-    @RequestMapping(value = "/viewProfile/{nick}")
-    public String verPerfil (@PathVariable String nick, Model model){
-        Demandante dem = demandanteDao.getDemandante(nick);
-        model.addAttribute("demandante", dem);
-        return "demandante/viewProfile";
+    @RequestMapping(value = "/solicitudes")
+    public String mostrarSolicitudes(Model model, HttpSession session) {
+
+        String nick_demandante = (String) session.getAttribute("nick");
+
+        /* Coger todas las solicitudes de pago
+        List<ServicioEmpresa> serviciosEmpresa =
+                servEmpresaDao.getServiciosEmpresaDemandante(nick_demandante);
+
+         */
+        // Coger todas las solicitudes de voluntario
+
+
+        List<AsignacionVoluntario> serviciosVoluntario =
+                asignacionVoluntarioDao.getByDemandante(nick_demandante);
+
+        //model.addAttribute("serviciosEmpresa", serviciosEmpresa);
+
+        ServicioCatering servicioCatering =
+                servicioCateringDao.getServicioCateringByDemandante(nick_demandante);
+
+        ServicioSanitario servicioSanitario =
+                servicioSanitarioDao.getServicioSanitarioByDemandante(nick_demandante);
+
+        ServicioLimpieza servicioLimpieza =
+                servicioLimpiezaDao.getServicioLimpiezaByDemandante(nick_demandante);
+
+
+        // Traer cada uno de los servicios empresa del sistema utilizando los dos nicks
+        // y un único servEmpresa para cada subtipo especifico
+
+        if (servicioCatering != null) {
+            ServicioEmpresa servEmpresaEspCat = servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioCatering.getNick_empresa());
+            model.addAttribute("servEmpresaEspCat", servEmpresaEspCat);
+        }
+
+        if (servicioSanitario != null) {
+            ServicioEmpresa servEmpresaEspSan =
+                    servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioSanitario.getNick_empresa());
+            model.addAttribute("servEmpresaEspSan", servEmpresaEspSan);
+        }
+
+        if (servicioLimpieza != null){
+            ServicioEmpresa servEmpresaEspLimp =
+                    servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioLimpieza.getNick_empresa());
+        model.addAttribute("servEmpresaEspLimp", servEmpresaEspLimp);
+        }
+
+        model.addAttribute("servicioCatering", servicioCatering);
+        model.addAttribute("servicioSanitario", servicioSanitario);
+        model.addAttribute("servicioLimpieza", servicioLimpieza);
+
+
+        model.addAttribute("serviciosVoluntario", serviciosVoluntario);
+        return "demandante/listServs";
     }
 
     /*

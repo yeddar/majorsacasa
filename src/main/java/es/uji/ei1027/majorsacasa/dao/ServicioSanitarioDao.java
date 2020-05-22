@@ -75,4 +75,17 @@ public class ServicioSanitarioDao {
                 dia_visita, franja_dia, nickEmp, nick
         );
     }
+
+    public ServicioSanitario getServicioSanitarioByDemandante(String nickDem) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * "+
+                            "FROM servicio_sanitario " +
+                            "WHERE nick_demandante='"+nickDem+"'",
+                    new ServicioSanitarioRowMapper()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
 }

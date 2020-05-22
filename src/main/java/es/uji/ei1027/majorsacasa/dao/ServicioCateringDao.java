@@ -61,6 +61,18 @@ public class ServicioCateringDao {
         }
     }
 
+
+    public ServicioCatering getServicioCateringByDemandante(String nickDem) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM servicio_catering WHERE nick_demandante='"+nickDem+"'",
+                    new ServicioCateringRowMapper()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+
     public List<ServicioCatering> getAsignaciones(String nick_empresa) {
         try {
             return jdbcTemplate.query("SELECT * FROM servicio_catering WHERE nick_empresa = '"+nick_empresa+"'",

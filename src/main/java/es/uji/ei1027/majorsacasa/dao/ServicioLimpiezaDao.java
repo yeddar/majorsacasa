@@ -1,6 +1,8 @@
 package es.uji.ei1027.majorsacasa.dao;
 
+import es.uji.ei1027.majorsacasa.model.ServicioCatering;
 import es.uji.ei1027.majorsacasa.model.ServicioLimpieza;
+import es.uji.ei1027.majorsacasa.model.ServicioSanitario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -65,4 +67,18 @@ public class ServicioLimpiezaDao {
             return new ArrayList<ServicioLimpieza>();
         }
     }
+
+    public ServicioLimpieza getServicioLimpiezaByDemandante(String nickDem) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * "+
+                            "FROM servicio_limpieza " +
+                            "WHERE nick_demandante='"+nickDem+"'",
+                    new ServicioLimpiezaRowMapper()
+            );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
+
 }

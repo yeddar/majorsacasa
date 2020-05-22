@@ -25,7 +25,7 @@ public class CommonController {
 
     @RequestMapping(value = "/home")
     public String goHome() {
-        return "common/home";
+        return "/home";
     }
 
 }

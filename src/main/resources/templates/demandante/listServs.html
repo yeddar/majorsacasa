@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title> MaC - Listado servicios </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <div> <h2> Servicio Cátering</h2> </div>
+        <div th:if="*{servicioCatering != null}">
+
+            <div class="row">
+                <div class="column_50">
+                    <p th:text="${servicioCatering.nick_empresa}"> </p>
+                    <p th:text="${servicioCatering.tipo_comida}"> </p>
+                    <p th:text="${servicioCatering.dias_semana}"> </p>
+                </div>
+           <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
+                <div class="column_50">
+                    <p th:text="*{servEmpresaEspCat.f_ini}"> </p>
+                    <p th:text="*{servEmpresaEspCat.f_fin}"> </p>
+                    <p th:text="*{servEmpresaEspCat.serv_status}"> </p>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="*{servicioCatering == null}">
+            <p> No se ha contratado servicio de catering </p>
+        </div>
+
+
+    <div> <h2> Servicio Sanitario</h2> </div>
+        <div th:if="*{servicioSanitario != null}">
+
+        <div class="row">
+            <div class="column_50">
+                <p th:text="${servicioSanitario.nick_empresa}"> </p>
+                <p th:text="${servicioSanitario.necesidad}"> </p>
+                <p th:text="${servicioSanitario.dia_visita}"> </p>
+                <p th:text="${servicioSanitario.manana_tarde}"> </p>
+            </div>
+            <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
+            <div class="column_50">
+                <p th:text="*{servEmpresaEspSan.f_ini}"> </p>
+                <p th:text="*{servEmpresaEspSan.f_fin}"> </p>
+                <p th:text="*{servEmpresaEspSan.serv_status}"> </p>
+            </div>
+        </div>
+    </div>
+
+        <div th:if="*{servicioSanitario == null}">
+        <p> No se ha contratado servicio sanitario </p>
+    </div>
+
+
+    <div> <h2> Servicio Limpieza</h2> </div>
+    <div th:if="*{servicioLimpieza != null}">
+
+        <div class="row">
+            <div class="column_50">
+                <p th:text="${servicioLimpieza.nick_empresa}"> </p>
+                <p th:text="${servicioLimpieza.horas}"> </p>
+            </div>
+            <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
+            <div class="column_50">
+                <p th:text="*{servEmpresaEspLimp.f_ini}"> </p>
+                <p th:text="*{servEmpresaEspLimp.f_fin}"> </p>
+                <p th:text="*{servEmpresaEspLimp.serv_status}"> </p>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div th:if="*{servicioLimpieza == null}">
+        <h5> No se ha contratado servicio de limpieza</h5>
+    </div>
+
+    <hr>
+
+    <div class="container py-10 mt-2">
+        <h2 style="text-align:center"> Listado de servicios de voluntario </h2>
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th> Fecha de inicio </th>
+            <th> Fecha de fin </th>
+            <th> Estado de petición </th>
+            <th> Feedback </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servicioVoluntario: ${serviciosVoluntario}">
+            <td th:text="${servicioVoluntario.f_ini}"></td>
+            <td th:text="${servicioVoluntario.f_fin}"></td>
+            <td th:text="${servicioVoluntario.serv_status}"></td>
+            <td th:text="${servicioVoluntario.feedback_voluntario}"></td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
