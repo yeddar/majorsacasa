@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,7 +18,6 @@ import java.util.*;
 @RequestMapping("/servEmpresa")
 public class ServicioEmpresaController {
     private UsuarioDao usuarioDao;
-    private AsignacionVoluntarioDao asigVolDao;
     private ServicioEmpresaDao servEmpDao;
     private ServicioCateringDao servCatDao;
     private ServicioSanitarioDao servSanDao;
@@ -28,16 +25,10 @@ public class ServicioEmpresaController {
     private EmpresaDao empDao;
     private DemandanteDao demandanteDao;
     private FslDao fslDao;
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public void setUsuarioDao(UsuarioDao usuarioDao) {
         this.usuarioDao = usuarioDao;
-    }
-
-    @Autowired
-    public void setAsigVolDao(AsignacionVoluntarioDao asigVolDao) {
-        this.asigVolDao = asigVolDao;
     }
 
     @Autowired
@@ -141,16 +132,7 @@ public class ServicioEmpresaController {
             return "servEmpresa/add";
 
         Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
-
-        usuarioDao.addUsuario(demandante);
-        demandanteDao.addDemandante(demandante);
-
-        ArrayList<AsignacionVoluntario> asignaciones = (ArrayList<AsignacionVoluntario>) session.getAttribute("servicios_demandante_voluntario");
-        asignaciones = asignaciones == null ? new ArrayList<>(): asignaciones;
-        for(AsignacionVoluntario asignacion : asignaciones){
-            asigVolDao.addAsignacionVoluntario(asignacion);
-        }
-
+        int total = 0;
 
         if(servicios != null) {
             for (String servicio : servicios) {
@@ -171,13 +153,15 @@ public class ServicioEmpresaController {
                     LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
                     servEmpresaCat.setF_fin(f_fin);
                     String dias = constructor_cadena(dias_semana);
+
                     servCatering.setDias_semana(dias);
                     servEmpresaCat.setServ_status("SIN EVALUAR");
 
                     // AÑADIMOS A BASE DE DATOS
-                    servEmpDao.addServicioEmpresa(servEmpresaCat);
-                    servCatDao.addServicioCatering(servCatering);
-
+                    session.setAttribute("servEmpCat", servEmpresaCat);
+                    session.setAttribute("servCat", servCatering);
+                    session.setAttribute("cantidadCatering", 5*dias_semana.length*4);
+                    total += 5*dias_semana.length*4;
                 } else if (servicio.equals("sanitario")) {
                     ServicioEmpresa servEmpresaSan = new ServicioEmpresa();
                     Empresa empresa_seleccionada = seleccionEmpresa("SANITARIA");
@@ -197,9 +181,10 @@ public class ServicioEmpresaController {
                     servEmpresaSan.setServ_status("SIN EVALUAR");
 
                     // AÑADIMOS A BASE DE DATOS
-                    servEmpDao.addServicioEmpresa(servEmpresaSan);
-                    servSanDao.addServicioSanitario(servSanitario);
-
+                    session.setAttribute("servEmpSan", servEmpresaSan);
+                    session.setAttribute("servSan", servSanitario);
+                    session.setAttribute("cantidadSanitario", 5);
+                    total += 5;
                 } else if (servicio.equals("limpieza")) {
                     ServicioEmpresa servEmpresaLim = new ServicioEmpresa();
                     Empresa empresa_seleccionada = seleccionEmpresa("LIMPIEZA");
@@ -219,13 +204,15 @@ public class ServicioEmpresaController {
                     servEmpresaLim.setServ_status("SIN EVALUAR");
 
                     // AÑADIMOS A BASE DE DATOS
-                    servEmpDao.addServicioEmpresa(servEmpresaLim);
-                    servLimDao.addServicioLimpieza(servLimpieza);
+                    session.setAttribute("servEmpLim", servEmpresaLim);
+                    session.setAttribute("servLim", servLimpieza);
+                    session.setAttribute("cantidadLimpieza", 5*servLimpieza.getHoras()*4);
+                    total += 5*servLimpieza.getHoras()*4;
                 }
             }
         }
-
-        return "redirect:/";
+        session.setAttribute("pagoTotal", total);
+        return "redirect:/demandante/pago-servicios";
     }
 
     // List by type method
@@ -278,8 +265,6 @@ public class ServicioEmpresaController {
     public String acceptState(@PathVariable String nickEmp, @PathVariable String nickDem){
         servEmpDao.setTypeStatus(nickEmp, nickDem, "ESPERA EMPRESA");
         Demandante dem = demandanteDao.getDemandante(nickDem);
-        if(servEmpDao.getSinRevisarDemandante(nickDem).size() == 0)
-            log.info("Estimado usuario "+ dem.getNombre()+", nos alegra comunicarle que su registro fue aceptado correctamente. A continuación puede proceder al pago de los servicios solicitados mediante el siguiente link. Los servicios se pondrán en marcha en un margen de 24 horas después del pago. Muchas gracias.");
         return "redirect:/demandante/solicitudes/"+nickDem;
     }
 
@@ -336,6 +321,7 @@ public class ServicioEmpresaController {
         DateFormat dateFormat = new SimpleDateFormat("hh:mm");
         Date d = dateFormat.parse(hora_servicio);
         servCatDao.setFeedback(nickEmp, nick, d);
+        empDao.decreaseVacantes(empDao.getEmpresa(nickEmp));
         return "redirect:/empresa/listPendientes";
     }
 
@@ -350,6 +336,7 @@ public class ServicioEmpresaController {
         // ACTUALIZAMOS LOS VALORES DEL FEEDBACK DE LA TABLA SERVICIO SANITARIO
         char franja_dia = franja.equals("manana") ? 'M':'T';
         servSanDao.setFeedback(nickEmp, nick, LocalDate.parse(dia_visita), franja_dia);
+        empDao.decreaseVacantes(empDao.getEmpresa(nickEmp));
         return "redirect:/empresa/listPendientes";
     }
 
@@ -372,6 +359,8 @@ public class ServicioEmpresaController {
         session.setAttribute("franjas", franjas_creadas);
         session.setAttribute("id_franja", id_franja);
 
+        // ACTUALIZAMOS LAS VACANTES DE LA EMPRESA
+        empDao.decreaseVacantes(empDao.getEmpresa(nickEmp));
         return "redirect:/empresa/listPendientes";
     }
 }

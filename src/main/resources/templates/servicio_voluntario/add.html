@@ -66,18 +66,15 @@
                             <td th:text="${fr_vol.hFin}"></td>
                             <td th:text="${aficiones[fr_vol.id]}"></td>
                             </th:block>
-                            <td><a href="#">más info</a></td>
+                            <td><a th:href="@{/voluntario/viewProfile/{nick}(nick=${fr_vol.nick})}">más info</a></td>
                             <td><input type="checkbox" th:value="${fr_vol.id}" th:name="cb_seleccion"></td>
                         </tr>
                     </tbody>
                 </table>
 
-
                         <label>(Si se requiere) Fecha finalización: </label>
                         <input type="date" th:name="fecha_voluntrario">
 
-
-                <input hidden="hidden" type="text" th:name="nickDem" th:value="${nick}">
                 <input type="submit" value="Continuar">
                 </div>
             </form>

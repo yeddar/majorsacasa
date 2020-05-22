@@ -198,5 +198,12 @@ public class VoluntarioController {
         return "redirect:../list";
     }
 
+    // View profile method
 
+    @RequestMapping(value = "/viewProfile/{nick}")
+    public String viewProfile(@PathVariable String nick, Model model){
+        Voluntario vol = voluntarioDao.getVoluntario(nick);
+        model.addAttribute("voluntario", vol);
+        return "voluntario/viewVoluntario";
+    }
 }

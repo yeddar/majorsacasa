@@ -71,7 +71,7 @@ public class EmpresaController {
 
     @RequestMapping("/listAsignaciones")
     public String listAsignaciones(Model model, HttpSession session){
-        session.setAttribute("lastURL", "../listAsignaciones");
+        session.setAttribute("lastURL", "/empresa/listAsignaciones");
         // Cargar de bbdd todas las asignaciones de la empresa que esten en aceptado
         String nick_empresa = (String) session.getAttribute("nick");
         model.addAttribute("asignaciones_empresa", servEmpresaDao.getServiciosEmpresaByNickEmpresa(nick_empresa));
@@ -107,7 +107,7 @@ public class EmpresaController {
 
     @RequestMapping(value = "/listPendientes")
     public String listPendientes(Model model, HttpSession session){
-        session.setAttribute("lastURL", "../listPendientes");
+        session.setAttribute("lastURL", "/empresa/listPendientes");
         String nick_empresa = (String) session.getAttribute("nick");
         // Coger de la base de datos todas las asignaciones a la empresa que esten en estado ESPERA EMPRESA (
         List<ServicioEmpresa> servEmpresa = servEmpresaDao.getServiciosEmpresaByNickEmpresa(nick_empresa);
@@ -198,6 +198,8 @@ public class EmpresaController {
     public String cancelState(@PathVariable String nick, HttpSession session){
         servEmpresaDao.setTypeStatus((String) session.getAttribute("nick"), nick, "CANCELADO");
         servEmpresaDao.setF_Fin((String) session.getAttribute("nick"),nick);
+        // INCREMENTAMOS EL VALOR DE VACANTES
+        empresaDao.increaseVacantes(empresaDao.getEmpresa((String) session.getAttribute("nick")));
         return "redirect:"+session.getAttribute("lastURL");
     }
 }

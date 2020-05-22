@@ -70,4 +70,16 @@ public class EmpresaDao {
             return new ArrayList<Empresa>();
         }
     }
+
+    public void decreaseVacantes(Empresa empresa) {
+        jdbcTemplate.update("UPDATE Empresa SET vacantes=? WHERE nick=?",
+                empresa.getVacantes()-1, empresa.getNick()
+        );
+    }
+
+    public void increaseVacantes(Empresa empresa) {
+        jdbcTemplate.update("UPDATE Empresa SET vacantes=? WHERE nick=?",
+                empresa.getVacantes()+1, empresa.getNick()
+        );
+    }
 }

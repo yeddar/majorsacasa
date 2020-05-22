@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pago servicios</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="content">
+
+    <h1><p>¡HOLA <span th:text="${demandante.nombre}"></span>!</p></h1>
+    <br>
+    <h4><p>A continuación se mostrará la factura de los servicios que ha seleccionado previamente:</p></h4>
+    <br>
+    <table>
+        <thead>
+            <th>Tipo de servicio</th>
+            <th>Cantidad acumulada</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Servicios voluntarios: </td>
+                <td>0 euros</td>
+            </tr>
+            <tr>
+                <td>Servicio de catering: </td>
+                <td><span th:text="${cantidadCatering} ? ${cantidadCatering}:0"></span> euros</td>
+            </tr>
+            <tr>
+                <td>Servicio sanitario: </td>
+                <td><span th:text="${cantidadSanitario} ? ${cantidadSanitario}:0"></span> euros</td>
+            </tr>
+            <tr>
+                <td>Servicio de limpieza: </td>
+                <td><span th:text="${cantidadLimpieza} ? ${cantidadLimpieza}:0"></span> euros</td>
+            </tr>
+            <tr>
+                <td><b>Pago total (mensual): </b></td>
+                <b><td><span th:text="${pagoTotal}"></span> euros</td></b>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <h4><p>Si está usted de acuerdo se procederá a la pasarela de pago para confirmar el pago después de pulsar el siguiente botón</p></h4>
+    <br>
+    <button><a th:href="@{/demandante/gestion-pago}">Finalizar</a></button>
+
+
+
+
+
+</div>
+</body>
+</html>

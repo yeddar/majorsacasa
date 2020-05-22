@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil de voluntario</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body layout:fragment="content">
+<table>
+    <tr>
+        <td><label> Nick </label></td>
+        <td><input readonly type="text" th:field="${voluntario.nick}"/></td>
+    </tr>
+    <tr>
+        <td><label> Nombre </label></td>
+        <td><input readonly type="text" th:field="${voluntario.nombre}"/></td>
+    </tr>
+    <tr>
+        <td><label> Edad </label></td>
+        <td><input readonly type="number" th:field="${voluntario.edad}"/></td>
+    </tr>
+    <tr>
+        <td><label> Teléfono </label></td>
+        <td><input readonly type="text" th:field="${voluntario.tlf}"/></td>
+    </tr>
+    <tr>
+        <td><label> Email</label></td>
+        <td><input readonly type="text" th:field="${voluntario.email}"/></td>
+    </tr>
+    <tr>
+        <td><label> Aficiones </label></td>
+        <td><input readonly type="text" th:field="${voluntario.aficiones}"/></td>
+    </tr>
+</table>
+</body>
+</html>

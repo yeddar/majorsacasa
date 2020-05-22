@@ -1,10 +1,9 @@
 package es.uji.ei1027.majorsacasa.controller;
 
-import es.uji.ei1027.majorsacasa.dao.AsignacionVoluntarioDao;
-import es.uji.ei1027.majorsacasa.dao.DemandanteDao;
-import es.uji.ei1027.majorsacasa.dao.ServicioEmpresaDao;
-import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
+import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,14 +18,45 @@ import java.util.List;
 @Controller
 @RequestMapping("/demandante")
 public class DemandanteController {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private AsignacionVoluntarioDao asigVolDao;
+    private ServicioEmpresaDao servEmpDao;
+    private ServicioCateringDao servCatDao;
+    private ServicioSanitarioDao servSanDao;
+    private ServicioLimpiezaDao servLimDao;
     private DemandanteDao demandanteDao;
     private UsuarioDao usuarioDao;
     private ServicioEmpresaDao servEmpresaDao;
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
 
     @Autowired
+    public void setAsigVolDao(AsignacionVoluntarioDao asigVolDao) {
+        this.asigVolDao = asigVolDao;
+    }
+
+    @Autowired
     public void setDemandanteDao(DemandanteDao demandanteDao) {
         this.demandanteDao = demandanteDao;
+    }
+
+    @Autowired
+    public void setServicioEmpresaDao(ServicioEmpresaDao servEmpDao) {
+        this.servEmpDao = servEmpDao;
+    }
+
+    @Autowired
+    public void setServicioCateringDao(ServicioCateringDao servCatDao) {
+        this.servCatDao = servCatDao;
+    }
+
+    @Autowired
+    public void setServicioSanitarioDao(ServicioSanitarioDao servSanDao) {
+        this.servSanDao = servSanDao;
+    }
+
+    @Autowired
+    public void setServicioLimpiezaDao(ServicioLimpiezaDao servLimDao) {
+        this.servLimDao = servLimDao;
     }
 
     @Autowired
@@ -186,6 +216,68 @@ public class DemandanteController {
         return "demandante/viewProfile";
     }
 
+    /*
+    Pago servicios
+     */
+
+    @RequestMapping(value = "/pago-servicios")
+    public String pagoServicios(Model model, HttpSession session){
+        Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
+
+        model.addAttribute("cantidadCatering", session.getAttribute("cantidadCatering"));
+        model.addAttribute("cantidadSanitario", session.getAttribute("cantidadSanitario"));
+        model.addAttribute("cantidadLimpieza", session.getAttribute("cantidadLimpieza"));
+        model.addAttribute("pagoTotal", session.getAttribute("pagoTotal"));
+        model.addAttribute("demandante", demandante);
+        return "demandante/pagoServicios";
+    }
+
+    @RequestMapping(value = "/gestion-pago")
+    public String gestionPago(HttpSession session) {
+        Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
+        int cantidad = (int) session.getAttribute("pagoTotal");
+
+        log.info("El usuario " + demandante.getNick() + " realizó el pago de " + cantidad + " euros correctamente");
+
+        // AÑADIMOS TODA LA INFORMACIÓN A LA BASE DE DATOS
+        // DATOS DEL USUARIO
+        usuarioDao.addUsuario(demandante);
+        demandanteDao.addDemandante(demandante);
+
+        //DATOS DE SERVICIOS VOLUNTARIOS
+        ArrayList<AsignacionVoluntario> asignaciones = (ArrayList<AsignacionVoluntario>) session.getAttribute("servicios_demandante_voluntario");
+        asignaciones = asignaciones == null ? new ArrayList<>() : asignaciones;
+        for (AsignacionVoluntario asignacion : asignaciones) {
+            asigVolDao.addAsignacionVoluntario(asignacion);
+        }
+
+        // DATOS DE CATERING
+        ServicioEmpresa servEmpCat = session.getAttribute("servEmpCat") == null ? null : (ServicioEmpresa) session.getAttribute("servEmpCat");
+        ServicioCatering servCat = session.getAttribute("servCat") == null ? null : (ServicioCatering) session.getAttribute("servCat");
+        if (servEmpCat != null && servCat != null) {
+            servEmpDao.addServicioEmpresa(servEmpCat);
+            servCatDao.addServicioCatering(servCat);
+        }
+
+        // DATOS DE SANITARIO
+        ServicioEmpresa servEmpSan = session.getAttribute("servEmpSan") == null ? null: (ServicioEmpresa) session.getAttribute("servEmpSan");
+        ServicioSanitario servSan = session.getAttribute("servSan") == null ? null: (ServicioSanitario) session.getAttribute("servSan");
+        if(servEmpSan != null && servSan != null){
+            servEmpDao.addServicioEmpresa(servEmpSan);
+            servSanDao.addServicioSanitario(servSan);
+        }
+
+        // DATOS DE LIMPIEZA
+        ServicioEmpresa servEmpLim = session.getAttribute("servEmpLim") == null ? null: (ServicioEmpresa) session.getAttribute("servEmpLim");
+        ServicioLimpieza servLim = session.getAttribute("servLim") == null ? null: (ServicioLimpieza) session.getAttribute("servLim");
+        if(servEmpLim != null && servLim != null){
+            servEmpDao.addServicioEmpresa(servEmpLim);
+            servLimDao.addServicioLimpieza(servLim);
+        }
+
+        session.invalidate();
+        return "redirect:/";
+    }
 
 
 }

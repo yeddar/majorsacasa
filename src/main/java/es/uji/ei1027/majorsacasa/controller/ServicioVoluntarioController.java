@@ -85,7 +85,6 @@ public class ServicioVoluntarioController {
         }
         model.addAttribute("aficiones", aficiones);
 
-        //model.addAttribute("nick", nick);
         return "servicio_voluntario/add";
     }
 
