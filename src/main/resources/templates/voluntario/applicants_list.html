@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table th:unless="${#lists.isEmpty(demandantes)}" class="table table-striped">
+    <h3>Demandantes asignados</h3>
+
+    <tr>
+        <th> Nombre</th>
+        <th> Teléfono</th>
+        <th> E-mail </th>
+        <th> Dirección </th>
+    </tr>
+
+    <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
+        <td th:text="${demandantes[index].nombre}"></td>
+        <td th:text="${demandantes[index].tlf}"></td>
+        <td th:text="${demandantes[index].email}"></td>
+        <td th:text="${demandantes[index].direccion}"></td>
+        <td> <a th:href="@{/voluntario/fsv/franjas_dem_list/{nick_dem}(nick_dem=${demandantes[index].nick})}">Ver franjas asignadas</a></td>
+    </tr>
+
+</table>
+</body>
+</html>

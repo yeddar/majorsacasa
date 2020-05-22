@@ -11,19 +11,40 @@
 <body>
 <div layout:fragment="content">
 <h2 style="text-align:center"> Disponibilidad para ofrecer ayuda </h2>
-<hr>
-<h3>
-    Añadir franjas horarias:
-</h3>
-    <div th:replace="fragments/franjas" >...</div>
+    <hr>
+    <table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
+
+        <tr>
+            <th colspan="4">FRANJAS ACTUALES</th>
+        </tr>
+
+        <tr>
+            <th> Dia semana</th>
+            <th> Hora inicio</th>
+            <th> Hora fin </th>
+            <th></th>
+        </tr>
 
 
-    <div class="container">
-        <div class="button">
-            <a th:href="@{/voluntario/vol_request}">Solicitar</a>
+        <tr th:each="fr: ${franjas}">
+            <td th:text="${fr.diaSemana}"></td>
+            <td th:text="${fr.hIni}"></td>
+            <td th:text="${fr.hFin}"></td>
+            <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}" class="btn btn btn-danger" role="button" aria-pressed="true">Esborra</a></td>
+        </tr>
+
+    </table>
+    <hr>
+    <h3>
+        Añadir franjas horarias:
+    </h3>
+        <div th:replace="fragments/franjas" >...</div>
+
+        <div class="container">
+            <div class="button">
+                <a th:href="@{/voluntario/vol_schedule}">Solicitar</a>
+            </div>
         </div>
-    </div>
-
 </div>
 
 

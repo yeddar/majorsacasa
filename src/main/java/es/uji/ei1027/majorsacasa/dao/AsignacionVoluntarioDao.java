@@ -96,7 +96,7 @@ public class AsignacionVoluntarioDao {
         OBTENCIONES ESPECIALES
      */
 
-    public AsignacionVoluntario getByFranja(int id_franja){
+    public AsignacionVoluntario getByFranja(int id_franja){ // TODO ¿es necesario crear un nuevo objeto si no se encuentra?
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ?",
                     new AsignacionVoluntarioRowMapper(),
@@ -104,9 +104,26 @@ public class AsignacionVoluntarioDao {
         } catch (Exception e) {
             return new AsignacionVoluntario();
         }
+    }
 
+    public AsignacionVoluntario getByFranjaOrNull(int id_franja){ // TODO ¿es necesario crear un nuevo objeto si no se encuentra?
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ?",
+                    new AsignacionVoluntarioRowMapper(),
+                    id_franja);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
-
+    public List<AsignacionVoluntario>getByNickDem(String nick_dem) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM asignacion_voluntario WHERE nick_demandante=?", new AsignacionVoluntarioRowMapper(),
+                    nick_dem);
+        }
+        catch (Exception ex) {
+            return new ArrayList<AsignacionVoluntario>();
+        }
     }
 
     public List<AsignacionVoluntario> getEsperaVoluntario(String id_voluntario){

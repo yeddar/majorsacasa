@@ -5,6 +5,22 @@
     <title>Title</title>
 </head>
 <body>
+<table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
+    <h3>Franjas asignadas para </h3>
 
+    <tr>
+        <th> Día semana</th>
+        <th> Hora inicio</th>
+        <th> Hora fin </th>
+    </tr>
+
+    <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(franjas)-1)}">
+        <td th:text="${franjas[index].diaSemana}"></td>
+        <td th:text="${franjas[index].hIni}"></td>
+        <td th:text="${franjas[index].hFin}"></td>
+
+    </tr>
+
+</table>
 </body>
 </html>

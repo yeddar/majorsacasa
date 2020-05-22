@@ -1,8 +1,6 @@
 package es.uji.ei1027.majorsacasa.controller;
 
-import es.uji.ei1027.majorsacasa.dao.FsvDao;
-import es.uji.ei1027.majorsacasa.dao.UsuarioDao;
-import es.uji.ei1027.majorsacasa.dao.VoluntarioDao;
+import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
@@ -17,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/voluntario")
@@ -24,6 +25,8 @@ public class VoluntarioController {
     private VoluntarioDao voluntarioDao;
     private UsuarioDao usuarioDao;
     private FsvDao fsvDao;
+    private AsignacionVoluntarioDao asigVolDao;
+    private DemandanteDao demandanteDao;
 
     @Autowired
     public void setVoluntarioDao(VoluntarioDao voluntarioDao) {
@@ -37,6 +40,12 @@ public class VoluntarioController {
 
     @Autowired
     public void setFsvDao(FsvDao fsvDao) { this.fsvDao = fsvDao;}
+
+    @Autowired
+    public void setAsignacionVoluntarioDao(AsignacionVoluntarioDao asigVolDao) { this.asigVolDao = asigVolDao;}
+
+    @Autowired
+    public void setDemandanteDao(DemandanteDao demandanteDao) { this.demandanteDao = demandanteDao;}
 
     @RequestMapping("/list")
     public String listVoluntarios(Model model) {
@@ -93,45 +102,74 @@ public class VoluntarioController {
         return "redirect:/voluntario/fsv/schedule";
     }
 
-    @RequestMapping(value = "/vol_request")
+    @RequestMapping(value = "/vol_schedule")
     public String volRequest(HttpSession session) {
+        Voluntario vol = (Voluntario) session.getAttribute("vol");
 
-        // Obtener de la sesión
-        Voluntario vol = (Voluntario)session.getAttribute("vol");
+
+        // Obtener franjas de la sesión
         ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
-
-        // Borrar atributos sesión
-        session.removeAttribute("vol");
         session.removeAttribute("franjas");
 
-        // Añadir voluntario
-        vol.setRol(ROL_USUARIO.VOLUNTARIO);
-        vol.setStatus("SIN REVISAR");
-        System.out.println(vol.toString());
-        usuarioDao.addUsuario(vol);
-        voluntarioDao.addVoluntaio(vol);
+
+        // Añadir voluntario si no se está logeado
+        if (vol != null){
+            vol.setRol(ROL_USUARIO.VOLUNTARIO);
+            vol.setStatus("SIN REVISAR");
+            // Alta voluntario en la base de datos
+            usuarioDao.addUsuario(vol);
+            voluntarioDao.addVoluntaio(vol);
+            session.removeAttribute("vol");
+        }
 
         // Añadir franjas
+        String nick = (vol != null)? vol.getNick():(String)session.getAttribute("nick");
+
         for (FranjaServicioVoluntario fsv: franjas){
-            fsv.setNick(vol.getNick());;
+            fsv.setNick(nick);
             fsvDao.addFranjaServicioVoluntario(fsv);
+
         }
-        return "redirect:list";
+        return "redirect:/";
     }
 
-    @RequestMapping(value = "/modif_franjas")
-    public String modifFranjas(HttpSession session) {
-        String nick = (String)session.getAttribute("nick");
-        ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
 
-        for(FranjaServicioVoluntario fsv : franjas){
-            if(fsvDao.getFsv(fsv.getId()) == null){
-                fsvDao.addFranjaServicioVoluntario(fsv);
+    @RequestMapping(value = "/vol_applicants_list")
+    public String volApplicantsList(HttpSession session, Model model) {
+
+        String nick_vol = (String)session.getAttribute("nick");
+
+        List<FranjaServicioVoluntario> franjas = fsvDao.getFsvByNick(nick_vol);
+
+        // Filtrar por franjas asignadas a demandantes y obtener información de asignaciones del voluntario
+        List<FranjaServicioVoluntario> franjas_asignadas = new ArrayList<>();
+        List<AsignacionVoluntario> asignaciones = new ArrayList<>();
+        for (FranjaServicioVoluntario fr : franjas) {
+            AsignacionVoluntario asig = asigVolDao.getByFranjaOrNull(fr.getId());
+            if(asig != null) { // Franja asignada
+                franjas_asignadas.add(fr);
+                asignaciones.add(asig);
             }
         }
-        session.removeAttribute("franjas");
-        return "/index.html";
 
+        // Obtener listado demandantes asignados
+
+        List<Demandante> demAsignados = new ArrayList<>();
+
+        List<String> nickDemNoRepe = new ArrayList<>();
+        for (AsignacionVoluntario asig : asignaciones){
+            if (!(nickDemNoRepe.contains(asig.getNick_demandante())))
+                nickDemNoRepe.add(asig.getNick_demandante());
+        }
+        for (String nick_dem : nickDemNoRepe) {
+            System.out.println(nick_dem);
+            demAsignados.add(demandanteDao.getDemandante(nick_dem));
+
+        }
+
+        model.addAttribute("demandantes", demAsignados);
+        model.addAttribute("franjas", franjas_asignadas);
+        return "voluntario/applicants_list";
     }
 
     // Update methods

@@ -50,6 +50,16 @@ public class FsvDao {
         }
     }
 
+    public List<FranjaServicioVoluntario> getFsvByNick(String nick_vol) {
+        try {
+            return jdbcTemplate.query("SELECT * FROM franja_voluntario WHERE nick_voluntario=?",
+                    new FsvRowMapper(), nick_vol
+                    );
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
     void updateFsv(FranjaServicioVoluntario fsv) {
         jdbcTemplate.update("UPDATE franja_voluntario SET nick=?, dia_semana=?, h_ini=?, h_fin=? WHERE id=?",
                 fsv.getNick(), fsv.getDiaSemana(),

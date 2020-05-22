@@ -47,10 +47,10 @@
         </tr>
     </table>
 </form>
-<table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
+<table th:unless="${#lists.isEmpty(franjas_nuevas)}" class="table table-striped">
 
     <tr>
-        <th colspan="4">FRANJAS AÑADIDAS</th>
+        <th colspan="4">NUEVAS FRANJAS</th>
     </tr>
 
     <tr>
@@ -61,11 +61,11 @@
     </tr>
 
 
-    <tr th:each="fr: ${franjas}">
+    <tr th:each="fr: ${franjas_nuevas}">
         <td th:text="${fr.diaSemana}"></td>
         <td th:text="${fr.hIni}"></td>
         <td th:text="${fr.hFin}"></td>
-        <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}" class="btn btn btn-danger" role="button" aria-pressed="true">Esborra</a></td>
+        <td><a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}" class="btn btn btn-danger" role="button" aria-pressed="true">Esborra</a></td>
     </tr>
 
 </table>
