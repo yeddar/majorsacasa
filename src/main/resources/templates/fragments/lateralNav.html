@@ -12,13 +12,6 @@
 <hr>
 
 <div th:object="${session}">
-    <div th:if="*{user == null}">
-        <!--
-        <a href="/empresa/add">AÑADIR EMPRESA</a>
-        <a href="/empresa/list">GESTIÓN DE EMPRESAS</a>
-        <a href="/servEmpresa/listWithType"> LISTADO SERVICIOS EMPRESAS</a>
-        -->
-    </div>
 
     <div th:if="*{user!= null}">
 

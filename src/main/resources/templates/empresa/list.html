@@ -17,7 +17,6 @@
     <hr>
 
     <div class="container py-10 mt-2">
-        <div class="table-responsive">
         <table class="table">
             <thead>
             <tr>
@@ -25,7 +24,7 @@
                 <th> NIF de responsable</th>
 
                 <th> Telefono </th>
-                <th> Correo </th>
+
                 <th> Tipo de servicio </th>
 
                 <th> Vacantes</th>
@@ -41,8 +40,19 @@
                 <td th:text="${empresa.nif}"></td>
 
                 <td th:text="${empresa.tlf}"></td>
-                <td th:text="${empresa.email}"></td>
-                <td th:text="${empresa.tipo_empresa}"></td>
+
+
+                <th:block th:switch="${empresa.tipo_empresa}">
+                    <td th:case="'CATERING'">
+                        <i class="flaticon-cook"></i>
+                    </td>
+                    <td th:case="'SANITARIA'">
+                        <i class="flaticon-healthcare"></i>
+                    </td>
+                    <td th:case="'LIMPIEZA'">
+                        <i class="flaticon-broom"></i>
+                    </td>
+                </th:block>
 
                 <td th:text="${empresa.vacantes}"></td>
 
@@ -57,7 +67,6 @@
             </tr>
             </tbody>
         </table>
-        </div>
         </div>
         </div>
 

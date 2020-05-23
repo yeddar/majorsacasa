@@ -18,14 +18,7 @@ public class CommonController {
         this.usuarioDao = usuarioDao;
     }
 
-    @RequestMapping(value = "/rootIndex")
-    public String allView() {
-        return "root/rootIndex";
-    }
 
-    @RequestMapping(value = "/home")
-    public String goHome() {
-        return "/home";
-    }
+
 
 }

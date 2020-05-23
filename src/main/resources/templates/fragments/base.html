@@ -37,16 +37,44 @@
 </header>
 <div th:replace="fragments/nav"></div>
 
+
+<div th:object="${session}">
+<th:block th:if="*{user != null}">
+
 <div class="row">
     <div class="lateralNav">
         <div th:replace="fragments/lateralNav"></div>
     </div>
     <div class="indexBasicContainer">
         <BR>
-
         <div layout:fragment="content"></div>
     </div>
+</div>
+</th:block>
 
+
+<!--
+<th:block th:if="*{user != null}">
+    <th:block th:if="*{user.nick == null}">
+        <div class="row">
+            <div class="noRegisterBasicContainer">
+                <BR>
+                <div layout:fragment="content"></div>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+-->
+
+<th:block th:if="*{user == null}">
+<div class="row">
+    <div class="noRegisterBasicContainer">
+    <BR>
+    <div layout:fragment="content"></div>
+</div>
+</div>
+</th:block>
+</div>
 
 
 <div class="f">
@@ -54,7 +82,7 @@
     <p class="text-muted" style="text-align:center"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i Implementació de
         Sistemes d'Informació </p>
 </div>
-</div>
+
 
 </body>
 </html>
