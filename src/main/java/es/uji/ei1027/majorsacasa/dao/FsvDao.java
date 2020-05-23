@@ -77,4 +77,14 @@ public class FsvDao {
         return jdbcTemplate.query("SELECT * FROM franja_voluntario WHERE id NOT IN (SELECT id_franja FROM asignacion_voluntario)",
                 new FsvRowMapper());
     }
+
+    public List<FranjaServicioVoluntario> getFsvFreeByVol(String nick) {
+        return jdbcTemplate.query("SELECT * FROM franja_voluntario WHERE id NOT IN (SELECT id_franja FROM asignacion_voluntario) and nick_voluntario = '"+nick+"'",
+                new FsvRowMapper());
+    }
+
+    public List<FranjaServicioVoluntario> getFsvOccupedByVol(String nick) {
+        return jdbcTemplate.query("SELECT * FROM franja_voluntario WHERE id IN (SELECT id_franja FROM asignacion_voluntario) and nick_voluntario = '"+nick+"'",
+                new FsvRowMapper());
+    }
 }

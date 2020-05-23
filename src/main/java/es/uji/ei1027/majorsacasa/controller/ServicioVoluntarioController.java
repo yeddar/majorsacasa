@@ -24,6 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/servVoluntario")
 public class ServicioVoluntarioController {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
     private VoluntarioDao voluntarioDao;
     private FsvDao franjaServicioVoluntarioDao;
@@ -130,6 +131,7 @@ public class ServicioVoluntarioController {
     @RequestMapping(value="/accept/{idFranja}/{nickDem}")
     public String acceptState(@PathVariable int idFranja, @PathVariable String nickDem){
         asignacionVoluntarioDao.setTypeStatus(idFranja, "ESPERA VOLUNTARIO");
+        log.info("SERVICIO DE CORREO: Se ha enviado un correo al voluntario "+franjaServicioVoluntarioDao.getFsv(idFranja).getNick()+" sobre una nueva asignación al demandante "+nickDem);
         return "redirect:/demandante/solicitudes/"+nickDem;
     }
 
@@ -150,8 +152,6 @@ public class ServicioVoluntarioController {
         System.out.print(asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick()).toString());
         return "voluntario/asignaciones/list";
     }
-
-
 
     @RequestMapping(value="/feed/{id_franja}", method = RequestMethod.GET)
     public String feedbackAsignacion(Model model, @PathVariable int id_franja){

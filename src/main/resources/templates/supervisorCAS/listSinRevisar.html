@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Voluntarios sin revisar</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1> Listado de voluntarios sin revisar </h1>
+    <table>
+        <thead>
+        <tr>
+            <th> nick</th>
+            <th> nombre</th>
+            <th> edad</th>
+
+
+            <th> tlf</th>
+            <th> correo</th>
+            <th> aficiones</th>
+
+            <th>status</th>
+            <th></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="voluntario: ${voluntarios}">
+            <td th:text="${voluntario.nick}"></td>
+            <td th:text="${voluntario.nombre}"></td>
+            <td th:text="${voluntario.edad}"></td>
+
+            <td th:text="${voluntario.tlf}"></td>
+            <td th:text="${voluntario.email}"></td>
+            <td th:text="${voluntario.aficiones}"></td>
+
+            <td th:text="${voluntario.status}"></td>
+
+            <td>
+                <button><a th:href="@{/voluntario/accept/{nick}(nick=${voluntario.nick})}">Aceptar</a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/voluntario/delete/{nick}(nick=${voluntario.nick})}"> Cancelar </a></button>
+            </td>
+            <td>
+                <button><a th:href="@{/voluntario/viewFranjas/{nick}(nick=${voluntario.nick})}">Ver detalles</a></button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

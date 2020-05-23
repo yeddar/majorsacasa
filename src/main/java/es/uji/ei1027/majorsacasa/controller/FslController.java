@@ -89,5 +89,20 @@ public class FslController {
         return "empresa/putFeedbackEmpresa";
     }
 
+    /*
+    List methods
+     */
+
+    @RequestMapping(value = "/viewFranjas/{nickDem}")
+    public String viewFranjas(@PathVariable String nickDem, Model model, HttpSession session){
+        // Coger todas las franjas del demandante
+        String nickEmp = (String) session.getAttribute("nick");
+        List<FranjaServicioLimpieza> franjas = fslDao.getFranjasByDemandanteAndEmpresa(nickDem, nickEmp);
+        // Metemos en el modelo
+        model.addAttribute("franjas", franjas);
+        // Devolvemos la vista
+        return "empresa/fsl/list";
+    }
+
 
 }

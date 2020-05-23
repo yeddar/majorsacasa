@@ -38,6 +38,7 @@
                     </div>
                     <div th:case="*">
                         <th> Horas semanales </th>
+                        <th></th>
                     </div>
                 </div>
 
@@ -68,6 +69,9 @@
                     </div>
 
                     <td><button><a th:href="@{/empresa/cancel/{nick}(nick=${asignaciones.nick_demandante})}"> Cancelar servicio </a></button>
+                    </td>
+                    <td th:if="${tipo_empresa == 'LIMPIEZA'}">
+                        <button><a th:href="@{/franja-limpieza/viewFranjas/{nickDem}(nickDem=${asignaciones.nick_demandante})}">Ver franjas</a></button>
                     </td>
                 </div>
             </tr>

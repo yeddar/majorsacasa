@@ -193,17 +193,61 @@ public class VoluntarioController {
     // Delete method
 
     @RequestMapping(value = "/delete/{nick}")
-    public String processDelete(@PathVariable String nick) {
+    public String processDelete(@PathVariable String nick, HttpSession session) {
         voluntarioDao.deleteVoluntario(nick);
-        return "redirect:../list";
+        // Comprobamos asignaciones
+        List<FranjaServicioVoluntario> franjas_ocupadas = fsvDao.getFsvOccupedByVol(nick);
+        // Borramos si existen
+        for(FranjaServicioVoluntario fsv : franjas_ocupadas)
+            asigVolDao.setTypeStatus(fsv.getId(), "CANCELADO");
+        return "redirect:"+session.getAttribute("lastURL");
     }
 
-    // View profile method
+    // Accept method
+
+    @RequestMapping(value = "/accept/{nick}")
+    public String processAccept(@PathVariable String nick, HttpSession session){
+        voluntarioDao.acceptVol(nick);
+        return "redirect:"+session.getAttribute("lastURL");
+    }
+
+    // View profile methods
 
     @RequestMapping(value = "/viewProfile/{nick}")
     public String viewProfile(@PathVariable String nick, Model model){
         Voluntario vol = voluntarioDao.getVoluntario(nick);
         model.addAttribute("voluntario", vol);
         return "voluntario/viewVoluntario";
+    }
+
+    @RequestMapping(value = "/viewFranjas/{nick}")
+    public String viewFranjas (@PathVariable String nick, Model model){
+        // recogemos las franjas del usuario (libres)
+        List<FranjaServicioVoluntario> franjas_libres = fsvDao.getFsvFreeByVol(nick);
+        //recogemos las franjas del usuario (asignadas)
+        List<FranjaServicioVoluntario> franjas_ocupadas = fsvDao.getFsvOccupedByVol(nick);
+        // añadimos al modelo
+        model.addAttribute("franjas_libres", franjas_libres);
+        model.addAttribute("franjas_ocupadas", franjas_ocupadas);
+        // mandamos a la vista
+        return "voluntario/fsv/listFranjasSupervisor";
+    }
+
+    // List supervisor methods
+
+    @RequestMapping(value = "/listAceptados")
+    public String viewAcepted(Model model, HttpSession session){
+        model.addAttribute("voluntarios", voluntarioDao.getAcceptedVol());
+        session.setAttribute("lastURL", "/voluntario/listAceptados");
+        return "supervisorCAS/listAceptados";
+    }
+
+    @RequestMapping(value = "/listSinRevisar")
+    public String viewSinRevisar(Model model, HttpSession session){
+        // recogemos los voluntarios con estado sin revisar
+        List<Voluntario> voluntarios = voluntarioDao.getVoluntarioSinRevisar();
+        model.addAttribute("voluntarios", voluntarios);
+        session.setAttribute("lastURL", "/voluntario/listSinRevisar");
+        return "supervisorCAS/listSinRevisar";
     }
 }

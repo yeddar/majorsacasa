@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Franjas de un servicio</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="container py-10 mt-2">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> id_franja</th>
+                    <th> nick_empresa</th>
+                    <th> nick_demandante </th>
+                    <th> dia_semana </th>
+                    <th> h_ini </th>
+                    <th> h_fin</th>
 
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="franja: ${franjas}">
+                    <td th:text="${franja.id_franja}"></td>
+                    <td th:text="${franja.nick_empresa}"></td>
+                    <td th:text="${franja.nick_demandante}"></td>
+                    <td th:text="${franja.diaSemana}"></td>
+                    <td th:text="${franja.hIni}"></td>
+                    <td th:text="${franja.hFin}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
 </body>
 </html>

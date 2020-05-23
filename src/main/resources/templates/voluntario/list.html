@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <title> Lista voluntarios </title>
     <meta charset="UTF-8"/>
@@ -8,6 +10,7 @@
 </head>
 
 <body>
+<div layout:fragment="content">
 <h1> Listado de voluntarios </h1>
 <table>
     <thead>
@@ -35,14 +38,9 @@
         <td th:text="${voluntario.email}"></td>
         <td th:text="${voluntario.aficiones}"></td>
         <td th:text="${voluntario.status}"></td>
-
-
-        <td><a th:href="@{/voluntario/update/{nick}(nick=${voluntario.nick})}"> Edita </a>
-        </td>
-        <td><a th:href="@{/voluntario/delete/{nick}(nick=${voluntario.nick})}"> Elimina </a>
-        </td>
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

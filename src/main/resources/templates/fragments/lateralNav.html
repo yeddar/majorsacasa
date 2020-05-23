@@ -34,8 +34,9 @@
         </div>
 
         <div th:if="*{user.rol.equals('SUPERVISOR_CAS')}">
-            <a href="#">Alta voluntario</a>
-            <a href="#">Listado de voluntarios TODOS</a>
+            <a href="/voluntario/listSinRevisar">Listado de voluntarios sin revisar</a>
+            <a href="/voluntario/listAceptados">Listado de voluntarios aceptados</a>
+            <a href="/voluntario/list">Listado de voluntarios en sistema</a>
         </div>
 
         <div th:if="*{user.rol.equals('DEMANDANTE')}">

@@ -2,6 +2,8 @@ package es.uji.ei1027.majorsacasa.controller;
 
 import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/servEmpresa")
 public class ServicioEmpresaController {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private UsuarioDao usuarioDao;
     private ServicioEmpresaDao servEmpDao;
     private ServicioCateringDao servCatDao;
@@ -264,7 +267,9 @@ public class ServicioEmpresaController {
     @RequestMapping(value = "/accept/{nickEmp}/{nickDem}")
     public String acceptState(@PathVariable String nickEmp, @PathVariable String nickDem){
         servEmpDao.setTypeStatus(nickEmp, nickDem, "ESPERA EMPRESA");
-        Demandante dem = demandanteDao.getDemandante(nickDem);
+        Empresa emp = empDao.getEmpresa(nickEmp);
+        //MENSAJE A LA EMPRESA
+        log.info("SERVICIO DE CORREO: Se envió un correo avisando sobre una nueva asignación a la empresa "+emp.getNombre()+" para el demandante "+nickDem+".");
         return "redirect:/demandante/solicitudes/"+nickDem;
     }
 
@@ -322,6 +327,7 @@ public class ServicioEmpresaController {
         Date d = dateFormat.parse(hora_servicio);
         servCatDao.setFeedback(nickEmp, nick, d);
         empDao.decreaseVacantes(empDao.getEmpresa(nickEmp));
+        log.info("SERVICIO DE CORREO: Se envió un correo avisando al demandante "+nick+" sobre que su solicitud de servicio de catering fue aceptada y respondida por la empresa asignada.");
         return "redirect:/empresa/listPendientes";
     }
 
@@ -337,6 +343,7 @@ public class ServicioEmpresaController {
         char franja_dia = franja.equals("manana") ? 'M':'T';
         servSanDao.setFeedback(nickEmp, nick, LocalDate.parse(dia_visita), franja_dia);
         empDao.decreaseVacantes(empDao.getEmpresa(nickEmp));
+        log.info("SERVICIO DE CORREO: Se envió un correo avisando al demandante "+nick+" sobre que su solicitud de servicio sanitario fue aceptada y respondida por la empresa asignada.");
         return "redirect:/empresa/listPendientes";
     }
 
@@ -361,6 +368,7 @@ public class ServicioEmpresaController {
 
         // ACTUALIZAMOS LAS VACANTES DE LA EMPRESA
         empDao.decreaseVacantes(empDao.getEmpresa(nickEmp));
+        log.info("SERVICIO DE CORREO: Se envió un correo avisando al demandante "+nick+" sobre que su solicitud de servicio de limpieza fue aceptada y respondida por la empresa asignada.");
         return "redirect:/empresa/listPendientes";
     }
 }

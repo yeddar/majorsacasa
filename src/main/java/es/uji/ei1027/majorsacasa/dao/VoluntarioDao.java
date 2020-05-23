@@ -27,7 +27,7 @@ public class VoluntarioDao {
     }
 
     public void deleteVoluntario(String nick) {
-        jdbcTemplate.update("DELETE FROM Voluntario WHERE nick=?", nick);
+        jdbcTemplate.update("UPDATE voluntario SET status = 'CANCELADO' WHERE nick=?", nick);
     }
 
     public void updateVoluntario(Voluntario v) {
@@ -49,5 +49,25 @@ public class VoluntarioDao {
         } catch (EmptyResultDataAccessException e) {
             return new ArrayList<Voluntario>();
         }
+    }
+
+    public List<Voluntario> getAcceptedVol() {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Voluntario where status = 'ACEPTADO'", new VoluntarioRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Voluntario>();
+        }
+    }
+
+    public List<Voluntario> getVoluntarioSinRevisar() {
+        try {
+            return jdbcTemplate.query("SELECT * FROM Voluntario where status = 'SIN REVISAR'", new VoluntarioRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return new ArrayList<Voluntario>();
+        }
+    }
+
+    public void acceptVol(String nick) {
+        jdbcTemplate.update("UPDATE voluntario SET status = 'ACEPTADO' WHERE nick=?", nick);
     }
 }

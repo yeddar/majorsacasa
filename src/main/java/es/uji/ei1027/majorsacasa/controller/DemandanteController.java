@@ -322,7 +322,7 @@ public class DemandanteController {
         Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
         int cantidad = (int) session.getAttribute("pagoTotal");
 
-        log.info("El usuario " + demandante.getNick() + " realizó el pago de " + cantidad + " euros correctamente");
+        log.info("SERVICIO DE PAGO: El usuario " + demandante.getNick() + " realizó el pago de " + cantidad + " euros correctamente.");
 
         // AÑADIMOS TODA LA INFORMACIÓN A LA BASE DE DATOS
         // DATOS DEL USUARIO
