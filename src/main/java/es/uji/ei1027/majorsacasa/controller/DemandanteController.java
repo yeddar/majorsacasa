@@ -268,12 +268,14 @@ public class DemandanteController {
                 servicioLimpiezaDao.getServicioLimpiezaByDemandante(nick_demandante);
 
 
+
         // Traer cada uno de los servicios empresa del sistema utilizando los dos nicks
         // y un único servEmpresa para cada subtipo especifico
 
         if (servicioCatering != null) {
             ServicioEmpresa servEmpresaEspCat = servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioCatering.getNick_empresa());
             model.addAttribute("servEmpresaEspCat", servEmpresaEspCat);
+            System.out.print(servEmpresaEspCat.toString());
         }
 
         if (servicioSanitario != null) {
@@ -285,8 +287,10 @@ public class DemandanteController {
         if (servicioLimpieza != null){
             ServicioEmpresa servEmpresaEspLimp =
                     servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioLimpieza.getNick_empresa());
-        model.addAttribute("servEmpresaEspLimp", servEmpresaEspLimp);
+            model.addAttribute("servEmpresaEspLimp", servEmpresaEspLimp);
         }
+
+        System.out.print(servicioCatering.toString());
 
         model.addAttribute("servicioCatering", servicioCatering);
         model.addAttribute("servicioSanitario", servicioSanitario);

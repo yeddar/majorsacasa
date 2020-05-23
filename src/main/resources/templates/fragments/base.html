@@ -15,11 +15,6 @@
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     />
-    <!-- app css
-    <link type="text/css" th:href="@{/css/natacio.css}" href="/css/natacio.css"
-          rel="stylesheet"/>
-    <title layout:title-pattern="$CONTENT_TITLE"> Club de natació </title>
-     -->
 </head>
 
 <body class="container">
@@ -51,20 +46,6 @@
     </div>
 </div>
 </th:block>
-
-
-<!--
-<th:block th:if="*{user != null}">
-    <th:block th:if="*{user.nick == null}">
-        <div class="row">
-            <div class="noRegisterBasicContainer">
-                <BR>
-                <div layout:fragment="content"></div>
-            </div>
-        </div>
-    </th:block>
-</th:block>
--->
 
 <th:block th:if="*{user == null}">
 <div class="row">

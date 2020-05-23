@@ -62,7 +62,7 @@ public class VoluntarioController {
     @RequestMapping(value = "/register")
     public String volunteerReg(Model model) {
         model.addAttribute("voluntario", new Voluntario());
-        return "voluntario/volunteer_register";
+        return "voluntario/add";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
