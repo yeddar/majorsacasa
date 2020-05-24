@@ -13,22 +13,17 @@
 
     <h1><b>DETALLES DEL SERVICIO</b></h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Necesidad</th>
-            <th>Día de visita</th>
-            <th>Franja de visita</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${servicioSanitario.necesidad}"></td>
-            <td th:text="${servicioSanitario.dia_visita}"></td>
-            <td th:text="${servicioSanitario.manana_tarde}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <br>
+    <b>Necesidad: </b>
+    <span th:text="${servicioSanitario.necesidad}"></span>
+    <br>
+
+    <b>Día de visita: </b>
+    <span th:text="${servicioSanitario.dia_visita}"></span>
+    <br>
+
+    <b>Franja de visita: </b>
+    <span th:text="${servicioSanitario.manana_tarde}"></span>
 
 <br><br>
 <span th:if="${status == 'SIN EVALUAR'}">

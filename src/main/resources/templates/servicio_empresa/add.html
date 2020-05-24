@@ -78,9 +78,9 @@
                                     <select th:field="${servCatering.tipo_comida}" class="form-control">
                                         <!-- sin valor:  <option value=""> -- </option> -->
                                         <option selected th:value="DIABETICO">Dieta para Diabetico</option>
-                                        <option selected th:value="BAJO_SAL">Bajo en sal</option>
-                                        <option th:value="BAJO_GRASA">Bajo en grasa</option>
-                                        <option th:value="NADA"> Sin restricciones</option>
+                                        <option selected th:value="BAJO_SAL">Dieta baja en sal</option>
+                                        <option th:value="BAJO_GRASA">Dieta baja en grasa</option>
+                                        <option th:value="NADA"> Dieta sin restricciones</option>
                                     </select>
 
                             <br>
@@ -123,6 +123,7 @@
                             <br>
                             </div>
 
+                            <br>
                             <b>(Si se requiere) Fecha finalización: </b>
                             <input type="date" th:name="fecha_limpieza">
 

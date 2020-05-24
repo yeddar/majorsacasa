@@ -21,9 +21,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th> Nick demandante</th>
-                <th> Fecha de inicio</th>
-                <th> Fecha de fin</th>
+                <th> Demandante</th>
+                <th> Fecha inicio</th>
+                <th> Fecha finalización</th>
 
                 <div th:switch="${tipo_empresa}">
                     <div th:case="'CATERING'">
@@ -54,14 +54,31 @@
 
                     <div th:switch="${tipo_empresa}">
                         <div th:case="'CATERING'">
-                            <td th:text="${asignacion[asignaciones.nick_demandante].tipo_comida}"></td>
+                            <div th:switch="${asignacion[asignaciones.nick_demandante].tipo_comida}">
+                                <div th:case="'NADA'">
+                                    <td>SIN RESTRICCIONES</td>
+                                </div>
+                                <div th:case="*">
+                                    <td th:text="${asignacion[asignaciones.nick_demandante].tipo_comida}"></td>
+                                </div>
+                            </div>
                             <td th:text="${asignacion[asignaciones.nick_demandante].dias_semana}"></td>
                             <td th:text="${asignacion[asignaciones.nick_demandante].hora_aprox}"></td>
                         </div>
                         <div th:case="'SANITARIA'">
                             <td th:text="${asignacion[asignaciones.nick_demandante].necesidad}"></td>
                             <td th:text="${asignacion[asignaciones.nick_demandante].dia_visita}"></td>
-                            <td th:text="${asignacion[asignaciones.nick_demandante].manana_tarde}"></td>
+                            <div th:switch="${asignacion[asignaciones.nick_demandante].manana_tarde}">
+                                <div th:case="'M'">
+                                    <td>Mañana</td>
+                                </div>
+                                <div th:case="T">
+                                    <td>Tarde</td>
+                                </div>
+                                <div th:case="*">
+                                    <td>ERROR</td>
+                                </div>
+                            </div>
                         </div>
                         <div th:case="*">
                             <td th:text="${asignacion[asignaciones.nick_demandante].horas}"></td>
