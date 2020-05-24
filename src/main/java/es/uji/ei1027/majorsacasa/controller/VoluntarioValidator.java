@@ -8,20 +8,16 @@ import org.springframework.validation.Validator;
 public class VoluntarioValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return Usuario.class.isAssignableFrom(aClass);
+        return Voluntario.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
 
-        // Checks user
-        Usuario usu = (Usuario) o;
-        String nick = usu.getNick();
-        String pass = usu.getPass();
-
-
         // Checks volunteer
         Voluntario vol = (Voluntario) o;
+        String nick = vol.getNick();
+        String pass = vol.getPass();
         String name = vol.getNombre();
         int edad = vol.getEdad();
         String tlf = vol.getTlf();
@@ -41,9 +37,6 @@ public class VoluntarioValidator implements Validator {
             errors.rejectValue("pass", "obligatorio", "Campo 'Teléfono' obligatorio");
         if (email.trim().equals(""))
             errors.rejectValue("pass", "obligatorio", "Campo 'Email' obligatorio");
-
-
-
 
     }
 }

@@ -159,7 +159,7 @@ public class VoluntarioController {
         validator.validate(voluntario, bindingResult);
 
         if (bindingResult.hasErrors())
-            return "voluntario/volunteer_register";
+            return "voluntario/add";
 
         session.setAttribute("vol", voluntario);
         return "redirect:/voluntario/fsv/schedule";
