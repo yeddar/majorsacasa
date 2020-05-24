@@ -75,7 +75,7 @@
                             <hr>
 
                             <b>Tipo de menu: </b>
-                                    <select th:field="*{servCatering.tipo_comida}" class="form-control">
+                                    <select th:field="${servCatering.tipo_comida}" class="form-control">
                                         <!-- sin valor:  <option value=""> -- </option> -->
                                         <option selected th:value="DIABETICO">Dieta para Diabetico</option>
                                         <option selected th:value="BAJO_SAL">Bajo en sal</option>
