@@ -69,6 +69,7 @@ public class EmpresaController {
         return "empresa/list";
     }
 
+    // Listado de asignaciones diferenciadas por tipo
     @RequestMapping("/listAsignaciones")
     public String listAsignaciones(Model model, HttpSession session){
         session.setAttribute("lastURL", "/empresa/listAsignaciones");
