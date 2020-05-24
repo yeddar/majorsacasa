@@ -8,6 +8,8 @@ import es.uji.ei1027.majorsacasa.model.*;
 import es.uji.ei1027.majorsacasa.model.AsignacionVoluntario;
 import es.uji.ei1027.majorsacasa.model.FranjaServicioVoluntario;
 import es.uji.ei1027.majorsacasa.model.Voluntario;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

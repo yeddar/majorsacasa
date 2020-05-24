@@ -15,9 +15,6 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th> id_franja</th>
-                    <th> nick_empresa</th>
-                    <th> nick_demandante </th>
                     <th> dia_semana </th>
                     <th> h_ini </th>
                     <th> h_fin</th>
@@ -26,9 +23,6 @@
                 </thead>
                 <tbody>
                 <tr th:each="franja: ${franjas}">
-                    <td th:text="${franja.id_franja}"></td>
-                    <td th:text="${franja.nick_empresa}"></td>
-                    <td th:text="${franja.nick_demandante}"></td>
                     <td th:text="${franja.diaSemana}"></td>
                     <td th:text="${franja.hIni}"></td>
                     <td th:text="${franja.hFin}"></td>

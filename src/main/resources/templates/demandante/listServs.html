@@ -11,70 +11,144 @@
 <body>
 <div layout:fragment="content">
 
-    <div> <h2> Servicio Cátering</h2> </div>
-        <div th:if="*{servicioCatering != null}">
 
+            <article>
+                <h2>Servicios de pago</h2>
+                <p> Se le muestran a continuación los servicios de pago que ha contratado desde majorsACasa.
+                    Primero se le muestra la información temporal y de estado del servicio. Su servicio puede estar
+                    <b>SIN EVALUAR</b>: significa que todavía ningún responsable del sistema a evaluado su petición.
+                    Puede estar <b>CANCELADA</b> que significará que se le ha denengado el servicio particular.
+                    <b>ESPERA_EMPRESA</b> que significa que para completarse el servicio ha de esperar a que la empresa
+                    dé la información que se requiere de ella para que se concrete el servicio.
+                    Si el estado en <b> ACTIVO </b> significa que el servicio está recibiendose
+                </p>
+                <p>
+                    En el segundo apartado tendrá el nombre de la empresa encargada y un teléfono de contacto por si
+                    le fuera necesario notificar alguna incidencia.
+                </p>
+                <p>
+                    Por último se le muestra la información específica de su servicio. Recuerde que esta información
+                    solo estará completa cuando la empresa dé respuesta a su servicio.
+                </p>
+
+            </article>
+    <br>
+
+    <h2> Servicio Cátering</h2>
+    <div th:if="${servicioCatering != null}">
             <div class="row">
+
+                <p th:text="'Servicio en estado: ' +
+                ${servEmpresaEspCat.serv_status}"> </p>
+
+                <th:block th:if="${servEmpresaEspCat.f_ini != NULL}">
+                    <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
+                        ${servEmpresaEspCat.f_ini}"> </p>
+                 </th:block>
+
+                <th:block th:if="${servEmpresaEspCat.f_fin != NULL}">
+                    <p th:text="'Indico como fecha de finalización el día: ' +
+                        ${servEmpresaEspCat.f_fin}"> </p>
+                 </th:block>
+
+                <p th:text="'Nombre de empresa: ' + ${empresaCat.nombre}
+                + ' - El teléfono de contacto es: ' +  ${empresaCat.tlf}"></p>
+
                 <div class="column_50">
-                    <p th:text="${servicioCatering.nick_empresa}"> </p>
+                    <p> Información de petición </p>
                     <p th:text="${servicioCatering.tipo_comida}"> </p>
                     <p th:text="${servicioCatering.dias_semana}"> </p>
                 </div>
            <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
                 <div class="column_50">
-                    <p th:text="*{servEmpresaEspCat.f_ini}"> </p>
-                    <p th:text="*{servEmpresaEspCat.f_fin}"> </p>
-                    <p th:text="*{servEmpresaEspCat.serv_status}"> </p>
+                    <p> Especificación de empresa </p>
                 </div>
             </div>
         </div>
 
-        <div th:if="*{servicioCatering == null}">
+        <div th:if="${servicioCatering == null}">
             <p> No se ha contratado servicio de catering </p>
         </div>
 
     <div> <h2> Servicio Sanitario</h2> </div>
-        <div th:if="*{servicioSanitario != null}">
+        <div th:if="${servicioSanitario != null}">
+            <p th:text="'Servicio en estado: ' +
+                ${servEmpresaEspSan.serv_status}"> </p>
 
-        <div class="row">
+            <th:block th:if="${servEmpresaEspSan.f_ini != NULL}">
+                <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
+                        ${servEmpresaEspSan.f_ini}"> </p>
+            </th:block>
+
+            <th:block th:if="${servEmpresaEspSan.f_fin != NULL}">
+                <p th:text="'Indico como fecha de finalización el día: ' +
+                        ${servEmpresaEspSan.f_fin}"> </p>
+            </th:block>
+
+            <p th:text="'Nombre de empresa: ' + ${empresaSan.nombre}
+                + ' - El teléfono de contacto es: ' +  ${empresaSan.tlf}"></p>
+
             <div class="column_50">
-                <p th:text="${servicioSanitario.nick_empresa}"> </p>
+                <p> Información de petición </p>
                 <p th:text="${servicioSanitario.necesidad}"> </p>
-                <p th:text="${servicioSanitario.dia_visita}"> </p>
-                <p th:text="${servicioSanitario.manana_tarde}"> </p>
+
             </div>
             <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
             <div class="column_50">
-                <p th:text="*{servEmpresaEspSan.f_ini}"> </p>
-                <p th:text="*{servEmpresaEspSan.f_fin}"> </p>
-                <p th:text="*{servEmpresaEspSan.serv_status}"> </p>
+                <p> Especificación de empresa </p>
+                <p th:text="${servicioSanitario.dia_visita}"> </p>
+                <p th:text="${servicioSanitario.manana_tarde}"> </p>
             </div>
-        </div>
     </div>
 
-        <div th:if="*{servicioSanitario == null}">
+        <div th:if="${servicioSanitario == null}">
         <p> No se ha contratado servicio sanitario </p>
     </div>
 
 
     <div> <h2> Servicio Limpieza</h2> </div>
-    <div th:if="*{servicioLimpieza != null}">
+    <div th:if="${servicioLimpieza != null}">
 
-        <div class="row">
-            <div class="column_50">
-                <p th:text="${servicioLimpieza.nick_empresa}"> </p>
-                <p th:text="${servicioLimpieza.horas}"> </p>
-            </div>
+        <p th:text="'Servicio en estado: ' +
+                ${servEmpresaEspLimp.serv_status}"> </p>
+
+        <th:block th:if="${servEmpresaEspLimp.f_ini != NULL}">
+            <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
+                        ${servEmpresaEspLimp.f_ini}"> </p>
+        </th:block>
+
+        <th:block th:if="${servEmpresaEspLimp.f_fin != NULL}">
+            <p th:text="'Indico como fecha de finalización el día: ' +
+                        ${servEmpresaEspLimp.f_fin}"> </p>
+        </th:block>
+
+        <p th:text="'Nombre de empresa: ' + ${empresaLim.nombre}
+                + ' - El teléfono de contacto es: ' +  ${empresaLim.tlf}"></p>
+
+        <p th:text=" 'Las horas que indicó fueron: ' + ${servicioLimpieza.horas}"> </p>
+
+        <p> Las franjas especificadas por la empresa son: </p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th> dia_semana </th>
+                <th> h_ini </th>
+                <th> h_fin</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="franja: ${franjasLimpieza}">
+                <td th:text="${franja.diaSemana}"></td>
+                <td th:text="${franja.hIni}"></td>
+                <td th:text="${franja.hFin}"></td>
+            </tr>
+            </tbody>
+        </table>
             <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
-            <div class="column_50">
-                <p th:text="*{servEmpresaEspLimp.f_ini}"> </p>
-                <p th:text="*{servEmpresaEspLimp.f_fin}"> </p>
-                <p th:text="*{servEmpresaEspLimp.serv_status}"> </p>
-            </div>
         </div>
-    </div>
 
-    <div th:if="*{servicioLimpieza == null}">
+    <div th:if="${servicioLimpieza == null}">
         <h5> No se ha contratado servicio de limpieza</h5>
     </div>
 
