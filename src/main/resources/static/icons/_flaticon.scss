@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 22/05/2020 19:40
+    Creation date: 24/05/2020 15:09
     */
 
     @font-face {
@@ -47,6 +47,13 @@
 .flaticon-man:before { content: "\f107"; }
 .flaticon-user:before { content: "\f108"; }
 .flaticon-free-tag-for-commerce:before { content: "\f109"; }
+.flaticon-phone-call:before { content: "\f10a"; }
+.flaticon-next:before { content: "\f10b"; }
+.flaticon-right-arrow-in-circular-button:before { content: "\f10c"; }
+.flaticon-arrow-pointing-to-right-in-a-circle:before { content: "\f10d"; }
+.flaticon-circle-with-an-arrow-pointing-to-left:before { content: "\f10e"; }
+.flaticon-information:before { content: "\f10f"; }
+.flaticon-info:before { content: "\f110"; }
     
     $font-Flaticon-can: "\f100";
     $font-Flaticon-interface: "\f101";
@@ -58,3 +65,10 @@
     $font-Flaticon-man: "\f107";
     $font-Flaticon-user: "\f108";
     $font-Flaticon-free-tag-for-commerce: "\f109";
+    $font-Flaticon-phone-call: "\f10a";
+    $font-Flaticon-next: "\f10b";
+    $font-Flaticon-right-arrow-in-circular-button: "\f10c";
+    $font-Flaticon-arrow-pointing-to-right-in-a-circle: "\f10d";
+    $font-Flaticon-circle-with-an-arrow-pointing-to-left: "\f10e";
+    $font-Flaticon-information: "\f10f";
+    $font-Flaticon-info: "\f110";
