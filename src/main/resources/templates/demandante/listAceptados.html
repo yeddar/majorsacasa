@@ -10,43 +10,41 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1> Listado de demandantes con solicitudes sin revisar </h1>
+    <h2> Listado de demandantes aceptados </h2>
+    <hr>
     <table>
         <thead>
         <tr>
-            <th> nick</th>
             <th> nombre</th>
             <th> edad</th>
-
-
             <th> tlf</th>
+
             <th> correo</th>
             <th> direccion</th>
-
             <th>cod_asist</th>
-            <th>status</th>
+
+            <th></th>
             <th></th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="demandante: ${demandantes}">
-            <td th:text="${demandante.nick}"></td>
             <td th:text="${demandante.nombre}"></td>
             <td th:text="${demandante.edad}"></td>
-
             <td th:text="${demandante.tlf}"></td>
+
             <td th:text="${demandante.email}"></td>
             <td th:text="${demandante.direccion}"></td>
-
             <td th:text="${demandante.cod_asist}"></td>
-            <td th:text="${demandante.status}"></td>
 
-            <td><button><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Cancelar </a></button>
-            </td>
             <td>
                 <button><a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a></button>
             </td>
+
+            <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}">
+                <i class="flaticon-can"></i>
+            </a></td>
         </tr>
         </tbody>
     </table>
