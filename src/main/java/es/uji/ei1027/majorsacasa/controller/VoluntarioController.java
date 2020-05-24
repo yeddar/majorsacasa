@@ -134,7 +134,6 @@ public class VoluntarioController {
     public String volRequest(HttpSession session) {
         Voluntario vol = (Voluntario) session.getAttribute("vol");
 
-
         // Obtener franjas de la sesión
         ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
         session.removeAttribute("franjas");
