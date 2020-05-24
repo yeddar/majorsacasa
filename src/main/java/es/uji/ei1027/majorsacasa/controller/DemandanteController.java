@@ -225,7 +225,7 @@ public class DemandanteController {
         dem.setCod_asist(cod);
         demandanteDao.updateDemandante(dem);
         demandanteDao.acceptDemandante(nick);
-        return "redirect:../listSinRevisar";
+        return "redirect:../solicitudes/"+nick;
     }
 
     /*
@@ -243,6 +243,11 @@ public class DemandanteController {
 
     @RequestMapping(value = "/solicitudes/{nick}")
     public String mostrarSolicitudes(@PathVariable String nick, Model model){
+        // Acepta demandante si es necesario
+        Demandante d =demandanteDao.getDemandante(nick);
+        if (d.getStatus().equals("SIN REVISAR"))
+            demandanteDao.acceptDemandante(nick);
+
         // Coger todas las solicitudes de pago
         List<ServicioEmpresa> serviciosEmpresa =
                 servEmpresaDao.getServiciosEmpresaDemandante(nick);

@@ -20,4 +20,5 @@ public class IndexController {
     public String allView() {
         return "root/rootIndex";
     }
+
 }
