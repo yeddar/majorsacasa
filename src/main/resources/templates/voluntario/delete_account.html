@@ -22,16 +22,16 @@
             <div class="col-md-10 mx-auto">
                 <!--/*@thymesVar id="voluntario" type=""*/-->
                 <form action="#" th:action="@{/voluntario/remove_user}"
-                      th:object="${voluntario}" method="post">
+                      th:object="${user}" method="post">
 
                     <div class="col-sm-8">
                         <label>Contraseña: </label>
-                        <input type="text"  class="form-control" th:field="*{pass}"/>
+                        <input type="password"  class="form-control" th:field="*{pass}"/>
+                        <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
                     </div>
 
 
                     <div class="container">
-                        <div class="error" th:if="${#fields.hasErrors('all')}" th:errors="*{all}"></div>
                         <div class="button">
                             <td colspan="2"><input type="submit" value="Continuar"/></td>
                         </div>

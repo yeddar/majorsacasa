@@ -28,6 +28,7 @@ public class VoluntarioController {
     private AsignacionVoluntarioDao asigVolDao;
     private DemandanteDao demandanteDao;
 
+
     @Autowired
     public void setVoluntarioDao(VoluntarioDao voluntarioDao) {
         this.voluntarioDao = voluntarioDao;
@@ -85,19 +86,32 @@ public class VoluntarioController {
 
         return "redirect:list";
     }
+    @RequestMapping(value = "/remove_user")
+    public String removeUser(Model model, HttpSession session){
+        model.addAttribute("user", new Usuario());
+        return "/voluntario/delete_account";
+    }
 
     @RequestMapping(value = "/remove_user", method = RequestMethod.POST)
-    public String processDeleteVolunteer(Model model, HttpSession session,
-                                        BindingResult bindingResult){
+    public String processDeleteVolunteer(HttpSession session,
+                                         @ModelAttribute Usuario user,
+                                         BindingResult bindingResult){
+        String nick = (String)session.getAttribute("nick");
+        user.setNick(nick);
 
+        if (bindingResult.hasErrors())
+            return "voluntario/delete_account";
 
-        // Comprobar que el login es correcto
-//        Usuario user = userDao.loadUserByNick(user.getNick(), user.getPass());
-//        if (user == null) {
-//            bindingResult.rejectValue("pass", "badpw", "Contraseña incorrecta");
-//            return "login";
-//        }
-        return "/index.html";
+        // Comprobar que la contraseña es correcta
+        user = usuarioDao.loadUserByNick(user.getNick(), user.getPass());
+        if (user == null) {
+            bindingResult.rejectValue("password", "incorrectpass", "Contraseña incorrecta");
+            return "voluntario/delete_account";
+        }
+
+        // Cambiar status a CANCELADO
+        // Cambiar serv_status a CANCELADO
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/vol_register", method = RequestMethod.POST)
