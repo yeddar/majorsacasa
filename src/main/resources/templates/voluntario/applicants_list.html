@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<table th:unless="${#lists.isEmpty(demandantes)}" class="table table-striped">
-    <h3>Demandantes asignados</h3>
+    <div layout:fragment="content">
+        <h2 style="text-align:center"> Demandantes asignados </h2>
+        <hr>
+        <table th:unless="${#lists.isEmpty(demandantes)}" class="table table-striped">
 
-    <tr>
-        <th> Nombre</th>
-        <th> Teléfono</th>
-        <th> E-mail </th>
-        <th> Dirección </th>
-    </tr>
+            <tr>
+                <th> Nombre</th>
+                <th> Teléfono</th>
+                <th> E-mail </th>
+                <th> Dirección </th>
+                <th></th>
+            </tr>
 
-    <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
-        <td th:text="${demandantes[index].nombre}"></td>
-        <td th:text="${demandantes[index].tlf}"></td>
-        <td th:text="${demandantes[index].email}"></td>
-        <td th:text="${demandantes[index].direccion}"></td>
-        <td> <a th:href="@{/voluntario/fsv/franjas_dem_list/{nick_dem}(nick_dem=${demandantes[index].nick})}">Ver franjas asignadas</a></td>
-    </tr>
+            <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
+                <td th:text="${demandantes[index].nombre}"></td>
+                <td th:text="${demandantes[index].tlf}"></td>
+                <td th:text="${demandantes[index].email}"></td>
+                <td th:text="${demandantes[index].direccion}"></td>
+                <td> <a th:href="@{/voluntario/fsv/franjas_dem_list/{nick_dem}(nick_dem=${demandantes[index].nick})}">Ver franjas asignadas</a></td>
+            </tr>
 
-</table>
+        </table>
+    </div>
 </body>
+
 </html>

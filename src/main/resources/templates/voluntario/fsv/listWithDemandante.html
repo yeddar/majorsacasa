@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
-    <h3>Franjas asignadas para </h3>
+<div layout:fragment="content">
+    <h2 style="text-align:center"> Franjas asignadas </h2>
+    <hr>
+    <table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
+        <tr>
+            <th> Día semana</th>
+            <th> Hora inicio</th>
+            <th> Hora fin </th>
+        </tr>
 
-    <tr>
-        <th> Día semana</th>
-        <th> Hora inicio</th>
-        <th> Hora fin </th>
-    </tr>
+        <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(franjas)-1)}">
+            <td th:text="${franjas[index].diaSemana}"></td>
+            <td th:text="${franjas[index].hIni}"></td>
+            <td th:text="${franjas[index].hFin}"></td>
 
-    <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(franjas)-1)}">
-        <td th:text="${franjas[index].diaSemana}"></td>
-        <td th:text="${franjas[index].hIni}"></td>
-        <td th:text="${franjas[index].hFin}"></td>
+        </tr>
 
-    </tr>
-
-</table>
+    </table>
+</div>
 </body>
 </html>

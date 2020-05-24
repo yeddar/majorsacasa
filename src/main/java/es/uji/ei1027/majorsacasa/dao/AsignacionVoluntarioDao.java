@@ -76,7 +76,7 @@ public class AsignacionVoluntarioDao {
     }
 
     // por la franja - relacion 1a1
-    public AsignacionVoluntario getByFranja(int id_franja){ // TODO ¿es necesario crear un nuevo objeto si no se encuentra?
+    public AsignacionVoluntario getByFranja(int id_franja){
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ?",
                     new AsignacionVoluntarioRowMapper(),
@@ -86,12 +86,32 @@ public class AsignacionVoluntarioDao {
         }
     }
 
-    public AsignacionVoluntario getByFranjaOrNull(int id_franja){ // TODO ¿es necesario crear un nuevo objeto si no se encuentra?
+    public AsignacionVoluntario getByFranjaOrNull(int id_franja){
         try {
             return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ?",
                     new AsignacionVoluntarioRowMapper(),
                     id_franja);
         } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public AsignacionVoluntario getAcceptedAssignament(int id_franja){
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ? and serv_status ='ACEPTADO'",
+                    new AsignacionVoluntarioRowMapper(),
+                    id_franja);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public AsignacionVoluntario getWaitingVolunteerAssignament(int id_franja){
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE id_franja = ? and serv_status ='ESPERA VOLUNTARIO'",
+                    new AsignacionVoluntarioRowMapper(),
+                    id_franja);
+        } catch (Exception ex) {
             return null;
         }
     }
