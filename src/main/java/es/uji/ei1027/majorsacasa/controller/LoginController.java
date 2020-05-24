@@ -50,6 +50,10 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "login";
         }
+
+        //Se ha introducido contraseña
+        if (user.getPass().trim().equals(""))
+            bindingResult.rejectValue("missingpass", "missingpw", "Campo obligatorio");
         // Comprobar que el login es correcto
         user = userDao.loadUserByNick(user.getNick(), user.getPass());
         if (user == null) {

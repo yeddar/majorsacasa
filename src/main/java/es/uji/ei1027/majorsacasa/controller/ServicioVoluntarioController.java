@@ -155,19 +155,21 @@ public class ServicioVoluntarioController {
         // Obtener listado demandantes asignados
         List<Demandante> demAsignados = new ArrayList<>();
 
+        List<FranjaServicioVoluntario> franjas = new ArrayList<>();
         List<String> nickDemNoRepe = new ArrayList<>();
         for (AsignacionVoluntario asig : asignaciones){
+            franjas.add(franjaServicioVoluntarioDao.getFsv(asig.getId_franja()));
             if (!(nickDemNoRepe.contains(asig.getNick_demandante())))
                 nickDemNoRepe.add(asig.getNick_demandante());
         }
         for (String nick_dem : nickDemNoRepe) {
             System.out.println(nick_dem);
             demAsignados.add(demandanteDao.getDemandante(nick_dem));
-
         }
+        model.addAttribute("franjas", franjas);
         model.addAttribute("demandantes", demAsignados);
         model.addAttribute("asignaciones", asignaciones);
-        System.out.print(asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick()).toString());
+
         return "voluntario/asignaciones/pending_applicants";
     }
 

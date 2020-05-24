@@ -99,18 +99,29 @@ public class VoluntarioController {
         String nick = (String)session.getAttribute("nick");
         user.setNick(nick);
 
+        LoginValidator loginValidator = new LoginValidator();
+        loginValidator.validate(user, bindingResult);
+
         if (bindingResult.hasErrors())
             return "voluntario/delete_account";
 
         // Comprobar que la contraseña es correcta
         user = usuarioDao.loadUserByNick(user.getNick(), user.getPass());
         if (user == null) {
-            bindingResult.rejectValue("password", "incorrectpass", "Contraseña incorrecta");
+            bindingResult.rejectValue("pass", "incorrectpass", "Contraseña incorrecta");
             return "voluntario/delete_account";
         }
 
         // Cambiar status a CANCELADO
-        // Cambiar serv_status a CANCELADO
+        voluntarioDao.deleteVoluntario(nick);
+        // Comprobamos asignaciones
+        List<FranjaServicioVoluntario> franjas_ocupadas = fsvDao.getFsvOccupedByVol(nick);
+        // Borramos si existen
+        for(FranjaServicioVoluntario fsv : franjas_ocupadas)
+            asigVolDao.setTypeStatus(fsv.getId(), "CANCELADO");
+
+        // Importante invalidar sesión
+        session.invalidate();
         return "redirect:/";
     }
 

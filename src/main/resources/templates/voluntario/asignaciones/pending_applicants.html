@@ -20,12 +20,12 @@
             <th></th>
         </tr>
 
-        <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(asignaciones)-1)}">
+        <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
             <td th:text="${demandantes[index].nombre}"></td>
-            <td th:text="${asignaciones[index].diaSemana}"></td>
-            <td th:text="${asignaciones[index].hIni}"></td>
-            <td th:text="${asignaciones[index].hFin}"></td>
-            <td><a th:href="@{/servVoluntario/feed/{id}(id=${asignacion.id_franja})}"> Aceptar solicitud de ayuda</a></td>
+            <td th:text="${franjas[index].diaSemana}"></td>
+            <td th:text="${franjas[index].hIni}"></td>
+            <td th:text="${franjas[index].hFin}"></td>
+            <td><a th:href="@{/servVoluntario/feed/{id}(id=${franjas[index].id})}"> Aceptar solicitud de ayuda</a></td>
         </tr>
 
     </table>
