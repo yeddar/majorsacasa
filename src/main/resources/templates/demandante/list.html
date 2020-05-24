@@ -14,24 +14,19 @@
     <table>
         <thead>
         <tr>
-            <th> nick</th>
-            <th> nombre</th>
-            <th> edad</th>
-
-
-            <th> tlf</th>
-            <th> correo</th>
-            <th> direccion</th>
-
-            <th>cod_asist</th>
-            <th>status</th>
+            <th> Nombre</th>
+            <th> Edad</th>
+            <th> Teléfono</th>
+            <th> Correo</th>
+            <th> Direccion</th>
+            <th> Asistente social</th>
+            <th> Estado</th>
             <!--<th></th>-->
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="demandante: ${demandantes}">
-            <td th:text="${demandante.nick}"></td>
             <td th:text="${demandante.nombre}"></td>
             <td th:text="${demandante.edad}"></td>
 

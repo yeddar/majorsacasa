@@ -9,10 +9,7 @@ import org.springframework.lang.UsesSunMisc;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
@@ -41,6 +38,7 @@ public class FslController {
 
     @RequestMapping(value ="/add/{nick}", method = RequestMethod.POST)
     public String addPOST(@PathVariable String nick,
+                          @RequestParam("rd_dia") String dia,
                           @ModelAttribute("franjaNueva") FranjaServicioLimpieza fsl, HttpSession session,
                           BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors())
@@ -49,6 +47,7 @@ public class FslController {
         // Metemos valores estaticos
         fsl.setNick_empresa((String) session.getAttribute("nick"));
         fsl.setNick_demandante(nick);
+        fsl.setDiaSemana(dia);
 
         // La metemos en la cache (session)
         HashMap<String, List<FranjaServicioLimpieza>> map_franjas = (HashMap<String, List<FranjaServicioLimpieza>>) session.getAttribute("franjas");

@@ -4,7 +4,7 @@
       layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Franjas del voluntario</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
@@ -14,20 +14,35 @@
     <table>
         <thead>
         <tr>
-            <th> id</th>
-            <th> nick_voluntario</th>
-            <th> dia_semana</th>
+            <th> Día de la semana</th>
 
-            <th> h_ini</th>
-            <th> h_fin</th>
+            <th> Hora inicio</th>
+            <th> Hora finalización</th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="franja_libre: ${franjas_libres}">
-            <td th:text="${franja_libre.id}"></td>
-            <td th:text="${franja_libre.nick}"></td>
-            <td th:text="${franja_libre.diaSemana}"></td>
+            <div th:switch="${franja_libre.diaSemana}">
+                <div th:case="'L'">
+                    <td>Lunes</td>
+                </div>
+                <div th:case="'M'">
+                    <td>Martes</td>
+                </div>
+                <div th:case="'X'">
+                    <td>Miércoles</td>
+                </div>
+                <div th:case="'J'">
+                    <td>Jueves</td>
+                </div>
+                <div th:case="'V'">
+                    <td>Viernes</td>
+                </div>
+                <div th:case="*">
+                    <td>ERROR</td>
+                </div>
+            </div>
 
             <td th:text="${franja_libre.hIni}"></td>
             <td th:text="${franja_libre.hFin}"></td>
@@ -41,20 +56,34 @@
     <table>
         <thead>
         <tr>
-            <th> id</th>
-            <th> nick_voluntario</th>
-            <th> dia_semana</th>
-
-            <th> h_ini</th>
-            <th> h_fin</th>
+            <th> Día de la semana</th>
+            <th> Hora inicio</th>
+            <th> Hora finalización</th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="franja_ocupada: ${franjas_ocupadas}">
-            <td th:text="${franja_ocupada.id}"></td>
-            <td th:text="${franja_ocupada.nick}"></td>
-            <td th:text="${franja_ocupada.diaSemana}"></td>
+            <div th:switch="${franja_ocupada.diaSemana}">
+                <div th:case="'L'">
+                    <td>Lunes</td>
+                </div>
+                <div th:case="'M'">
+                    <td>Martes</td>
+                </div>
+                <div th:case="'X'">
+                    <td>Miércoles</td>
+                </div>
+                <div th:case="'J'">
+                    <td>Jueves</td>
+                </div>
+                <div th:case="'V'">
+                    <td>Viernes</td>
+                </div>
+                <div th:case="*">
+                    <td>ERROR</td>
+                </div>
+            </div>
 
             <td th:text="${franja_ocupada.hIni}"></td>
             <td th:text="${franja_ocupada.hFin}"></td>

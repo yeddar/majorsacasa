@@ -15,15 +15,33 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th> dia_semana </th>
-                    <th> h_ini </th>
-                    <th> h_fin</th>
-
+                    <th> Dia de la semana </th>
+                    <th> Hora inicio </th>
+                    <th> Hora finalización</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="franja: ${franjas}">
-                    <td th:text="${franja.diaSemana}"></td>
+                    <div th:switch="${franja.diaSemana}">
+                        <div th:case="'L'">
+                            <td>Lunes</td>
+                        </div>
+                        <div th:case="'M'">
+                            <td>Martes</td>
+                        </div>
+                        <div th:case="'X'">
+                            <td>Miércoles</td>
+                        </div>
+                        <div th:case="'J'">
+                            <td>Jueves</td>
+                        </div>
+                        <div th:case="'V'">
+                            <td>Viernes</td>
+                        </div>
+                        <div th:case="*">
+                            <td>ERROR</td>
+                        </div>
+                    </div>
                     <td th:text="${franja.hIni}"></td>
                     <td th:text="${franja.hFin}"></td>
                 </tr>

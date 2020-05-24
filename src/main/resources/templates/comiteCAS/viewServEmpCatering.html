@@ -13,22 +13,33 @@
 
     <h1><b>DETALLES DEL SERVICIO</b></h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Tipo de comida</th>
-            <th>Días a la semana</th>
-            <th>Hora aproximada</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${servicioCatering.tipo_comida}"></td>
-            <td th:text="${servicioCatering.dias_semana}"></td>
-            <td th:text="${servicioCatering.hora_aprox}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <br>
+    <b>Tipo de comida: </b>
+    <span th:text="${servicioCatering.tipo_comida}"></span>
+    <br>
+
+    <b>Días a la semana: </b>
+    <ul>
+        <span th:if="${#strings.contains(servicioCatering.dias_semana,'L')}">
+            <li>Lunes</li>
+        </span>
+        <span th:if="${#strings.contains(servicioCatering.dias_semana,'M')}">
+            <li>Martes</li>
+        </span>
+        <span th:if="${#strings.contains(servicioCatering.dias_semana,'X')}">
+            <li>Miércoles</li>
+        </span>
+        <span th:if="${#strings.contains(servicioCatering.dias_semana,'J')}">
+            <li>Jueves</li>
+        </span>
+        <span th:if="${#strings.contains(servicioCatering.dias_semana,'V')}">
+            <li>Viernes</li>
+        </span>
+    </ul>
+
+    <b>Hora aproximada: </b>
+    <span th:text="${servicioCatering.hora_aprox}"></span>
+
 <br><br>
 <span th:if="${status == 'SIN EVALUAR'}">
 <button th:value="Aceptar"><a th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioCatering.nick_empresa}, nickDem=${servicioCatering.nick_demandante})}">Aceptar</a></button>

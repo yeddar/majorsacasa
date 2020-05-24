@@ -44,23 +44,47 @@
     <table>
         <thead>
         <tr>
-            <th>Id franja</th>
+            <th>Voluntario</th>
             <th>Demandante</th>
+
+            <th>Dia semana</th>
+            <th>Hora inicio</th>
+            <th>Hora finalización</th>
+
             <th>Fecha inicio</th>
             <th>Fecha finalización</th>
-            <th>Estado del servicio</th>
-            <th></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="servVoluntario: ${serviciosVoluntario}">
             <span th:if="${servVoluntario.serv_status != 'CANCELADO'}">
-                <td th:text="${servVoluntario.id_franja}"></td>
+                <td th:text="${info_franjas[servVoluntario.id_franja].nick}"></td>
                 <td th:text="${servVoluntario.nick_demandante}"></td>
+                <div th:switch="${info_franjas[servVoluntario.id_franja].diaSemana}">
+                    <div th:case="'L'">
+                        <td>Lunes</td>
+                    </div>
+                    <div th:case="'M'">
+                        <td>Martes</td>
+                    </div>
+                    <div th:case="'X'">
+                        <td>Miércoles</td>
+                    </div>
+                    <div th:case="'J'">
+                        <td>Jueves</td>
+                    </div>
+                    <div th:case="'V'">
+                        <td>Viernes</td>
+                    </div>
+                    <div th:case="*">
+                        <td>ERROR</td>
+                    </div>
+                </div>
+                <td th:text="${info_franjas[servVoluntario.id_franja].hIni}"></td>
+                <td th:text="${info_franjas[servVoluntario.id_franja].hFin}"></td>
                 <td th:text="${servVoluntario.f_ini}"></td>
                 <td th:text="${servVoluntario.f_fin}"></td>
-                <td th:text="${servVoluntario.serv_status}"></td>
                 <span th:if="${servVoluntario.serv_status == 'SIN EVALUAR'}">
                     <td><button><a th:href="@{/servVoluntario/accept/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}">Aceptar</a></button></td>
                 </span>
@@ -70,7 +94,7 @@
         </tbody>
     </table>
 
-
+    <br>
     <button> <a th:href="@{{lastURL}(lastURL=${session.lastURL})}"> Volver atrás </a></button>
 </div>
 </body>

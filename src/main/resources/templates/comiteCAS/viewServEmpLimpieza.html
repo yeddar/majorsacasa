@@ -13,18 +13,14 @@
 
     <h1><b>DETALLES DEL SERVICIO</b></h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Cantidad de horas</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td th:text="${servicioLimpieza.horas}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <br>
+    <b>Cantidad de horas semanales: </b>
+    <span th:text="${servicioLimpieza.horas}"></span>
+
+    <br>
+    <b>Franjas asignadas: </b>
+    <button><a th:href="@{/franja-limpieza/viewFranjas/{nickDem}(nickDem=${servicioLimpieza.nick_demandante})}">Ver franjas</a></button>
+
 <br><br>
 <span th:if="${status == 'SIN EVALUAR'}">
 <button th:value="Aceptar"><a th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioLimpieza.nick_empresa}, nickDem=${servicioLimpieza.nick_demandante})}">Aceptar</a></button>

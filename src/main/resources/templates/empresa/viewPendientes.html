@@ -15,9 +15,8 @@
     <table class="table">
         <thead>
         <tr>
-            <th> nombre demandante</th>
-            <th> edad</th>
-            <th> asistente social</th>
+            <th> Demandante</th>
+            <th> Asistente social</th>
 
             <div th:switch="${tipo_empresa}">
                 <div th:case="'CATERING'">
@@ -34,6 +33,7 @@
 
             <th> </th>
             <th> </th>
+            <th></th>
 
         </tr>
         </thead>
@@ -41,12 +41,18 @@
         <tr th:each="servEmpresa: ${serviciosEmpresa}">
             <div th:if="${servEmpresa.serv_status == 'ESPERA EMPRESA'}">
                 <td th:text="${servicios[servEmpresa.nick_demandante].nombre}"></td>
-                <td th:text="${servicios[servEmpresa.nick_demandante].edad}"></td>
                 <td th:text="${servicios[servEmpresa.nick_demandante].cod_asist}"></td>
 
                 <div th:switch="${tipo_empresa}">
                     <div th:case="'CATERING'">
-                        <td th:text="${servEspec[servEmpresa.nick_demandante].tipo_comida}"></td>
+                        <div th:switch="${servEspec[servEmpresa.nick_demandante].tipo_comida}">
+                            <div th:case="'NADA'">
+                                <td>SIN RESTRICCIONES</td>
+                            </div>
+                            <div th:case="*">
+                                <td th:text="${servEspec[servEmpresa.nick_demandante].tipo_comida}"></td>
+                            </div>
+                        </div>
                         <td th:text="${servEspec[servEmpresa.nick_demandante].dias_semana}"></td>
                     </div>
                     <div th:case="'SANITARIA'">
