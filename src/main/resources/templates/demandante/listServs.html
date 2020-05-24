@@ -34,10 +34,10 @@
             </article>
     <br>
 
-    <h2> Servicio Cátering</h2>
+    <div class="article_servs">
+    <h2> <u> Servicio Cátering </u> </h2>
     <div th:if="${servicioCatering != null}">
             <div class="row">
-
                 <p th:text="'Servicio en estado: ' +
                 ${servEmpresaEspCat.serv_status}"> </p>
 
@@ -55,22 +55,25 @@
                 + ' - El teléfono de contacto es: ' +  ${empresaCat.tlf}"></p>
 
                 <div class="column_50">
-                    <p> Información de petición </p>
+                    <p> <b> Información de petición </b> </p>
                     <p th:text="${servicioCatering.tipo_comida}"> </p>
                     <p th:text="${servicioCatering.dias_semana}"> </p>
                 </div>
            <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
                 <div class="column_50">
-                    <p> Especificación de empresa </p>
+                    <p> <b> Especificación de empresa </b> </p>
+                    <p th:text="${servicioCatering.hora_aprox}"> </p>
                 </div>
             </div>
         </div>
 
-        <div th:if="${servicioCatering == null}">
+    <div th:if="${servicioCatering == null}">
             <p> No se ha contratado servicio de catering </p>
         </div>
+    </div>
 
-    <div> <h2> Servicio Sanitario</h2> </div>
+    <div class="article_servs">
+     <h2> <u>Servicio Sanitario </u></h2>
         <div th:if="${servicioSanitario != null}">
             <p th:text="'Servicio en estado: ' +
                 ${servEmpresaEspSan.serv_status}"> </p>
@@ -89,24 +92,25 @@
                 + ' - El teléfono de contacto es: ' +  ${empresaSan.tlf}"></p>
 
             <div class="column_50">
-                <p> Información de petición </p>
+                <p> <b> Información de petición </b> </p>
                 <p th:text="${servicioSanitario.necesidad}"> </p>
 
             </div>
             <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
             <div class="column_50">
-                <p> Especificación de empresa </p>
+                <p> <b> Especificación de empresa </b> </p>
                 <p th:text="${servicioSanitario.dia_visita}"> </p>
                 <p th:text="${servicioSanitario.manana_tarde}"> </p>
             </div>
-    </div>
+        </div>
 
         <div th:if="${servicioSanitario == null}">
         <p> No se ha contratado servicio sanitario </p>
+        </div>
     </div>
 
-
-    <div> <h2> Servicio Limpieza</h2> </div>
+    <div class="article_servs">
+    <div> <u> <h2> Servicio Limpieza</h2> </u> </div>
     <div th:if="${servicioLimpieza != null}">
 
         <p th:text="'Servicio en estado: ' +
@@ -151,7 +155,7 @@
     <div th:if="${servicioLimpieza == null}">
         <h5> No se ha contratado servicio de limpieza</h5>
     </div>
-
+    </div>
     <hr>
 
     <div class="container py-10 mt-2">
