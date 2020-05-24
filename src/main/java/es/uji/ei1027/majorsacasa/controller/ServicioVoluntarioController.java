@@ -150,9 +150,25 @@ public class ServicioVoluntarioController {
     @RequestMapping(value="/asignaciones/list")
     public String listWithDemandantes(Model model, HttpSession session){
         Usuario user = (Usuario) session.getAttribute("user");
-        model.addAttribute("asignaciones", asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick()));
+
+        List<AsignacionVoluntario> asignaciones = asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick());
+        // Obtener listado demandantes asignados
+        List<Demandante> demAsignados = new ArrayList<>();
+
+        List<String> nickDemNoRepe = new ArrayList<>();
+        for (AsignacionVoluntario asig : asignaciones){
+            if (!(nickDemNoRepe.contains(asig.getNick_demandante())))
+                nickDemNoRepe.add(asig.getNick_demandante());
+        }
+        for (String nick_dem : nickDemNoRepe) {
+            System.out.println(nick_dem);
+            demAsignados.add(demandanteDao.getDemandante(nick_dem));
+
+        }
+        model.addAttribute("demandantes", demAsignados);
+        model.addAttribute("asignaciones", asignaciones);
         System.out.print(asignacionVoluntarioDao.getEsperaVoluntarioByVoluntario(user.getNick()).toString());
-        return "voluntario/asignaciones/list";
+        return "voluntario/asignaciones/pending_applicants";
     }
 
     @RequestMapping(value="/feed/{id_franja}", method = RequestMethod.GET)

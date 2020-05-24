@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h2 style="text-align:center"> Solicitudes pendientes </h2>
+    <hr>
+    <table th:unless="${#lists.isEmpty(asignaciones)}" class="table table-striped">
+
+        <tr>
+            <th> Nombre demandante</th>
+            <th>Día semana</th>
+            <th> Hora inicio</th>
+            <th> Hora fin </th>
+            <th></th>
+        </tr>
+
+        <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(asignaciones)-1)}">
+            <td th:text="${demandantes[index].nombre}"></td>
+            <td th:text="${asignaciones[index].diaSemana}"></td>
+            <td th:text="${asignaciones[index].hIni}"></td>
+            <td th:text="${asignaciones[index].hFin}"></td>
+            <td><a th:href="@{/servVoluntario/feed/{id}(id=${asignacion.id_franja})}"> Aceptar solicitud de ayuda</a></td>
+        </tr>
+
+    </table>
+</div>
+</body>
+
+</html>

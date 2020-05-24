@@ -86,6 +86,20 @@ public class VoluntarioController {
         return "redirect:list";
     }
 
+    @RequestMapping(value = "/remove_user", method = RequestMethod.POST)
+    public String processDeleteVolunteer(Model model, HttpSession session,
+                                        BindingResult bindingResult){
+
+
+        // Comprobar que el login es correcto
+//        Usuario user = userDao.loadUserByNick(user.getNick(), user.getPass());
+//        if (user == null) {
+//            bindingResult.rejectValue("pass", "badpw", "Contraseña incorrecta");
+//            return "login";
+//        }
+        return "/index.html";
+    }
+
     @RequestMapping(value = "/vol_register", method = RequestMethod.POST)
     public String processAddSubmit(Model model, HttpSession session,
                                    @ModelAttribute("voluntario") Voluntario voluntario,
@@ -133,7 +147,6 @@ public class VoluntarioController {
         return "redirect:/";
     }
 
-
     @RequestMapping(value = "/vol_applicants_list")
     public String volApplicantsList(HttpSession session, Model model) {
 
@@ -145,7 +158,7 @@ public class VoluntarioController {
         List<FranjaServicioVoluntario> franjas_asignadas = new ArrayList<>();
         List<AsignacionVoluntario> asignaciones = new ArrayList<>();
         for (FranjaServicioVoluntario fr : franjas) {
-            AsignacionVoluntario asig = asigVolDao.getByFranjaOrNull(fr.getId());
+            AsignacionVoluntario asig = asigVolDao.getAcceptedAssignament(fr.getId());
             if(asig != null) { // Franja asignada
                 franjas_asignadas.add(fr);
                 asignaciones.add(asig);
@@ -153,7 +166,6 @@ public class VoluntarioController {
         }
 
         // Obtener listado demandantes asignados
-
         List<Demandante> demAsignados = new ArrayList<>();
 
         List<String> nickDemNoRepe = new ArrayList<>();
