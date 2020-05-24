@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -31,6 +32,7 @@ public class DemandanteController {
     private VoluntarioDao voluntarioDao;
     private UsuarioDao usuarioDao;
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
+    private FsvDao fsvDao;
 
 
     private FslDao fslDao;
@@ -93,6 +95,11 @@ public class DemandanteController {
     @Autowired
     public void setServicioLimpiezaDao(ServicioLimpiezaDao servicioLimpiezaDao) {
         this.servicioLimpiezaDao = servicioLimpiezaDao;
+    }
+
+    @Autowired
+    public void setFsvDao(FsvDao fsvDao) {
+        this.fsvDao = fsvDao;
     }
 
 
@@ -255,8 +262,15 @@ public class DemandanteController {
         List<AsignacionVoluntario> serviciosVoluntario =
                 asignacionVoluntarioDao.getServiciosVoluntarioDemandante(nick);
 
+        // Cogemos los datos de la franja a mostrar
+        HashMap<Integer, FranjaServicioVoluntario> info_franjas = new HashMap<>();
+        for (AsignacionVoluntario asignacion : serviciosVoluntario)
+            info_franjas.put(asignacion.getId_franja(), fsvDao.getFsv(asignacion.getId_franja()));
+
+
         model.addAttribute("serviciosEmpresa", serviciosEmpresa);
         model.addAttribute("serviciosVoluntario", serviciosVoluntario);
+        model.addAttribute("info_franjas", info_franjas);
 
         return "comiteCAS/viewDemandante";
     }
