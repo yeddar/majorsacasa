@@ -3,8 +3,6 @@ package es.uji.ei1027.majorsacasa.controller;
 import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/voluntario")
@@ -71,7 +67,7 @@ public class VoluntarioController {
                                    BindingResult bindingResult) {
 
         // Checks
-        UserValidator validator = new UserValidator();
+        VoluntarioValidator validator = new VoluntarioValidator();
         validator.validate(voluntario, bindingResult);
 
         if (bindingResult.hasErrors())
@@ -86,6 +82,32 @@ public class VoluntarioController {
 
         return "redirect:list";
     }
+
+    @RequestMapping(value = "/vol_update", method = RequestMethod.GET)
+    public String volUpdate(Model model, HttpSession session) {
+        String nick = (String)session.getAttribute("nick");
+        model.addAttribute("voluntario", voluntarioDao.getVoluntario(nick));
+        return "/voluntario/update";
+    }
+
+    @RequestMapping(value = "/vol_update", method = RequestMethod.POST)
+    public String processVolUpdate(@ModelAttribute("voluntario") Voluntario voluntario,
+                                   BindingResult bindingResult) {
+        // Checks
+        VoluntarioValidator validator = new VoluntarioValidator();
+        validator.validate(voluntario, bindingResult);
+
+        if (bindingResult.hasErrors())
+            return "voluntario/update";
+
+
+        voluntario.setStatus("ACEPTADO");
+        System.out.print(voluntario.toString());
+        voluntarioDao.updateVoluntario(voluntario);
+        return "redirect:/";
+
+    }
+
     @RequestMapping(value = "/remove_user")
     public String removeUser(Model model, HttpSession session){
         model.addAttribute("user", new Usuario());
@@ -125,13 +147,15 @@ public class VoluntarioController {
         return "redirect:/";
     }
 
+    // Register Methods
+
     @RequestMapping(value = "/vol_register", method = RequestMethod.POST)
     public String processAddSubmit(Model model, HttpSession session,
                                    @ModelAttribute("voluntario") Voluntario voluntario,
                                    BindingResult bindingResult) {
 
         // Checks
-        UserValidator validator = new UserValidator();
+        VoluntarioValidator validator = new VoluntarioValidator();
         validator.validate(voluntario, bindingResult);
 
         if (bindingResult.hasErrors())
@@ -170,6 +194,7 @@ public class VoluntarioController {
         }
         return "redirect:/";
     }
+    //-----------------------//
 
     @RequestMapping(value = "/vol_applicants_list")
     public String volApplicantsList(HttpSession session, Model model) {

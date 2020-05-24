@@ -5,7 +5,7 @@ import es.uji.ei1027.majorsacasa.model.Voluntario;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class UserValidator implements Validator {
+public class VoluntarioValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
         return Usuario.class.isAssignableFrom(aClass);

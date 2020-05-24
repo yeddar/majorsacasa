@@ -1,65 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
 <head>
-    <title> Edita un voluntario </title>
+    <title> Mac - Registro de voluntario </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 </head>
 
-
 <body>
-<h2> Modificar voluntario </h2>
-<form action="#" th:action="@{/voluntario/update}"
-      th:object="${voluntario}" method="post">
-    <table>
-        <tr>
-            <td><label> Nick </label></td>
-            <td><input type="text" th:field="*{nick}"/></td>
-        </tr>
+<div layout:fragment="content">
 
-        <tr>
-            <td><label> Contraseña </label></td>
-            <td><input type="password" th:field="*{pass}"/></td>
-        </tr>
+    <h2 style="text-align:center"> Modificar datos </h2>
+    <hr>
 
-        <tr>
-            <td><label> Nombre </label></td>
-            <td><input type="text" th:field="*{nombre}"/></td>
-        </tr>
+    <div class="container py-20 mt-4">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <!--/*@thymesVar id="voluntario" type=""*/-->
+                <form action="#" th:action="@{/voluntario/vol_update}"
+                      th:object="${voluntario}" method="post">
 
-        <tr>
-            <td><label> Edad </label></td>
-            <td><input type="number" th:field="*{edad}"/></td>
-        </tr>
+                    <div class="form-group row">
 
-        <tr>
-            <td><label> tlf </label></td>
-            <td><input type="text" th:field="*{tlf}"/></td>
-        </tr>
-        <tr>
-            <td><label> Email</label></td>
-            <td><input type="text" th:field="*{email}"/></td>
-        </tr>
+                        <div class="col-sm-8">
+                            <label>Nombre y apellidos: </label>
+                            <input type="text"  class="form-control" th:field="*{nombre}" readonly/>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label>Edad: </label>
+                            <input type="number"  class="form-control" th:field="*{edad}" readonly/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label>Nick: </label>
+                            <input type="text"  class="form-control" th:field="*{nick}"/>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <label>Contraseña: </label>
+                            <input type="password"  class="form-control" th:field="*{pass}"/>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label>Teléfono: </label>
+                            <input type="text"  class="form-control" th:field="*{tlf}"/>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <label>Email: </label>
+                            <input type="text"  class="form-control" th:field="*{email}"/>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <label>Aficiones: </label>
+                            <textarea type="text"  class="form-control" th:field="*{aficiones}"/>
+                        </div>
+                    </div>
 
 
-        <tr>
-            <td><label> Aficiones </label></td>
-            <td><input type= "text" th:field= "*{aficiones}" /></td>
-        </tr>
-
-        <tr>
-            <td><label> Estado </label></td>
-            <td><input type= "text" th:field= "*{status}" /></td>
-        </tr>
-
-
-
-
-        <tr>
-            <td colspan="2"><input type="submit" value="Modifica voluntario"/></td>
-        </tr>
-    </table>
-</form>
+                    <div class="container">
+                        <div class="error" th:if="${#fields.hasErrors('all')}" th:errors="*{all}"></div>
+                        <div class="button">
+                            <td colspan="2"><input type="submit" value="Modificar"/></td>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>
