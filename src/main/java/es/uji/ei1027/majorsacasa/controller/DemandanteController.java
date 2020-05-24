@@ -20,24 +20,35 @@ import java.util.List;
 public class DemandanteController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private AsignacionVoluntarioDao asigVolDao;
-    private ServicioEmpresaDao servEmpDao;
-    private ServicioCateringDao servCatDao;
-    private ServicioSanitarioDao servSanDao;
-    private ServicioLimpiezaDao servLimDao;
+
+    private EmpresaDao empresaDao;
+    private ServicioEmpresaDao servEmpresaDao;
+    private ServicioCateringDao servicioCateringDao;
+    private ServicioSanitarioDao servicioSanitarioDao;
+    private ServicioLimpiezaDao servicioLimpiezaDao;
+
     private DemandanteDao demandanteDao;
+    private VoluntarioDao voluntarioDao;
     private UsuarioDao usuarioDao;
     private AsignacionVoluntarioDao asignacionVoluntarioDao;
+
+
+    private FslDao fslDao;
 
     @Autowired
     public void setAsigVolDao(AsignacionVoluntarioDao asigVolDao) {
         this.asigVolDao = asigVolDao;
     }
 
-    private ServicioEmpresaDao servEmpresaDao;
-    private ServicioCateringDao servicioCateringDao;
-    private ServicioSanitarioDao servicioSanitarioDao;
-    private ServicioLimpiezaDao servicioLimpiezaDao;
+    @Autowired
+    public void setFslDao(FslDao fslDao) {
+        this.fslDao = fslDao;
+    }
 
+    @Autowired
+    public void setEmpresaDao(EmpresaDao empresaDao){
+        this.empresaDao = empresaDao;
+    }
 
     @Autowired
     public void setDemandanteDao(DemandanteDao demandanteDao) {
@@ -46,7 +57,12 @@ public class DemandanteController {
 
     @Autowired
     public void setServicioEmpresaDao(ServicioEmpresaDao servEmpDao) {
-        this.servEmpDao = servEmpDao;
+        this.servEmpresaDao = servEmpDao;
+    }
+
+    @Autowired
+    public void setVoluntarioDao(VoluntarioDao voluntarioDao) {
+        this.voluntarioDao = voluntarioDao;
     }
 
     @Autowired
@@ -242,21 +258,13 @@ public class DemandanteController {
 
     @RequestMapping(value = "/solicitudes")
     public String mostrarSolicitudes(Model model, HttpSession session) {
-
         String nick_demandante = (String) session.getAttribute("nick");
-
-        /* Coger todas las solicitudes de pago
-        List<ServicioEmpresa> serviciosEmpresa =
-                servEmpresaDao.getServiciosEmpresaDemandante(nick_demandante);
-
-         */
-        // Coger todas las solicitudes de voluntario
-
 
         List<AsignacionVoluntario> serviciosVoluntario =
                 asignacionVoluntarioDao.getByDemandante(nick_demandante);
 
-        //model.addAttribute("serviciosEmpresa", serviciosEmpresa);
+        model.addAttribute("serviciosVoluntario", serviciosVoluntario);
+
 
         ServicioCatering servicioCatering =
                 servicioCateringDao.getServicioCateringByDemandante(nick_demandante);
@@ -273,31 +281,44 @@ public class DemandanteController {
         // y un único servEmpresa para cada subtipo especifico
 
         if (servicioCatering != null) {
-            ServicioEmpresa servEmpresaEspCat = servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioCatering.getNick_empresa());
+            ServicioEmpresa servEmpresaEspCat =
+                    servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioCatering.getNick_empresa());
+            Empresa empresaCat = empresaDao.getEmpresa(servicioCatering.getNick_empresa());
+
+            model.addAttribute("empresaCat", empresaCat);
             model.addAttribute("servEmpresaEspCat", servEmpresaEspCat);
-            System.out.print(servEmpresaEspCat.toString());
         }
 
         if (servicioSanitario != null) {
             ServicioEmpresa servEmpresaEspSan =
                     servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioSanitario.getNick_empresa());
+            Empresa empresaSan = empresaDao.getEmpresa(servicioSanitario.getNick_empresa());
+
+            model.addAttribute("empresaSan", empresaSan);
             model.addAttribute("servEmpresaEspSan", servEmpresaEspSan);
         }
 
         if (servicioLimpieza != null){
             ServicioEmpresa servEmpresaEspLimp =
                     servEmpresaDao.getServicioEmpresaStatus(nick_demandante, servicioLimpieza.getNick_empresa());
+            Empresa empresaLim = empresaDao.getEmpresa(servicioLimpieza.getNick_empresa());
+
+            // Anadir las franjas de limpieza
+            List<FranjaServicioLimpieza> franjasLimpieza =
+                    fslDao.getFranjasByDemandanteAndEmpresa(nick_demandante, servicioLimpieza.getNick_empresa());
+            // Metemos en el modelo
+            model.addAttribute("franjasLimpieza", franjasLimpieza);
+
+            model.addAttribute("empresaLim", empresaLim);
             model.addAttribute("servEmpresaEspLimp", servEmpresaEspLimp);
         }
-
-        System.out.print(servicioCatering.toString());
 
         model.addAttribute("servicioCatering", servicioCatering);
         model.addAttribute("servicioSanitario", servicioSanitario);
         model.addAttribute("servicioLimpieza", servicioLimpieza);
 
 
-        model.addAttribute("serviciosVoluntario", serviciosVoluntario);
+
         return "demandante/listServs";
     }
 
@@ -340,24 +361,24 @@ public class DemandanteController {
         ServicioEmpresa servEmpCat = session.getAttribute("servEmpCat") == null ? null : (ServicioEmpresa) session.getAttribute("servEmpCat");
         ServicioCatering servCat = session.getAttribute("servCat") == null ? null : (ServicioCatering) session.getAttribute("servCat");
         if (servEmpCat != null && servCat != null) {
-            servEmpDao.addServicioEmpresa(servEmpCat);
-            servCatDao.addServicioCatering(servCat);
+            servEmpresaDao.addServicioEmpresa(servEmpCat);
+            servicioCateringDao.addServicioCatering(servCat);
         }
 
         // DATOS DE SANITARIO
         ServicioEmpresa servEmpSan = session.getAttribute("servEmpSan") == null ? null: (ServicioEmpresa) session.getAttribute("servEmpSan");
         ServicioSanitario servSan = session.getAttribute("servSan") == null ? null: (ServicioSanitario) session.getAttribute("servSan");
         if(servEmpSan != null && servSan != null){
-            servEmpDao.addServicioEmpresa(servEmpSan);
-            servSanDao.addServicioSanitario(servSan);
+            servEmpresaDao.addServicioEmpresa(servEmpSan);
+            servicioSanitarioDao.addServicioSanitario(servSan);
         }
 
         // DATOS DE LIMPIEZA
         ServicioEmpresa servEmpLim = session.getAttribute("servEmpLim") == null ? null: (ServicioEmpresa) session.getAttribute("servEmpLim");
         ServicioLimpieza servLim = session.getAttribute("servLim") == null ? null: (ServicioLimpieza) session.getAttribute("servLim");
         if(servEmpLim != null && servLim != null){
-            servEmpDao.addServicioEmpresa(servEmpLim);
-            servLimDao.addServicioLimpieza(servLim);
+            servEmpresaDao.addServicioEmpresa(servEmpLim);
+            servicioLimpiezaDao.addServicioLimpieza(servLim);
         }
 
         session.invalidate();
