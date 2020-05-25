@@ -1,6 +1,7 @@
 package es.uji.ei1027.majorsacasa.dao;
 
 import es.uji.ei1027.majorsacasa.model.AsignacionVoluntario;
+import es.uji.ei1027.majorsacasa.model.Voluntario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -42,24 +43,7 @@ public class AsignacionVoluntarioDao {
         }
     }
 
-    /*
-    AsignacionVoluntario getAsignacionVoluntarioPorVoluntario(Voluntario v){
-        try {
-            return jdbcTemplate.queryForObject("SELECT * FROM asignacion_voluntario WHERE nick=?",
-                    new DemandanteRowMapper(),
-                    nickDemandante);
-        }
-        catch (EmptyResultDataAccessException e) {
-            return null ;
-        }
-    }
 
-    void updateAsignacionVoluntario(AsignacionVoluntario asignacionVoluntario){
-        jdbcTemplate .update( "UPDATE asignacion_voluntario SET precio=?" +
-                        " WHERE nick=? AND id=?",
-                asignacionEmpresa.getPrecio(), asignacionEmpresa.getNick(), asignacionEmpresa.getId());
-    }
-     */
 
    /*
         GETTERS ESPECIALES
@@ -173,6 +157,22 @@ public class AsignacionVoluntarioDao {
         jdbcTemplate.update("UPDATE asignacion_voluntario SET serv_status=?" +
                         "WHERE id_franja=?",
                 status, idFranja);
+    }
+
+
+    // Obtener voluntario desde asignacion
+
+    public Voluntario getVoluntarioByIdFranja(int id_franja) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT v.nick, v.nombre, v.edad, v.tlf, v.email, v.aficiones, v.status  " +
+                            "FROM asignacion_voluntario JOIN franja_voluntario ON asignacion_voluntario.id_franja = franja_voluntario.id " +
+                            "        JOIN voluntario v ON franja_voluntario.nick_voluntario = v.nick" +
+                            "WHERE id_franja=?",
+                    new VoluntarioRowMapper(),
+                    id_franja);
+        } catch (Exception e) {
+            return new Voluntario();
+        }
     }
 
 }

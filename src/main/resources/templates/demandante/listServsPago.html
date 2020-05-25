@@ -75,6 +75,7 @@
     <div class="article_servs">
      <h2> <u>Servicio Sanitario </u></h2>
         <div th:if="${servicioSanitario != null}">
+            <div class="row">
             <p th:text="'Servicio en estado: ' +
                 ${servEmpresaEspSan.serv_status}"> </p>
 
@@ -94,7 +95,6 @@
             <div class="column_50">
                 <p> <b> Información de petición </b> </p>
                 <p th:text="${servicioSanitario.necesidad}"> </p>
-
             </div>
             <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
             <div class="column_50">
@@ -102,10 +102,11 @@
                 <p th:text="${servicioSanitario.dia_visita}"> </p>
                 <p th:text="${servicioSanitario.manana_tarde}"> </p>
             </div>
+            </div>
         </div>
 
         <div th:if="${servicioSanitario == null}">
-        <p> No se ha contratado servicio sanitario </p>
+            <p> No se ha contratado servicio sanitario </p>
         </div>
     </div>
 
@@ -154,32 +155,6 @@
 
     <div th:if="${servicioLimpieza == null}">
         <h5> No se ha contratado servicio de limpieza</h5>
-    </div>
-    </div>
-    <hr>
-
-    <div class="container py-10 mt-2">
-        <h2 style="text-align:center"> Listado de servicios de voluntario </h2>
-    <div class="table-responsive">
-    <table class="table">
-        <thead>
-        <tr>
-            <th> Fecha de inicio </th>
-            <th> Fecha de fin </th>
-            <th> Estado de petición </th>
-            <th> Feedback </th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="servicioVoluntario: ${serviciosVoluntario}">
-            <td th:text="${servicioVoluntario.f_ini}"></td>
-            <td th:text="${servicioVoluntario.f_fin}"></td>
-            <td th:text="${servicioVoluntario.serv_status}"></td>
-            <td th:text="${servicioVoluntario.feedback_voluntario}"></td>
-        </tr>
-        </tbody>
-    </table>
     </div>
     </div>
 

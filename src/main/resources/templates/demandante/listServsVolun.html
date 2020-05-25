@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/base}">
+<head>
+    <title> MaC - Listado servicios </title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+<div class="container py-10 mt-2">
+    <h2 style="text-align:center"> Listado de servicios de voluntario </h2>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th> Fecha de inicio </th>
+                <th> Fecha de fin </th>
+                <th> Estado de petición </th>
+
+                <th> Nombre de voluntario</th>
+                <th> Feedback </th>
+                <th> Info </th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="servicioVoluntario: ${serviciosVoluntario}">
+                <td th:text="${servicioVoluntario.f_ini}"></td>
+                <td th:text="${servicioVoluntario.f_fin}"></td>
+                <td th:text="${servicioVoluntario.serv_status}"></td>
+
+                <td th:text="${mapVoluntarios[servicioVoluntario.id_franja].nombre}"></td>
+                <td th:text="${servicioVoluntario.feedback_voluntario}"></td>
+                <td>
+                    <a th:href="@{/voluntario/viewProfile/{nick}(nick=${mapVoluntarios[servicioVoluntario.id_franja].nick})}">más info</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>
