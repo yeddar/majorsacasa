@@ -49,7 +49,23 @@
             </table>
         </div>
     </div>
+
+
+    <th:block th:if="*{user.rol.equals('EMPRESA')}">
+        <a th:href="@{/empresa/listAsignaciones}" >
+            <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
+        </a>
+
+    </th:block>
+
+    <th:block th:if="*{user.rol.equals('COMITE_CAS')}">
+        <a th:href="@{/servEmpresa/view/{nicke}/{nickd}(nickd=${nickDem}, nicke=${nickEmp})}" >
+            <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
+        </a>
+    </th:block>
+
 </div>
+
 
 </div>
 </body>

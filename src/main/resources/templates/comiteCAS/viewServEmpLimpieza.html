@@ -19,13 +19,17 @@
 
     <br>
     <b>Franjas asignadas: </b>
-    <button><a th:href="@{/franja-limpieza/viewFranjas/{nickDem}(nickDem=${servicioLimpieza.nick_demandante})}">Ver franjas</a></button>
-
+    <button><a th:href="@{/franja-limpieza/viewFranjas/{nicke}/{nickd}(nicke=${nickEmp}, nickd=${nickDem})}">Ver franjas</a></button>
 <br><br>
 <span th:if="${status == 'SIN EVALUAR'}">
 <button th:value="Aceptar"><a th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioLimpieza.nick_empresa}, nickDem=${servicioLimpieza.nick_demandante})}">Aceptar</a></button>
 </span>
 <button th:value="Rechazar"><a th:href="@{/servEmpresa/cancel/{nickEmp}/{nickDem}(nickEmp=${servicioLimpieza.nick_empresa}, nickDem=${servicioLimpieza.nick_demandante})}">Cancelar</a></button>
+
+    <a th:href="@{/demandante/solicitudes/{nick}(nick=${nick})}" >
+        <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
+    </a>
+
 </div>
 </body>
 </html>

@@ -313,6 +313,8 @@ public class ServicioEmpresaController {
         String tipo = empDao.getEmpresa(nickEmp).getTipo_empresa();
         ServicioEmpresa servEmp = servEmpDao.getServicioEmpresaStatus(nickDem, nickEmp);
         model.addAttribute("status", servEmp.getServ_status());
+        model.addAttribute("nick", nickDem);
+
 
         if(tipo.equals("CATERING")){
             ServicioCatering servCat = servCatDao.getServicioCatering(nickEmp, nickDem);
@@ -327,6 +329,8 @@ public class ServicioEmpresaController {
         }else{
             ServicioLimpieza servLimp = servLimDao.getServicioLimpieza(nickEmp, nickDem);
             model.addAttribute("servicioLimpieza", servLimp);
+            model.addAttribute("nickEmp", nickEmp);
+            model.addAttribute("nickDem", nickDem);
             return "comiteCAS/viewServEmpLimpieza";
         }
     }
