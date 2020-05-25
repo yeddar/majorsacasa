@@ -1,7 +1,10 @@
 package es.uji.ei1027.majorsacasa.controller;
 
+import es.uji.ei1027.majorsacasa.aux.RandomString;
 import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +15,13 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 @Controller
 @RequestMapping("/empresa")
 public class EmpresaController {
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private EmpresaDao empresaDao;
     private UsuarioDao usuarioDao;
     private DemandanteDao demandanteDao;
@@ -155,14 +160,22 @@ public class EmpresaController {
         if (bindingResult.hasErrors())
             return "empresa/add";
 
+        // Generacion de contrasena random
+        RandomString session = new RandomString(8, ThreadLocalRandom.current());
+        String passGenerated = session.nextString();
+
+        // Creacion de usuario
         Usuario user = new Usuario();
         user.setNick(empresa.getNick());
-        user.setPass("123");
+        user.setPass(passGenerated);
         user.setRol(ROL_USUARIO.EMPRESA);
 
-        usuarioDao.addUsuario(user);
-        System.out.print(empresa.toString());
+        // Simulacion de correo
+        log.info("Correo enviado a " + empresa.getEmail() + " con usuario: "+ empresa.getNick() +
+                " y contraseña: " + passGenerated);
 
+        // Anadimos la empresa en la base de datos
+        usuarioDao.addUsuario(user);
         empresaDao.addEmpresa(empresa);
 
         return "redirect:/";

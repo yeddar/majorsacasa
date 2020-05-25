@@ -45,14 +45,17 @@ label{
 
 input[type=submit]{
     border: 2px solid green;
-
     padding: 5px 20px;
     text-decoration: none;
+
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 100em;
+
     background: #1abd9a;
     transition: 0.3s;
+    width: 150px;
+    height: 45px;
 }
 
 input[type=submit]{
@@ -254,6 +257,15 @@ tfoot{
     display:table-footer-group
 }
 
+/* Tabla mediana */
+
+.table-mid {
+    width: 50%;
+    margin-left: 25%;
+
+}
+
+
 /*
  * Iconos
  */
@@ -268,6 +280,13 @@ tfoot{
 
 .flaticon-broom{
     color:saddlebrown;
+}
+
+.flaticon-circle-with-an-arrow-pointing-to-left::before {
+    float: left;
+    content: "\f10e";
+    font-size:120px !important;
+    margin-left: 30px !important;
 }
 
 

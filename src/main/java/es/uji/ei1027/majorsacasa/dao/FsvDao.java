@@ -87,4 +87,6 @@ public class FsvDao {
         return jdbcTemplate.query("SELECT * FROM franja_voluntario WHERE id IN (SELECT id_franja FROM asignacion_voluntario) and nick_voluntario = '"+nick+"'",
                 new FsvRowMapper());
     }
+
+
 }

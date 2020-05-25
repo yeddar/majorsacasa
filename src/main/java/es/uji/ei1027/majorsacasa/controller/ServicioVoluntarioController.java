@@ -71,7 +71,7 @@ public class ServicioVoluntarioController {
     }
 
     @RequestMapping(value = "/add")
-    public String addServicioVoluntario(Model model) {
+    public String addServicioVoluntario(Model model, HttpSession session) {
         List<FranjaServicioVoluntario> franjas = franjaServicioVoluntarioDao.getFsvFree();
         model.addAttribute("franjas", franjas);
 
@@ -83,6 +83,7 @@ public class ServicioVoluntarioController {
         }
         model.addAttribute("aficiones", aficiones);
 
+        session.setAttribute("lastURL", "/servVoluntario/add");
         return "servicio_voluntario/add";
     }
 
