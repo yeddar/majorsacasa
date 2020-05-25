@@ -244,6 +244,7 @@ public class DemandanteController {
     public String verPerfil (@PathVariable String nick, Model model){
         Demandante dem = demandanteDao.getDemandante(nick);
         model.addAttribute("demandante", dem);
+
         return "demandante/viewProfile";
     }
 

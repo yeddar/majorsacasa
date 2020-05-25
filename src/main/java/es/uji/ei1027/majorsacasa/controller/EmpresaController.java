@@ -113,7 +113,6 @@ public class EmpresaController {
 
     @RequestMapping(value = "/listPendientes")
     public String listPendientes(Model model, HttpSession session){
-        session.setAttribute("lastURL", "/empresa/listPendientes");
         String nick_empresa = (String) session.getAttribute("nick");
         // Coger de la base de datos todas las asignaciones a la empresa que esten en estado ESPERA EMPRESA (
         List<ServicioEmpresa> servEmpresa = servEmpresaDao.getServiciosEmpresaByNickEmpresa(nick_empresa);
@@ -142,6 +141,7 @@ public class EmpresaController {
         }
         model.addAttribute("servicios", servicios);
         model.addAttribute("servEspec", serv_espec);
+        session.setAttribute("lastURL", "/empresa/listPendientes");
 
         return "empresa/viewPendientes";
     }
