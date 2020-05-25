@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
@@ -15,6 +17,54 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+
+class ServicioCateringValidator implements Validator{
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return ServicioCatering.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+        ServicioCatering servicioCatering = (ServicioCatering) o;
+
+        if(servicioCatering.getDias_semana().equals("-----"))
+            errors.rejectValue("dias_catering", "obligatorio","No introdujo días para el servicio de catering.");
+    }
+}
+
+class ServicioSanitarioValidator implements Validator{
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return ServicioSanitario.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+        ServicioSanitario servicioSanitario = (ServicioSanitario) o;
+
+        if(servicioSanitario.getNecesidad().trim().equals(""))
+            errors.rejectValue("necesidad", "obligatorio", "No introdujo una breve descripción.");
+    }
+}
+
+class ServicioLimpiezaValidator implements Validator{
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return ServicioLimpieza.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+        ServicioLimpieza servicioLimpieza = (ServicioLimpieza) o;
+
+        if(servicioLimpieza.getHoras() <= 0)
+            errors.rejectValue("horas", "obligatorio", "No introdujo las horas semanales o fueron incorrectas");
+    }
+}
 
 @Controller
 @RequestMapping("/servEmpresa")
@@ -93,8 +143,10 @@ public class ServicioEmpresaController {
     }
 
     private String constructor_cadena(String[] dias_semana){
-        List dias_lista = new ArrayList<>();
-        dias_lista = Arrays.asList(dias_semana);
+        if(dias_semana == null)
+            return "-----";
+
+        List dias_lista = Arrays.asList(dias_semana);
         String dias = "";
 
         if(dias_lista.contains("Lunes"))
@@ -131,8 +183,6 @@ public class ServicioEmpresaController {
                                    @RequestParam(value = "fecha_sanitario", required = false) String fecha_sanitario,
                                    @RequestParam(value = "fecha_limpieza", required = false) String fecha_limpieza,
                                    BindingResult bindingResult, HttpSession session) {
-        if (bindingResult.hasErrors())
-            return "servEmpresa/add";
 
         Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
         int total = 0;
@@ -155,10 +205,17 @@ public class ServicioEmpresaController {
                     // AÑADIMOS VALORES DE FORMULARIO RESTANTES
                     LocalDate f_fin = fecha_catering.equals("") ? null : LocalDate.parse(fecha_catering);
                     servEmpresaCat.setF_fin(f_fin);
-                    String dias = constructor_cadena(dias_semana);
 
+                    // COMPROBAMOS QUE SE HAN MARCADO DÍAS
+                    String dias = constructor_cadena(dias_semana);
                     servCatering.setDias_semana(dias);
                     servEmpresaCat.setServ_status("SIN EVALUAR");
+
+                    // VALIDAMOS
+                    //ServicioCateringValidator cateringValidator = new ServicioCateringValidator();
+                    //cateringValidator.validate(servCatering, bindingResult);
+                    //if (bindingResult.hasErrors())
+                    //    return "servEmpresa/add";
 
                     // AÑADIMOS A BASE DE DATOS
                     session.setAttribute("servEmpCat", servEmpresaCat);
@@ -183,6 +240,12 @@ public class ServicioEmpresaController {
                     servEmpresaSan.setF_fin(f_fin);
                     servEmpresaSan.setServ_status("SIN EVALUAR");
 
+                    // VALIDAMOS
+                    ServicioSanitarioValidator sanitarioValidator = new ServicioSanitarioValidator();
+                    sanitarioValidator.validate(servSanitario, bindingResult);
+                    if (bindingResult.hasErrors())
+                        return "servEmpresa/add";
+
                     // AÑADIMOS A BASE DE DATOS
                     session.setAttribute("servEmpSan", servEmpresaSan);
                     session.setAttribute("servSan", servSanitario);
@@ -206,6 +269,12 @@ public class ServicioEmpresaController {
                     servEmpresaLim.setF_fin(f_fin);
                     servEmpresaLim.setServ_status("SIN EVALUAR");
 
+                    // VALIDAMOS
+                    ServicioLimpiezaValidator limpiezaValidator = new ServicioLimpiezaValidator();
+                    limpiezaValidator.validate(servLimpieza, bindingResult);
+                    if (bindingResult.hasErrors())
+                        return "servEmpresa/add";
+
                     // AÑADIMOS A BASE DE DATOS
                     session.setAttribute("servEmpLim", servEmpresaLim);
                     session.setAttribute("servLim", servLimpieza);
@@ -214,6 +283,7 @@ public class ServicioEmpresaController {
                 }
             }
         }
+
         session.setAttribute("pagoTotal", total);
         return "redirect:/demandante/pago-servicios";
     }

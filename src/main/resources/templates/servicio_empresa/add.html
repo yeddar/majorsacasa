@@ -106,7 +106,10 @@
                             <hr>
                             <div>
                                 <b> Descripción de consulta: </b>
-                                <input th:field="${servSanitario.necesidad}">
+                                <th:block th:object="${servSanitario}">
+                                    <input type="text" th:field="*{necesidad}">
+                                    <!--<div class="error" th:if="${#fields.hasErrors('necesidad')}" th:errors="*{necesidad}"></div>-->
+                                </th:block>
                             </div>
                                 <br>
                             <b>(Si se requiere) Fecha finalización: </b>
@@ -119,7 +122,7 @@
 
                             <div>
                             <b>Horas semanales: </b>
-                            <input type="number" th:field="${servLimpieza.horas}">
+                            <input type="number" th:name="horas" th:field="${servLimpieza.horas}">
                             <br>
                             </div>
 
@@ -166,6 +169,8 @@
                                 -->
 
                 </div>
+
+
             <input type="submit" value="Aceptar">
 
             </form>

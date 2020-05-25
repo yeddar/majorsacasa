@@ -22,7 +22,7 @@
             <form action="#" th:action="@{/servEmpresa/feedback-sanitario/{nick}(nick=${demandante})}" method="post">
                 <label>Introduzca el día de visita: </label><input type="date" th:name="dia_visita">
                 <br><label>Introduzca la franja del servicio: </label>
-                <input type="radio" th:name="franja" th:value="manana"> Mañana
+                <input type="radio" th:name="franja" th:value="manana" checked> Mañana
                 <input type="radio" th:name="franja" th:value="tarde"> Tarde
                 <br><input type="submit" value="Aceptar">
             </form>

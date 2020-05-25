@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/servVoluntario")
 public class ServicioVoluntarioController {
@@ -94,8 +93,6 @@ public class ServicioVoluntarioController {
                                    @RequestParam(value = "fecha_voluntrario", required = false) String fecha_voluntario,
                                    @RequestParam(value = "rd_servicio") boolean decision,
                                    BindingResult bindingResult, Model model, HttpSession session){
-        if (bindingResult.hasErrors())
-            return "servVoluntario/add";
 
         Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
         ArrayList<AsignacionVoluntario> selecciones_demandante = new ArrayList<>();
@@ -118,10 +115,10 @@ public class ServicioVoluntarioController {
                 }
             }else{
                 //  NO SE SELECCIONARON, ERROR O NO HAY FRANJAS VACIAS
-                throw new IllegalArgumentException("NO SELECCIONÓ FRANJAS");
+                //bindingResult.rejectValue("notSelected", "obligatorio", "No se seleccionaron servicios o no hay disponibles en este momento.");
+                //return "servicio_voluntario/add";
+                throw new IllegalArgumentException("No se seleccionaron servicios de voluntarios o no hay disponibles en este momento.");
             }
-        }else{
-            // SELECCIONO QUE NO QUIERE SERVICIO VOLUNTARIO
         }
 
         return "redirect:/servEmpresa/add";
