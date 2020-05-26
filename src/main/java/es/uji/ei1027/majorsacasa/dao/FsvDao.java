@@ -50,6 +50,15 @@ public class FsvDao {
         }
     }
 
+    public FranjaServicioVoluntario getFsvByTime(String nick_voluntario, LocalTime hIni, LocalTime hFin, String diaSemana) {
+        try {
+            return jdbcTemplate.queryForObject("SELECT * FROM franja_voluntario WHERE nick_voluntario=? and h_ini=? and h_fin=? and dia_semana=?",
+                    new FsvRowMapper(), nick_voluntario, hIni, hFin, diaSemana);
+        } catch (EmptyResultDataAccessException ex) {
+            return null;
+        }
+    }
+
     public List<FranjaServicioVoluntario> getFsvByNick(String nick_vol) {
         try {
             return jdbcTemplate.query("SELECT * FROM franja_voluntario WHERE nick_voluntario=?",

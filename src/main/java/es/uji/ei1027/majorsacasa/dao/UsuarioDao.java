@@ -1,6 +1,9 @@
 package es.uji.ei1027.majorsacasa.dao;
 
+import es.uji.ei1027.majorsacasa.model.Demandante;
+import es.uji.ei1027.majorsacasa.model.Empresa;
 import es.uji.ei1027.majorsacasa.model.Usuario;
+import es.uji.ei1027.majorsacasa.model.Voluntario;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -60,6 +63,8 @@ public class UsuarioDao {
     public Usuario loadUserByNick(String nick, String password) {
         // Buscar usuario
         Usuario user = getUsuario(nick);
+
+
         if (user == null)
             return null; // Usuari no encontrado
         // Contraseña

@@ -11,12 +11,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+class FsvValidator implements Validator {
+
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return FranjaServicioVoluntario.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+
+
+        // Comprobar campos
+        FranjaServicioVoluntario fsvDetails = (FranjaServicioVoluntario) o;
+
+        LocalTime hIni = fsvDetails.gethIni();
+        LocalTime hFin = fsvDetails.gethFin();
+
+        if(hIni == null)
+            errors.rejectValue("hIni", "missing", "Se requiere una hora inicial");
+        if(hFin == null)
+            errors.rejectValue("hFin", "missing", "Se requiere una hora final");
+
+        if(hIni != null && hFin != null) {
+            if(hFin.isBefore(hIni) || Duration.between(hIni, hFin).toHours() < 1)
+                errors.rejectValue("hIni" ,"invalidhours", "Debe haber una hora de diferencia entre la hora inicio y la hora fin.");
+        }
+    }
+}
 
 @Controller
 @RequestMapping("/voluntario/fsv")
@@ -48,7 +81,7 @@ public class FsvController {
             System.out.println(bindingResult.getFieldError());
             return "voluntario/fsv/add";
         }
-        System.out.println(fsv.toString());
+
         fsvDao.addFranjaServicioVoluntario(fsv);
         return "redirect:list";
     }
@@ -91,9 +124,25 @@ public class FsvController {
     public String addFranja(Model model,
                             HttpSession session,
                             @ModelAttribute("fsv") FranjaServicioVoluntario fsv,
+                            BindingResult bindingResult,
                             @RequestParam(value="dia_semana") String diaSemana) {
 
+        FsvValidator fsvValidator = new FsvValidator();
+        fsvValidator.validate(fsv, bindingResult);
+
+        String nick_vol = (String)session.getAttribute("nick");
+        if (nick_vol != null) { // Si hay usuario logueado
+            // Incluir en el modelo franjas de la BBDD
+            List<FranjaServicioVoluntario> franjas_actuales = fsvDao.getFsvByNick(nick_vol);
+            model.addAttribute("franjas", franjas_actuales);
+        }
+
         ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
+        model.addAttribute("franjas_nuevas", franjas);
+
+        if(bindingResult.hasErrors())
+            return "voluntario/fsv/add_schedule";
+
         int id = (int) session.getAttribute("id");
 
         fsv.setId(id);
@@ -104,14 +153,6 @@ public class FsvController {
         session.setAttribute("franjas", franjas);
         session.setAttribute("id", id+1); // Incremento id lista
         model.addAttribute("franjas_nuevas", franjas);
-
-        String nick_vol = (String)session.getAttribute("nick");
-        if (nick_vol != null) { // Si hay usuario logueado
-            // Incluir en el modelo franjas de la BBDD
-            List<FranjaServicioVoluntario> franjas_actuales = fsvDao.getFsvByNick(nick_vol);
-            model.addAttribute("franjas", franjas_actuales);
-        }
-
         return "voluntario/fsv/add_schedule";
     }
 

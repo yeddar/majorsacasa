@@ -38,5 +38,8 @@ public class VoluntarioValidator implements Validator {
         if (email.trim().equals(""))
             errors.rejectValue("pass", "obligatorio", "Campo 'Email' obligatorio");
 
+        if (edad < 18)
+            errors.rejectValue("edad","requisito","Sebe ser mayor de 18 años para ofrecer ayuda");
+
     }
 }

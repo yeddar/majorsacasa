@@ -109,29 +109,32 @@ public class VoluntarioController {
     }
 
     @RequestMapping(value = "/remove_user")
-    public String removeUser(Model model, HttpSession session){
+    public String removeUser(Model model){
         model.addAttribute("user", new Usuario());
         return "/voluntario/delete_account";
     }
 
     @RequestMapping(value = "/remove_user", method = RequestMethod.POST)
-    public String processDeleteVolunteer(HttpSession session,
+    public String processDeleteVolunteer(HttpSession session, Model model,
                                          @ModelAttribute Usuario user,
                                          BindingResult bindingResult){
         String nick = (String)session.getAttribute("nick");
         user.setNick(nick);
-
         LoginValidator loginValidator = new LoginValidator();
         loginValidator.validate(user, bindingResult);
 
-        if (bindingResult.hasErrors())
+        if(bindingResult.hasErrors()) {
+            model.addAttribute("user", new Usuario());
             return "voluntario/delete_account";
-
+        }
         // Comprobar que la contraseña es correcta
-        user = usuarioDao.loadUserByNick(user.getNick(), user.getPass());
-        if (user == null) {
+        String pass = user.getPass();
+        Usuario auxuser = usuarioDao.getUsuario(nick);
+
+        if (!(auxuser.getPass().equals(pass))) {
+            model.addAttribute("user", new Usuario());
             bindingResult.rejectValue("pass", "incorrectpass", "Contraseña incorrecta");
-            return "voluntario/delete_account";
+            return  "voluntario/delete_account";
         }
 
         // Cambiar status a CANCELADO
@@ -188,9 +191,10 @@ public class VoluntarioController {
         String nick = (vol != null)? vol.getNick():(String)session.getAttribute("nick");
 
         for (FranjaServicioVoluntario fsv: franjas){
-            fsv.setNick(nick);
-            fsvDao.addFranjaServicioVoluntario(fsv);
-
+            if (fsvDao.getFsvByTime(nick, fsv.gethIni(), fsv.gethFin(), fsv.getDiaSemana()) == null) {
+                fsv.setNick(nick);
+                fsvDao.addFranjaServicioVoluntario(fsv);
+            }
         }
         return "redirect:/";
     }
