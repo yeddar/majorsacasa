@@ -26,14 +26,18 @@
         </tr>
         <tr>
             <td><label> Hora inicio </label></td>
-            <td><input type="time" th:field="*{hIni}"/></td>
+            <td><input type="time" th:field="*{hIni}" required/></td>
+            <div class="error" th:if="${#fields.hasErrors('hIni')}" th:errors="*{hIni}"></div>
         </tr>
         <tr>
             <td><label> Hora fin </label></td>
-            <td><input type="time" th:field="*{hFin}"/></td>
+            <td><input type="time" th:field="*{hFin}" requireda/></td>
         </tr>
 
         <tr>
+            <div th:if="${mensajeErrorDupFranjaLimpieza} != null">
+                <span class="error">¡La franja introducida ya existe!</span>
+            </div>
             <td colspan="2"><input type="submit" value="Añade franja"/></td>
         </tr>
     </table>

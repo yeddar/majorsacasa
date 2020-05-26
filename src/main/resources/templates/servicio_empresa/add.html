@@ -9,175 +9,114 @@
 </head>
 <body>
 <div layout:fragment="content">
-
     <div>
         <form action="#" th:action="@{/servEmpresa/add}" method="post">
+            <div class="contenedor">
+                <h2> Servicios de pago</h2>
+                <h4> Los servicios de pago tienen un precio reducido,
+                    pudiendo
+                </h4>
+                <div class="row">
+                    <div class ="column">
+                        <h2>SERVICIO CATERING</h2>
+                        <h5> Este servicio le permitirá olvidarse de cocinar entre semana.
+                            Para contratarlo: </h5>
+                        <h6 style="text-align: left">
+                            [1] Marque opción Servicio Catering <br>
+                            [2] Seleccione el tipo de menú <br>
+                            [3] Seleccione qué días a la semana lo requiere <br>
+                            [4] (Opcionalmente) La fecha de fin de servicio <br>
+                        </h6>
 
-                <div class="contenedor">
-                    <h2> Servicios de pago</h2>
-                    <h4> Los servicios de pago tienen un precio reducido,
-                        pudiendo
-                    </h4>
-                    <div class="row">
-                        <div class ="column">
-                            <h2>SERVICIO CATERING</h2>
-                            <h5> Este servicio le permitirá olvidarse de cocinar entre semana.
+                        <h5> <b> Coste: 25 euros/mes </b></h5>
+                    </div>
+                    <div class ="column" style="background-color: #f1f1f1">
+                        <h2>SERVICIO SANITARIO</h2>
+                        <h5> Visita de un sanitario a su hogar para tratar algún tema de salud.
                                 Para contratarlo: </h5>
-                            <h6 style="text-align: left">
-                                [1] Marque opción Servicio Catering <br>
-                                [2] Seleccione el tipo de menú <br>
-                                [3] Seleccione qué días a la semana lo requiere <br>
-                                [4] (Opcionalmente) La fecha de fin de servicio <br>
-                            </h6>
-
-                            <h5> <b> Coste: 25 euros/mes </b></h5>
-
-                        </div>
-
-                        <div class ="column" style="background-color: #f1f1f1">
-                            <h2>SERVICIO SANITARIO</h2>
-                            <h5> Visita de un sanitario a su hogar para tratar algún tema de salud.
-                                    Para contratarlo: </h5>
-                            <h6 style="text-align: left">
-                                [1] Marque opción Servicio Sanitario <br>
-                                [2] Describa una breve descripción de su dolencia <br>
-                                [3] (Opcionalmente) La fecha de fin de servicio <br>
-                            </h6>
-
-                            <h5> <b> Coste:	    5 euros/visita </b></h5>
-
-                        </div>
-
-                        <div class ="column">
-                            <h2>SERVICIO LIMPIEZA</h2>
-                            <h5> Mantenga la higiene de su casa a precio reducido. Para contratarlo: </h5>
-                            <h6 style="text-align: left">
-                                [1] Marque opción Servicio Limpieza <br>
-                                [2] Seleccione las horas semanales requeridas <br>
-                                [3] (Opcionalmente) La fecha de fin de servicio <br>
-                            </h6>
-
-                            <h5> <b> Coste:	    5 euros/hora </b></h5>
-
-                        </div>
-
+                        <h6 style="text-align: left">
+                            [1] Marque opción Servicio Sanitario <br>
+                            [2] Describa una breve descripción de su dolencia <br>
+                            [3] (Opcionalmente) La fecha de fin de servicio <br>
+                        </h6>
+                        <h5> <b> Coste:	    5 euros/visita </b></h5>
+                    </div>
+                    <div class ="column">
+                        <h2>SERVICIO LIMPIEZA</h2>
+                        <h5> Mantenga la higiene de su casa a precio reducido. Para contratarlo: </h5>
+                        <h6 style="text-align: left">
+                            [1] Marque opción Servicio Limpieza <br>
+                            [2] Seleccione las horas semanales requeridas <br>
+                            [3] (Opcionalmente) La fecha de fin de servicio <br>
+                        </h6>
+                        <h5> <b> Coste:	    5 euros/hora </b></h5>
                     </div>
                 </div>
-
-
-
-
-                <div class="contenedor">
-                    <div class="row">
-                        <div class="column">
-
-                            <input type="checkbox" th:value="catering" th:name="servicios"> Servicio catering
-                            <hr>
-
-                            <b>Tipo de menu: </b>
-                                    <select th:field="${servCatering.tipo_comida}" class="form-control">
-                                        <!-- sin valor:  <option value=""> -- </option> -->
-                                        <option selected th:value="DIABETICO">Dieta para Diabetico</option>
-                                        <option selected th:value="BAJO_SAL">Dieta baja en sal</option>
-                                        <option th:value="BAJO_GRASA">Dieta baja en grasa</option>
-                                        <option th:value="NADA"> Dieta sin restricciones</option>
-                                    </select>
-
-                            <br>
-                                    <b>Días de la semana: </b>
-
-                            <div class="form-group col">
-                                <div class="row-sm-6">
-                                    <input type="checkbox" th:name="dias_catering" th:value="Lunes">Lunes
-                                    <input type="checkbox" th:name="dias_catering" th:value="Martes">Martes
-                                    <input type="checkbox" th:name="dias_catering" th:value="Miercoles">Miércoles
-                                </div>
-                                <div class="row-sm-4">
-                                    <input type="checkbox" th:name="dias_catering" th:value="Jueves">Jueves
-                                    <input type="checkbox" th:name="dias_catering" th:value="Viernes">Viernes
-                                </div>
+            </div>
+            <div class="contenedor">
+                <div class="row">
+                    <div class="column">
+                        <input type="checkbox" th:value="catering" th:name="servicios"> Servicio catering
+                        <hr>
+                        <b>Tipo de menu: </b>
+                        <select th:field="${servCatering.tipo_comida}" class="form-control">
+                            <!-- sin valor:  <option value=""> -- </option> -->
+                            <option selected th:value="DIABETICO">Dieta para Diabetico</option>
+                            <option selected th:value="BAJO_SAL">Dieta baja en sal</option>
+                            <option th:value="BAJO_GRASA">Dieta baja en grasa</option>
+                            <option th:value="NADA"> Dieta sin restricciones</option>
+                        </select>
+                        <br>
+                        <b>Días de la semana: </b>
+                        <div class="form-group col">
+                            <div class="row-sm-6">
+                                <input type="checkbox" th:name="dias_catering" th:value="Lunes">Lunes
+                                <input type="checkbox" th:name="dias_catering" th:value="Martes">Martes
+                                <input type="checkbox" th:name="dias_catering" th:value="Miercoles">Miércoles
                             </div>
-
-                                    <b>(Si se requiere) Fecha finalización: </b>
-                                    <input type="date" th:name="fecha_catering">
-                        </div>
-                        <div class="column" style="background-color: #f1f1f1">
-                            <input type="checkbox" th:value="sanitario" th:name="servicios"> Servicio sanitario
-                            <hr>
-                            <div>
-                                <b> Descripción de consulta: </b>
-                                <th:block th:object="${servSanitario}">
-                                    <input type="text" th:field="*{necesidad}">
-                                    <div class="error" th:if="${#fields.hasErrors('necesidad')}" th:errors="*{necesidad}"></div>
-                                </th:block>
+                            <div class="row-sm-4">
+                                <input type="checkbox" th:name="dias_catering" th:value="Jueves">Jueves
+                                <input type="checkbox" th:name="dias_catering" th:value="Viernes">Viernes
                             </div>
-                                <br>
-                            <b>(Si se requiere) Fecha finalización: </b>
-                            <input type="date" th:name="fecha_sanitario">
+                            <div th:if="${mensajeErrorCatering} != null">
+                                <span class="error">¡No ha introducido los días del servicio!</span>
+                            </div>
                         </div>
-
-                        <div class="column">
-                            <input type="checkbox" th:value="limpieza" th:name="servicios"> Servicio limpieza
-                            <hr>
-
-
-                            <div>
+                        <b>(Si se requiere) Fecha finalización: </b>
+                        <input type="date" th:name="fecha_catering">
+                    </div>
+                    <div class="column" style="background-color: #f1f1f1">
+                        <input type="checkbox" th:value="sanitario" th:name="servicios"> Servicio sanitario
+                        <hr>
+                        <div>
+                            <b> Descripción de consulta: </b>
+                            <input type="text" th:field="${servSanitario.necesidad}">
+                            <div th:if="${mensajeErrorSanitario} != null">
+                                <span class="error">¡No ha introducido una breve descripción!</span>
+                            </div>
+                        </div>
+                        <b>(Si se requiere) Fecha finalización: </b>
+                        <input type="date" th:name="fecha_sanitario">
+                    </div>
+                    <div class="column">
+                        <input type="checkbox" th:value="limpieza" th:name="servicios"> Servicio limpieza
+                        <hr>
+                        <div>
                             <b>Horas semanales: </b>
-                                <input type="number" th:name="horas" th:field="${servLimpieza.horas}">
-                                <br>
+                            <input type="number" th:name="horas" th:field="${servLimpieza.horas}">
+                            <div th:if="${mensajeErrorLimpieza} != null">
+                                <span class="error">¡No ha introducido un número de horas correctas!</span>
                             </div>
-
                             <br>
-                            <b>(Si se requiere) Fecha finalización: </b>
-                            <input type="date" th:name="fecha_limpieza">
-
-
                         </div>
+                        <b>(Si se requiere) Fecha finalización: </b>
+                        <input type="date" th:name="fecha_limpieza">
                     </div>
-
-                    <!--
-
-                                                <u><b>SERVICIO SANITARIO</b></u>
-                                                <table>
-                                                    <tr>
-                                                        <td><b>Descripción: </b></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>(Si se requiere) Fecha finalización: </b></td>
-                                                        <td><input type="date" th:name="fecha_sanitario"></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div>
-                                                <u><b>SERVICIO LIMPIEZA</b></u>
-                                                <table>
-                                                    <tr>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>(Si se requiere) Fecha finalización: </b></td>
-                                                        <td><input type="date" th:name="fecha_limpieza"></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                -->
-
                 </div>
-
-
+            </div>
             <input type="submit" value="Aceptar">
-
-            </form>
+        </form>
     </div>
 </div>
-</div>
-
 </body>
 </html>

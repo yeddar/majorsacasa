@@ -25,12 +25,14 @@
     <div class="form-group row">
         <div class="col-sm-8">
             <label>Nombre y apellidos: </label>
-            <input type="text"  class="form-control" th:field="*{nombre}"/>
+            <input type="text"  class="form-control" th:field="*{nombre}" required/>
+            <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
         </div>
 
         <div class="col-sm-2">
             <label>Edad: </label>
-            <input type="number"  class="form-control" th:field="*{edad}"/>
+            <input type="number"  class="form-control" th:field="*{edad}" required/>
+            <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
         </div>
     </div>
 
@@ -38,24 +40,28 @@
     <div class="form-group row">
         <div class="col-sm-5">
             <label>Nick: </label>
-            <input type="text"  class="form-control" th:field="*{nick}"/>
+            <input type="text"  class="form-control" th:field="*{nick}" required/>
+            <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
         </div>
 
         <div class="col-sm-5">
             <label>Contraseña: </label>
-            <input type="password"  class="form-control" th:field="*{pass}"/>
+            <input type="password"  class="form-control" th:field="*{pass}" required/>
+            <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
         </div>
     </div>
 
     <div class="form-group row">
         <div class="col-sm-5">
             <label>Teléfono: </label>
-            <input type="text"  class="form-control" th:field="*{tlf}"/>
+            <input type="text"  class="form-control" th:field="*{tlf}" required/>
+            <div class="error" th:if="${#fields.hasErrors('tlf')}" th:errors="*{tlf}"></div>
         </div>
 
         <div class="col-sm-5">
             <label>Email: </label>
-            <input type="text"  class="form-control" th:field="*{email}"/>
+            <input type="text"  class="form-control" th:field="*{email}" required/>
+            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>
     </div>
 
@@ -63,7 +69,8 @@
     <div class="form-group row">
         <div class="col-sm-6">
             <label>Dirección: </label>
-            <input type="text"  class="form-control" th:field="*{direccion}"/>
+            <input type="text"  class="form-control" th:field="*{direccion}" required/>
+            <div class="error" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div>
         </div>
     </div>
 

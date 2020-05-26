@@ -18,54 +18,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
-class ServicioCateringValidator implements Validator{
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return ServicioCatering.class.equals(aClass);
-    }
-
-    @Override
-    public void validate(Object o, Errors errors) {
-        ServicioCatering servicioCatering = (ServicioCatering) o;
-
-        if(servicioCatering.getDias_semana().equals("-----"))
-            errors.rejectValue("dias_catering", "obligatorio","No introdujo días para el servicio de catering.");
-    }
-}
-
-class ServicioSanitarioValidator implements Validator{
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return ServicioSanitario.class.equals(aClass);
-    }
-
-    @Override
-    public void validate(Object o, Errors errors) {
-        ServicioSanitario servicioSanitario = (ServicioSanitario) o;
-
-        if(servicioSanitario.getNecesidad().trim().equals(""))
-            errors.rejectValue("necesidad", "obligatorio", "No introdujo una breve descripción.");
-    }
-}
-
-class ServicioLimpiezaValidator implements Validator{
-
-    @Override
-    public boolean supports(Class<?> aClass) {
-        return ServicioLimpieza.class.equals(aClass);
-    }
-
-    @Override
-    public void validate(Object o, Errors errors) {
-        ServicioLimpieza servicioLimpieza = (ServicioLimpieza) o;
-
-        if(servicioLimpieza.getHoras() <= 0)
-            errors.rejectValue("horas", "obligatorio", "No introdujo las horas semanales o fueron incorrectas");
-    }
-}
-
 @Controller
 @RequestMapping("/servEmpresa")
 public class ServicioEmpresaController {
@@ -135,10 +87,13 @@ public class ServicioEmpresaController {
     }
 
     @RequestMapping(value = "/add")
-    public String addServicioEmpresa(Model model) {
+    public String addServicioEmpresa(Model model, HttpSession session) {
         model.addAttribute("servCatering", new ServicioCatering());
         model.addAttribute("servSanitario", new ServicioSanitario());
         model.addAttribute("servLimpieza", new ServicioLimpieza());
+        model.addAttribute("mensajeErrorSanitario", session.getAttribute("mensajeErrorSanitario"));
+        model.addAttribute("mensajeErrorLimpieza", session.getAttribute("mensajeErrorLimpieza"));
+        model.addAttribute("mensajeErrorCatering", session.getAttribute("mensajeErrorCatering"));
         return "servicio_empresa/add";
     }
 
@@ -212,16 +167,16 @@ public class ServicioEmpresaController {
                     servEmpresaCat.setServ_status("SIN EVALUAR");
 
                     // VALIDAMOS
-                    //ServicioCateringValidator cateringValidator = new ServicioCateringValidator();
-                    //cateringValidator.validate(servCatering, bindingResult);
-                    //if (bindingResult.hasErrors())
-                    //    return "servEmpresa/add";
-
-                    // AÑADIMOS A BASE DE DATOS
-                    session.setAttribute("servEmpCat", servEmpresaCat);
-                    session.setAttribute("servCat", servCatering);
-                    session.setAttribute("cantidadCatering", 5*dias_semana.length*4);
-                    total += 5*dias_semana.length*4;
+                    if(servCatering.getDias_semana().trim().equals("-----")){
+                        session.setAttribute("mensajeErrorCatering", true);
+                        return "redirect:/servEmpresa/add";
+                    }else{
+                        // AÑADIMOS A BASE DE DATOS
+                        session.setAttribute("servEmpCat", servEmpresaCat);
+                        session.setAttribute("servCat", servCatering);
+                        session.setAttribute("cantidadCatering", 5*dias_semana.length*4);
+                        total += 5*dias_semana.length*4;
+                    }
                 } else if (servicio.equals("sanitario")) {
                     ServicioEmpresa servEmpresaSan = new ServicioEmpresa();
                     Empresa empresa_seleccionada = seleccionEmpresa("SANITARIA");
@@ -241,16 +196,16 @@ public class ServicioEmpresaController {
                     servEmpresaSan.setServ_status("SIN EVALUAR");
 
                     // VALIDAMOS
-                    ServicioSanitarioValidator sanitarioValidator = new ServicioSanitarioValidator();
-                    sanitarioValidator.validate(servSanitario, bindingResult);
-                    if (bindingResult.hasErrors())
-                        return "servEmpresa/add";
-
-                    // AÑADIMOS A BASE DE DATOS
-                    session.setAttribute("servEmpSan", servEmpresaSan);
-                    session.setAttribute("servSan", servSanitario);
-                    session.setAttribute("cantidadSanitario", 5);
-                    total += 5;
+                    if(servSanitario.getNecesidad().trim().equals("")){
+                        session.setAttribute("mensajeErrorSanitario", true);
+                        return "redirect:/servEmpresa/add";
+                    }else {
+                        // AÑADIMOS A BASE DE DATOS
+                        session.setAttribute("servEmpSan", servEmpresaSan);
+                        session.setAttribute("servSan", servSanitario);
+                        session.setAttribute("cantidadSanitario", 5);
+                        total += 5;
+                    }
                 } else if (servicio.equals("limpieza")) {
                     ServicioEmpresa servEmpresaLim = new ServicioEmpresa();
                     Empresa empresa_seleccionada = seleccionEmpresa("LIMPIEZA");
@@ -270,16 +225,16 @@ public class ServicioEmpresaController {
                     servEmpresaLim.setServ_status("SIN EVALUAR");
 
                     // VALIDAMOS
-                    ServicioLimpiezaValidator limpiezaValidator = new ServicioLimpiezaValidator();
-                    limpiezaValidator.validate(servLimpieza, bindingResult);
-                    if (bindingResult.hasErrors())
-                        return "servEmpresa/add";
-
-                    // AÑADIMOS A BASE DE DATOS
-                    session.setAttribute("servEmpLim", servEmpresaLim);
-                    session.setAttribute("servLim", servLimpieza);
-                    session.setAttribute("cantidadLimpieza", 5*servLimpieza.getHoras()*4);
-                    total += 5*servLimpieza.getHoras()*4;
+                    if(servLimpieza.getHoras() <= 0){
+                        session.setAttribute("mensajeErrorLimpieza", true);
+                        return "redirect:/servEmpresa/add";
+                    }else{
+                        // AÑADIMOS A BASE DE DATOS
+                        session.setAttribute("servEmpLim", servEmpresaLim);
+                        session.setAttribute("servLim", servLimpieza);
+                        session.setAttribute("cantidadLimpieza", 5*servLimpieza.getHoras()*4);
+                        total += 5*servLimpieza.getHoras()*4;
+                    }
                 }
             }
         }

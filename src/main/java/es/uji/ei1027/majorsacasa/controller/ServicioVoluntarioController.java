@@ -82,6 +82,7 @@ public class ServicioVoluntarioController {
             aficiones.put(franja.getId(), voluntario.getAficiones());
         }
         model.addAttribute("aficiones", aficiones);
+        model.addAttribute("mensajeError", session.getAttribute("mensajeError"));
 
         session.setAttribute("lastURL", "/servVoluntario/add");
         return "servicio_voluntario/add";
@@ -115,10 +116,8 @@ public class ServicioVoluntarioController {
                     session.setAttribute("servicios_demandante_voluntario", selecciones_demandante);
                 }
             }else{
-                //  NO SE SELECCIONARON, ERROR O NO HAY FRANJAS VACIAS
-                //bindingResult.rejectValue("notSelected", "obligatorio", "No se seleccionaron servicios o no hay disponibles en este momento.");
-                //return "servicio_voluntario/add";
-                throw new IllegalArgumentException("No se seleccionaron servicios de voluntarios o no hay disponibles en este momento.");
+                session.setAttribute("mensajeError", true);
+                return "redirect:/servVoluntario/add";
             }
         }
 

@@ -25,31 +25,27 @@ public class VoluntarioValidator implements Validator {
 
         // Checks volunteer
         Voluntario vol = (Voluntario) o;
-        String nick = vol.getNick();
-        String pass = vol.getPass();
-        String name = vol.getNombre();
-        int edad = vol.getEdad();
-        String tlf = vol.getTlf();
-        String email = vol.getEmail();
 
         // TODO: Me gustaría hacerlo todo de una. Me salta error porque no existe el método missing_fields
-        //if (nick.trim().equals("") || pass.trim().equals("") || name.trim().equals("") | tlf.trim().equals("") | email.trim().equals(""))
-        //    errors.rejectValue("missing_field", "Error. Debe rellenar todos los campos obligatorios");
+        // edad
+        if(vol.getEdad() < 18)
+            errors.rejectValue("edad", "inválido", "Edad inválida.");
 
-        if (nick.trim().equals(""))
-            errors.rejectValue("nick", "obligatorio", "Campo 'Nick' obligatorio");
-        if (pass.trim().equals(""))
-            errors.rejectValue("pass", "obligatorio", "Campo 'Contraseña' obligatorio");
-        if (name.trim().equals(""))
-            errors.rejectValue("pass", "obligatorio", "Campo 'Nombre y apellidos' obligatorio");
-        if (tlf.trim().equals(""))
-            errors.rejectValue("pass", "obligatorio", "Campo 'Teléfono' obligatorio");
-        if (email.trim().equals(""))
-            errors.rejectValue("pass", "obligatorio", "Campo 'Email' obligatorio");
+        // telefono
+        boolean valido = true;
+        for (int i = 0; i < vol.getTlf().length(); i++){
+            if (!Character.isDigit(vol.getTlf().charAt(i))) {
+                valido = false;
+                break;
+            }
+        }
+        //if(d.getTlf().length() != 9 && d.getTlf().contains("[a-zA-Z]+"))
+        if(vol.getTlf().length() != 9 || !valido)
+            errors.rejectValue("tlf", "inválido", "Teléfono inválido.");
 
-        if (edad < 18)
-            errors.rejectValue("edad","requisito","Sebe ser mayor de 18 años para ofrecer ayuda");
-
+        // email
+        if (!vol.getEmail().matches("[-\\w\\.]+@\\w+\\.\\w+"))
+            errors.rejectValue("email", "inválido", "Dirección de correo inválido.");
 
 //        if(userService.getUserByNick(nick) != null){
 //            errors.rejectValue("nick", "nick.exists", "El nick ya está en uso");

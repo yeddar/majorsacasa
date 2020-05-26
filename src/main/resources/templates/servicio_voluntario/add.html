@@ -21,9 +21,7 @@
                         ¡Déjese cuidar!
                     </h4>
 
-
                     <h3>¿Desea un servicio de acompañamiento?</h3>
-
 
                     <div class="form-check form-check-inline">
                         <input  class="h3" type="radio" th:name="rd_servicio"
@@ -36,6 +34,12 @@
                            id="inlineCheckbox1" th:value="false">
                     <label class="h3" for="inlineCheckbox1">  No  </label>
                 </div>
+
+
+                    <div th:if="${mensajeError} != null">
+                        <span class="error">¡No ha introducido los servicios de voluntarios!</span>
+                    </div>
+
 
                 </div>
 

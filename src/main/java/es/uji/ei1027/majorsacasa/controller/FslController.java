@@ -1,19 +1,36 @@
 package es.uji.ei1027.majorsacasa.controller;
 
 import es.uji.ei1027.majorsacasa.dao.FslDao;
+import es.uji.ei1027.majorsacasa.model.Demandante;
 import es.uji.ei1027.majorsacasa.model.FranjaServicioLimpieza;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.UsesSunMisc;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import org.springframework.validation.Validator;
 import java.util.HashMap;
 import java.util.List;
+
+class FslValidator implements Validator{
+    @Override
+    public boolean supports(Class<?> aClass) {
+        return FranjaServicioLimpieza.class.equals(aClass);
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+        FranjaServicioLimpieza fsl = (FranjaServicioLimpieza) o;
+
+        if(fsl.gethIni().isAfter(fsl.gethFin()) || fsl.gethFin().equals(fsl.gethIni()))
+            errors.rejectValue("hIni", "incorrecto", "Las horas introducidas son incorrectas.");
+    }
+}
 
 @Controller
 @RequestMapping(value = "/franja-limpieza")
@@ -30,10 +47,20 @@ public class FslController {
     Add method
      */
     @RequestMapping(value = "/add/{nick}")
-    public String addGET(@PathVariable String nick, Model model){
+    public String addGET(@PathVariable String nick, Model model, HttpSession session){
         model.addAttribute("franjaNueva", new FranjaServicioLimpieza());
         model.addAttribute("demandante", nick);
+        model.addAttribute("mensajeErrorDupFranjaLimpieza", session.getAttribute("mensajeErrorDupFranjaLimpieza"));
         return "empresa/fsl/add";
+    }
+
+    private boolean franjasDuplicadas(HttpSession session, String nick, FranjaServicioLimpieza fsl){
+        HashMap<String, List<FranjaServicioLimpieza>> map_franjas = (HashMap<String, List<FranjaServicioLimpieza>>) session.getAttribute("franjas");
+        for(FranjaServicioLimpieza fr : map_franjas.get(nick)){
+            if(fr.gethIni() == fsl.gethIni() && fr.getDiaSemana() == fsl.getDiaSemana() && fr.gethFin() == fsl.gethFin())
+                return true;
+        }
+        return false;
     }
 
     @RequestMapping(value ="/add/{nick}", method = RequestMethod.POST)
@@ -41,8 +68,16 @@ public class FslController {
                           @RequestParam("rd_dia") String dia,
                           @ModelAttribute("franjaNueva") FranjaServicioLimpieza fsl, HttpSession session,
                           BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors())
-            return "empresa/fsl/add";
+
+        FslValidator fslValidator = new FslValidator();
+        fslValidator.validate(fsl, bindingResult);
+        if (bindingResult.hasErrors()){
+            session.setAttribute("mensajeErrorDupFranjaLimpieza", true);
+            return "redirect:/franja-limpieza/add/"+nick;
+        }else {
+            session.setAttribute("mensajeErrorDupFranjaLimpieza", null);
+        }
+
 
         // Metemos valores estaticos
         fsl.setNick_empresa((String) session.getAttribute("nick"));
@@ -54,6 +89,14 @@ public class FslController {
         HashMap<String, Integer> id_franjas = (HashMap<String, Integer>) session.getAttribute("id_franja");
         fsl.setId_franja(id_franjas.get(nick));
         id_franjas.put(nick, id_franjas.get(nick)+1);
+
+        if(franjasDuplicadas(session, nick, fsl)){
+            session.setAttribute("mensajeErrorDupFranjaLimpieza", true);
+            return "redirect:/franja-limpieza/add/"+nick;
+        }else {
+            session.setAttribute("mensajeErrorDupFranjaLimpieza", null);
+        }
+
         map_franjas.get(nick).add(fsl);
         session.setAttribute("franjas", map_franjas);
         session.setAttribute("id_franja", id_franjas);

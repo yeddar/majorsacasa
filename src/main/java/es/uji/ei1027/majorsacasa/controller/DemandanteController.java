@@ -11,14 +11,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.xml.validation.Validator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/demandante")
-public class DemandanteController {
+public class DemandanteController{
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private AsignacionVoluntarioDao asigVolDao;
 
@@ -151,6 +151,12 @@ public class DemandanteController {
         // Campos estáticos
         demandante.setRol(ROL_USUARIO.DEMANDANTE);
         demandante.setStatus("SIN REVISAR");
+
+        // Comprobar si el nick está en uso
+        if(usuarioDao.getUsuario(demandante.getNick()) != null) {
+            bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
+            return "demandante/add";
+        }
 
         session.setAttribute("demandante_registro", demandante);
         return "redirect:/servVoluntario/add";
