@@ -11,14 +11,15 @@
 
 <body>
 <div layout:fragment="content">
-<h1> Listado de voluntarios </h1>
+<h2> Listado de voluntarios </h2>
+    <hr>
 <table>
     <thead>
     <tr>
-        <th> Nick</th>
         <th> Nombre</th>
         <th> Edad</th>
         <th> Teléfono</th>
+
         <th> Correo</th>
         <th> Aficiones</th>
         <th> Estado</th>
@@ -28,7 +29,6 @@
     </thead>
     <tbody>
     <tr th:each="voluntario: ${voluntarios}">
-        <td th:text="${voluntario.nick}"></td>
         <td th:text="${voluntario.nombre}"></td>
         <td th:text="${voluntario.edad}"></td>
 

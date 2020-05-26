@@ -244,6 +244,7 @@ public class DemandanteController {
     public String verPerfil (@PathVariable String nick, Model model){
         Demandante dem = demandanteDao.getDemandante(nick);
         model.addAttribute("demandante", dem);
+
         return "demandante/viewProfile";
     }
 
@@ -275,15 +276,11 @@ public class DemandanteController {
         return "comiteCAS/viewDemandante";
     }
 
-    @RequestMapping(value = "/solicitudes")
-    public String mostrarSolicitudes(Model model, HttpSession session) {
+
+    // Demandante ve solicitudes de pago
+    @RequestMapping(value = "/solicitudesPago")
+    public String mostrarSolicitudesPago(Model model, HttpSession session) {
         String nick_demandante = (String) session.getAttribute("nick");
-
-        List<AsignacionVoluntario> serviciosVoluntario =
-                asignacionVoluntarioDao.getByDemandante(nick_demandante);
-
-        model.addAttribute("serviciosVoluntario", serviciosVoluntario);
-
 
         ServicioCatering servicioCatering =
                 servicioCateringDao.getServicioCateringByDemandante(nick_demandante);
@@ -293,7 +290,6 @@ public class DemandanteController {
 
         ServicioLimpieza servicioLimpieza =
                 servicioLimpiezaDao.getServicioLimpiezaByDemandante(nick_demandante);
-
 
 
         // Traer cada uno de los servicios empresa del sistema utilizando los dos nicks
@@ -337,8 +333,32 @@ public class DemandanteController {
         model.addAttribute("servicioLimpieza", servicioLimpieza);
 
 
+        return "demandante/listServsPago";
+    }
 
-        return "demandante/listServs";
+
+    // Demandante ve solicitudes de voluntario
+
+    @RequestMapping(value = "/solicitudesVolun")
+    public String mostrarSolicitudes(Model model, HttpSession session){
+
+        String nick_demandante = (String) session.getAttribute("nick");
+
+        List<AsignacionVoluntario> serviciosVoluntario =
+                asignacionVoluntarioDao.getByDemandante(nick_demandante);
+
+        HashMap<Integer, Voluntario> mapVoluntarios = new HashMap<>();
+        for(AsignacionVoluntario a : serviciosVoluntario) {
+            FranjaServicioVoluntario fsv = fsvDao.getFsv(a.getId_franja());
+            mapVoluntarios.put(a.getId_franja(), voluntarioDao.getVoluntario(fsv.getNick()));
+        }
+
+        model.addAttribute("serviciosVoluntario", serviciosVoluntario);
+        model.addAttribute("mapVoluntarios", mapVoluntarios);
+
+        session.setAttribute("lastURL", "/demandante/solicitudesVolun");
+
+        return "demandante/listServsVolun";
     }
 
     /*

@@ -38,7 +38,19 @@
         <td th:text="${servicio_empresa.f_fin}"></td>
 
         <td th:text="${servicio_empresa.serv_status}"></td>
-        <td th:text="${servsTipo[servicio_empresa.nick_empresa]}"></td>
+        <th:block th:switch="${servsTipo[servicio_empresa.nick_empresa]}">
+            <td th:case="'CATERING'">
+                <span class="flaticon-cook"></span>
+            </td>
+            <td th:case="'SANITARIA'">
+                <i class="flaticon-healthcare"></i>
+            </td>
+            <td th:case="'LIMPIEZA'">
+                <i class="flaticon-broom"></i>
+            </td>
+        </th:block>
+
+
 
 
    <!--     <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}"> Aceptar petición </a>

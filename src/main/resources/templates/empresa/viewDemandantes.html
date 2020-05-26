@@ -43,6 +43,7 @@
                 </div>
 
                 <th> </th>
+                <th> </th>
             </tr>
             </thead>
             <tbody>
@@ -85,10 +86,14 @@
                         </div>
                     </div>
 
-                    <td><button><a th:href="@{/empresa/cancel/{nick}(nick=${asignaciones.nick_demandante})}"> Cancelar servicio </a></button>
+                    <td>
+                        <button><a th:href="@{/demandante/viewProfile/{nick}(nick=${asignaciones.nick_demandante})}">Ver detalles demandante</a></button>
                     </td>
                     <td th:if="${tipo_empresa == 'LIMPIEZA'}">
                         <button><a th:href="@{/franja-limpieza/viewFranjas/{nickDem}(nickDem=${asignaciones.nick_demandante})}">Ver franjas</a></button>
+                    </td>
+                    <td>
+                        <button><a th:href="@{/empresa/cancel/{nick}(nick=${asignaciones.nick_demandante})}"> Cancelar servicio </a></button>
                     </td>
                 </div>
             </tr>

@@ -1,5 +1,7 @@
 package es.uji.ei1027.majorsacasa.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalTime;
 
 public class FranjaServicioLimpieza {
@@ -8,7 +10,9 @@ public class FranjaServicioLimpieza {
     String nick_empresa;
     String nick_demandante;
     String diaSemana;
+    @DateTimeFormat(pattern = "HH:mm")
     LocalTime hIni;
+    @DateTimeFormat(pattern = "HH:mm")
     LocalTime hFin;
 
     public FranjaServicioLimpieza() {

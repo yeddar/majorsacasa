@@ -9,7 +9,13 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
 <body layout:fragment="content">
-<table>
+
+
+<a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
+    <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
+</a>
+
+<table class="table-mid">
     <tr>
         <td><label> Nick </label></td>
         <td><input readonly type="text" th:field="${voluntario.nick}"/></td>
@@ -20,7 +26,7 @@
     </tr>
     <tr>
         <td><label> Edad </label></td>
-        <td><input readonly type="number" th:field="${voluntario.edad}"/></td>
+        <td><input readonly type="text" th:field="${voluntario.edad}"/></td>
     </tr>
     <tr>
         <td><label> Teléfono </label></td>

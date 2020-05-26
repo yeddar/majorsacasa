@@ -95,7 +95,10 @@
     </table>
 
     <br>
-    <button> <a th:href="@{{lastURL}(lastURL=${session.lastURL})}"> Volver atrás </a></button>
+
+    <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
+        <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
+    </a>
 </div>
 </body>
 </html>
