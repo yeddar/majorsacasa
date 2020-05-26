@@ -1,6 +1,6 @@
 package es.uji.ei1027.majorsacasa.controller;
 
-import es.uji.ei1027.majorsacasa.aux.RandomString;
+import es.uji.ei1027.majorsacasa.various.RandomString;
 import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
 import org.slf4j.Logger;

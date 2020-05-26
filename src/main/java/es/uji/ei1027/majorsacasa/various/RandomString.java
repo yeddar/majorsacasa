@@ -1,4 +1,4 @@
-package es.uji.ei1027.majorsacasa.aux;
+package es.uji.ei1027.majorsacasa.various;
 
 import java.security.SecureRandom;
 import java.util.Locale;
