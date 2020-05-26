@@ -2,10 +2,19 @@ package es.uji.ei1027.majorsacasa.controller;
 
 import es.uji.ei1027.majorsacasa.model.Usuario;
 import es.uji.ei1027.majorsacasa.model.Voluntario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+@Component
 public class VoluntarioValidator implements Validator {
+
+    //@Autowired
+    //@Qualifier("voluntario")
+    //private VoluntarioController userService;
+
     @Override
     public boolean supports(Class<?> aClass) {
         return Voluntario.class.equals(aClass);
@@ -41,5 +50,9 @@ public class VoluntarioValidator implements Validator {
         if (edad < 18)
             errors.rejectValue("edad","requisito","Sebe ser mayor de 18 años para ofrecer ayuda");
 
+
+//        if(userService.getUserByNick(nick) != null){
+//            errors.rejectValue("nick", "nick.exists", "El nick ya está en uso");
+//        }
     }
 }

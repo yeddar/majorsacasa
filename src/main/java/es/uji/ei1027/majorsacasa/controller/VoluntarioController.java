@@ -3,7 +3,9 @@ package es.uji.ei1027.majorsacasa.controller;
 import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/voluntario")
-public class VoluntarioController {
+public class VoluntarioController implements UserService{
     private VoluntarioDao voluntarioDao;
     private UsuarioDao usuarioDao;
     private FsvDao fsvDao;
@@ -159,11 +161,18 @@ public class VoluntarioController {
 
         // Checks
         VoluntarioValidator validator = new VoluntarioValidator();
+        System.out.println(validator);
         validator.validate(voluntario, bindingResult);
 
+        // Validación de campos en formulario
         if (bindingResult.hasErrors())
             return "voluntario/add";
 
+        // Comprobar si el nick está en uso
+        if(getUserByNick(voluntario.getNick()) != null) {
+            bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
+            return "voluntario/add";
+        }
         session.setAttribute("vol", voluntario);
         return "redirect:/voluntario/fsv/schedule";
     }
@@ -314,5 +323,10 @@ public class VoluntarioController {
         model.addAttribute("voluntarios", voluntarios);
         session.setAttribute("lastURL", "/voluntario/listSinRevisar");
         return "supervisorCAS/listSinRevisar";
+    }
+
+    @Override
+    public Usuario getUserByNick(String nick) {
+        return usuarioDao.getUsuario(nick);
     }
 }

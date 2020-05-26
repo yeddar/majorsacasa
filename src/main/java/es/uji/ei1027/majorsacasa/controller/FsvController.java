@@ -97,7 +97,7 @@ public class FsvController {
         model.addAttribute("fsv", new FranjaServicioVoluntario());
         session.setAttribute("franjas", new ArrayList<FranjaServicioVoluntario>());
         session.setAttribute("id", 0);
-        return "voluntario/fsv/add_schedule";
+        return "voluntario/fsv/listFranjasVoluntario";
     }
 
     @RequestMapping(value = "/modif_schedule")
@@ -141,7 +141,7 @@ public class FsvController {
         model.addAttribute("franjas_nuevas", franjas);
 
         if(bindingResult.hasErrors())
-            return "voluntario/fsv/add_schedule";
+            return "voluntario/fsv/listFranjasVoluntario";
 
         int id = (int) session.getAttribute("id");
 
@@ -153,7 +153,7 @@ public class FsvController {
         session.setAttribute("franjas", franjas);
         session.setAttribute("id", id+1); // Incremento id lista
         model.addAttribute("franjas_nuevas", franjas);
-        return "voluntario/fsv/add_schedule";
+        return "voluntario/fsv/listFranjasVoluntario";
     }
 
     @RequestMapping(value = "/del_franja/{id}")
@@ -173,7 +173,7 @@ public class FsvController {
         session.setAttribute("franjas", franjas);
         modelo.addAttribute("franjas_nuevas",franjas);
         modelo.addAttribute("fsv", new FranjaServicioVoluntario());
-        return "voluntario/fsv/add_schedule";
+        return "voluntario/fsv/listFranjasVoluntario";
 
     }
     @RequestMapping(value = "/del_franja_nueva/{id}")
@@ -193,7 +193,7 @@ public class FsvController {
         session.setAttribute("franjas", franjas);
         modelo.addAttribute("franjas_nuevas",franjas);
         modelo.addAttribute("fsv", new FranjaServicioVoluntario());
-        return "voluntario/fsv/add_schedule";
+        return "voluntario/fsv/listFranjasVoluntario";
 
     }
 
