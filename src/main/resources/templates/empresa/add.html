@@ -26,30 +26,30 @@
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label>Nombre de Empresa: </label>
-                            <input type="text" class="form-control" th:field="*{nombre}"/>
+                            <input required type="text" class="form-control" th:field="*{nombre}"/>
                         </div>
 
                         <div class="col-sm-4">
                             <label> DNI de responsable: </label>
-                            <input type="text" class="form-control" th:field="*{nif}"/>
+                            <input required type="text" class="form-control" th:field="*{nif}"/>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <td><label> Correo electrónico: </label></td>
-                            <td><input type="text" class="form-control" th:field="*{email}"/></td>
+                            <td><input required type="text" class="form-control" th:field="*{email}"/></td>
                         </div>
                         <div class="col-sm-4">
                             <label> Telefono de contacto: </label>
-                            <input type="text" class="form-control" th:field="*{tlf}"/>
+                            <input required type="text" class="form-control" th:field="*{tlf}"/>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label> Nick de usuario: </label>
-                            <input class="form-control" type="text" th:field="*{nick}"/>
+                            <input required class="form-control" type="text" th:field="*{nick}"/>
                         </div>
                         <div class="col-sm-4">
                             <label>Servicio ofertado: </label>
@@ -65,7 +65,7 @@
                         <div class="form-group row">
                         <div class="col-sm-2">
                             <label> (Optativo) Vacantes:  </label>
-                            <input type="number" min="0" class="form-control" th:field="*{vacantes}"/>
+                            <input required type="number" min="0" class="form-control" th:field="*{vacantes}"/>
                         </div>
                             <div class="col-sm-8">
                             <div class="alert alert-info">
