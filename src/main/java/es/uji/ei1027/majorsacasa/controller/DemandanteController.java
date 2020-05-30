@@ -428,7 +428,7 @@ public class DemandanteController{
 
         Usuario user = (Usuario) session.getAttribute("user");
 
-        if (! user.getRol().equals("COMITE_CAS")){
+        if (user != null){
             session.invalidate();
         }
 
