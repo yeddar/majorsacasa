@@ -426,7 +426,12 @@ public class DemandanteController{
             servicioLimpiezaDao.addServicioLimpieza(servLim);
         }
 
-        session.invalidate();
+        Usuario user = (Usuario) session.getAttribute("user");
+
+        if (! user.getRol().equals("COMITE_CAS")){
+            session.invalidate();
+        }
+
         return "redirect:/";
     }
 
