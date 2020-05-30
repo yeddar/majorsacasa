@@ -15,10 +15,4 @@ public class IndexController {
     public String goWeAre() {
         return "/common/team";
     }
-
-    @RequestMapping(value = "/rootIndex")
-    public String allView() {
-        return "root/rootIndex";
-    }
-
 }
