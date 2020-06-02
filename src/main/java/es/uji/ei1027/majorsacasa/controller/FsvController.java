@@ -116,7 +116,7 @@ public class FsvController {
         }
 
 
-        return "voluntario/schedule";
+        return "voluntario/fsv/listFranjasVoluntario";
     }
 
 

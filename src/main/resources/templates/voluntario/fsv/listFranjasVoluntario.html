@@ -105,9 +105,11 @@
 
     </table>
 
-    <div class="container">
+    <div th:unless="${#lists.isEmpty(franjas_nuevas)}" class="container">
         <div class="container">
-            <a th:href="@{/voluntario/vol_schedule}"> Solicitar </a>
+            <form action="#" th:action="@{/voluntario/vol_schedule}" method="post">
+                <input type="submit" value="Solicitar"/>
+            </form>
         </div>
     </div>
 </div>

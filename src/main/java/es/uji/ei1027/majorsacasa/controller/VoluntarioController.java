@@ -180,7 +180,7 @@ public class VoluntarioController implements UserService{
         return "redirect:/voluntario/fsv/schedule";
     }
 
-    @RequestMapping(value = "/vol_schedule")
+    @RequestMapping(value = "/vol_schedule", method = RequestMethod.POST)
     public String volRequest(HttpSession session) {
         Voluntario vol = (Voluntario) session.getAttribute("vol");
 
