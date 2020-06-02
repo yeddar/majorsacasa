@@ -17,7 +17,6 @@
     <thead>
     <tr>
         <th> Nombre</th>
-        <th> Edad</th>
         <th> Teléfono</th>
 
         <th> Correo</th>
@@ -30,9 +29,8 @@
     <tbody>
     <tr th:each="voluntario: ${voluntarios}">
         <td th:text="${voluntario.nombre}"></td>
-        <td th:text="${voluntario.edad}"></td>
-
         <td th:text="${voluntario.tlf}"></td>
+
         <td th:text="${voluntario.email}"></td>
         <td th:text="${voluntario.aficiones}"></td>
         <td th:text="${voluntario.status}"></td>

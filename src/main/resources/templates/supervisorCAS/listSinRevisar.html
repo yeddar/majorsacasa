@@ -39,14 +39,21 @@
             <td th:text="${voluntario.aficiones}"></td>
 
             <td>
-                <button><a th:href="@{/voluntario/accept/{nick}(nick=${voluntario.nick})}">Aceptar</a></button>
+                <a th:href="@{/voluntario/viewFranjas/{nick}(nick=${voluntario.nick})}">
+                    <i class="flaticon-info"></i>
+                </a>
             </td>
             <td>
-                <button><a th:href="@{/voluntario/delete/{nick}(nick=${voluntario.nick})}"> Cancelar </a></button>
+                <a th:href="@{/voluntario/accept/{nick}(nick=${voluntario.nick})}">
+                    <i class="flaticon-next"></i>
+                </a>
             </td>
             <td>
-                <button><a th:href="@{/voluntario/viewFranjas/{nick}(nick=${voluntario.nick})}">Ver detalles</a></button>
+                <a th:href="@{/voluntario/delete/{nick}(nick=${voluntario.nick})}">
+                    <i class="flaticon-can"></i>
+                </a>
             </td>
+
         </tr>
         </tbody>
     </table>

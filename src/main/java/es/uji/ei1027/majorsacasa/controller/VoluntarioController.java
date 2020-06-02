@@ -2,6 +2,8 @@ package es.uji.ei1027.majorsacasa.controller;
 
 import es.uji.ei1027.majorsacasa.dao.*;
 import es.uji.ei1027.majorsacasa.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/voluntario")
 public class VoluntarioController implements UserService{
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
     private VoluntarioDao voluntarioDao;
     private UsuarioDao usuarioDao;
     private FsvDao fsvDao;
@@ -282,6 +285,9 @@ public class VoluntarioController implements UserService{
     @RequestMapping(value = "/accept/{nick}")
     public String processAccept(@PathVariable String nick, HttpSession session){
         voluntarioDao.acceptVol(nick);
+
+        Voluntario voluntario = (Voluntario) voluntarioDao.getVoluntario(nick);
+        log.info("Envío de correo a: " + voluntario.getEmail() +" explicando que su cuenta de voluntario ha sido aceptada");
         return "redirect:"+session.getAttribute("lastURL");
     }
 
