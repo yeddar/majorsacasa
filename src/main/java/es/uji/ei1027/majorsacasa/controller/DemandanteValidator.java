@@ -16,8 +16,11 @@ public class DemandanteValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Demandante d = (Demandante) o;
 
+        //nick en bbdd
+
+
         // edad
-        if(d.getEdad() < 20 && d.getEdad() > 120)
+        if(d.getEdad() < 20 || d.getEdad() > 120)
             errors.rejectValue("edad", "inválido", "Edad inválida.");
 
         // telefono

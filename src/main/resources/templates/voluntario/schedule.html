@@ -78,8 +78,8 @@
                     <input type="time" th:field="*{hFin}"/>
                     <div class="error" th:if="${#fields.hasErrors('hFin')}" th:errors="*{hFin}"></div>
                 </th>
-                <th><input type="submit" value="Añadir franja"/></th>
-            </tr>
+                <th><input type="submit" th:href="@{/voluntario/vol_schedule}" value="Añadir franja"/></th>
+    <div th:replace="fragments/franjas" >...</div>
         </table>
     </form>
 

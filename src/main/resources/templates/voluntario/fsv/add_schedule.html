@@ -82,6 +82,7 @@
             </tr>
         </table>
     </form>
+
     <table th:unless="${#lists.isEmpty(franjas_nuevas)}" class="table table-striped">
 
         <tr>
@@ -106,11 +107,13 @@
     </table>
 
         <div class="container">
-            <input type="submit" th:href="@{/voluntario/vol_schedule}" value="Solicitar"/>
+        <div class="button">
+            <a th:href="@{/voluntario/vol_request}">Solicitar</a>
         </div>
+
+
         </div>
-        </div>
-</div>
+
 
 
 </body>
