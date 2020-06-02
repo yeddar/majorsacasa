@@ -434,6 +434,4 @@ public class DemandanteController{
 
         return "redirect:/";
     }
-
-
 }
