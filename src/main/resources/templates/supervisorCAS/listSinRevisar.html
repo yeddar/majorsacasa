@@ -10,7 +10,8 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1> Listado de voluntarios sin revisar </h1>
+    <h2> Listado de voluntarios sin revisar </h2>
+    <hr>
     <table>
         <thead>
         <tr>
@@ -45,7 +46,7 @@
             </td>
             <td>
                 <a th:href="@{/voluntario/accept/{nick}(nick=${voluntario.nick})}">
-                    <i class="flaticon-next"></i>
+                    <i class="flaticon-tick"></i>
                 </a>
             </td>
             <td>

@@ -39,7 +39,9 @@
             <td th:text="${demandante.cod_asist}"></td>
 
             <td>
-                <button><a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a></button>
+                <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">
+                    <i class="flaticon-info"></i>
+                </a>
             </td>
 
             <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}">

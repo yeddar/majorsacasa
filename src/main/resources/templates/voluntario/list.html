@@ -33,7 +33,18 @@
 
         <td th:text="${voluntario.email}"></td>
         <td th:text="${voluntario.aficiones}"></td>
-        <td th:text="${voluntario.status}"></td>
+
+        <th:block th:switch="${voluntario.status}">
+            <td th:case="'ACEPTADO'">
+                <i class="flaticon-approve"></i>
+            </td>
+            <td th:case="'SIN REVISAR'">
+                <i class="flaticon-file"></i>
+            </td>
+            <td th:case="'CANCELADO'">
+                <i class="flaticon-reject"></i>
+            </td>
+        </th:block>
     </tr>
     </tbody>
 </table>
