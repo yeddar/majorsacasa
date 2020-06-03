@@ -190,10 +190,15 @@ public class DemandanteController{
             @ModelAttribute("demandante") Demandante demandante,
             HttpSession session,
             BindingResult bindingResult) {
+
+        // Comprobación de errores
+        DemandanteValidator dv = new DemandanteValidator();
+        dv.validate(demandante, bindingResult);
+
         if (bindingResult.hasErrors())
             return "demandante/update";
-        demandanteDao.updateDemandante(demandante);
 
+        demandanteDao.updateDemandante(demandante);
         Usuario user = (Usuario) session.getAttribute("user");
 
         if (user.getRol().equals("DEMANDANTE")){

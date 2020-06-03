@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="col-sm-4">
-                            <label> DNI de responsable: </label>
+                            <label> NIF del responsable: </label>
                             <input type="text" class="form-control" th:field="*{nif}"/>
                         </div>
                     </div>
@@ -38,10 +38,12 @@
                         <div class="col-sm-6">
                             <td><label> Correo electrónico: </label></td>
                             <td><input type="text" class="form-control" th:field="*{email}"/></td>
+                            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
                         <div class="col-sm-4">
                             <label> Telefono de contacto: </label>
                             <input type="text" class="form-control" th:field="*{tlf}"/>
+                            <div class="error" th:if="${#fields.hasErrors('tlf')}" th:errors="*{tlf}"></div>
                         </div>
                     </div>
 
@@ -49,6 +51,7 @@
                         <div class="col-sm-6">
                             <label> Nick de usuario: </label>
                             <input readonly class="form-control" type="text" th:field="*{nick}"/>
+                            <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
                         </div>
                         <div class="col-sm-4">
                             <label>Servicio ofertado: </label>

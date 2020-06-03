@@ -102,9 +102,15 @@ public class VoluntarioController implements UserService{
         VoluntarioValidator validator = new VoluntarioValidator();
         validator.validate(voluntario, bindingResult);
 
+        // Validación de campos en formulario
         if (bindingResult.hasErrors())
             return "voluntario/update";
 
+        // Comprobar si el nick está en uso
+        if(getUserByNick(voluntario.getNick()) != null) {
+            bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
+            return "voluntario/update";
+        }
 
         voluntario.setStatus("ACEPTADO");
         System.out.print(voluntario.toString());
@@ -127,11 +133,13 @@ public class VoluntarioController implements UserService{
                                          BindingResult bindingResult){
         String nick = (String)session.getAttribute("nick");
         user.setNick(nick);
+
         LoginValidator loginValidator = new LoginValidator();
         loginValidator.validate(user, bindingResult);
 
         if(bindingResult.hasErrors()) {
             model.addAttribute("user", new Usuario());
+            bindingResult.rejectValue("pass", "incorrectpass", "Contraseña incorrecta");
             return "voluntario/delete_account";
         }
         // Comprobar que la contraseña es correcta
@@ -166,7 +174,6 @@ public class VoluntarioController implements UserService{
 
         // Checks
         VoluntarioValidator validator = new VoluntarioValidator();
-        System.out.println(validator);
         validator.validate(voluntario, bindingResult);
 
         // Validación de campos en formulario

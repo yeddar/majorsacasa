@@ -1,4 +1,4 @@
-.box {
+.box_ {
     width: 40%;
     margin: 0 auto;
     background: rgba(255,255,255,0.2);
@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.button {
+.button_ {
     font-size: 1em;
     padding: 10px;
     color: #fff;
@@ -19,11 +19,11 @@
     cursor: pointer;
     transition: all 0.3s ease-out;
 }
-.button:hover {
+.button_:hover {
     background: #06D85F;
 }
 
-.overlay {
+.overlay_ {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -34,49 +34,49 @@
     visibility: hidden;
     opacity: 0;
 }
-.overlay:target {
+.overlay_:target {
     visibility: visible;
     opacity: 1;
 }
 
-.popup {
+.popup_ {
     margin: 70px auto;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
     width: 30%;
     position: relative;
-    transition: all 5s ease-in-out;
+    transition: all 100ms ease-in-out;
 }
 
-.popup h2 {
+.popup_ h2 {
     margin-top: 0;
     color: #333;
     font-family: Tahoma, Arial, sans-serif;
 }
-.popup .close {
+.popup_ .close_ {
     position: absolute;
     top: 20px;
     right: 30px;
-    transition: all 200ms;
+    transition: all 50ms;
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
     color: #333;
 }
-.popup .close:hover {
+.popup_ .close_:hover {
     color: #06D85F;
 }
-.popup .content {
+.popup_ .content_ {
     max-height: 30%;
     overflow: auto;
 }
 
 @media screen and (max-width: 700px){
-    .box{
+    .box_{
         width: 70%;
     }
-    .popup{
+    .popup_{
         width: 70%;
     }
 }

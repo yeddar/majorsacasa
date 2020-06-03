@@ -39,7 +39,7 @@
 
     <div class="form-group row">
         <div class="col-sm-5">
-            <label>Nick: </label>
+            <label>Nick de usuario: </label>
             <input type="text"  class="form-control" th:field="*{nick}" required/>
             <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
         </div>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-sm-5">
-            <label>Email: </label>
+            <label>Correo electrónico: </label>
             <input type="text"  class="form-control" th:field="*{email}" required/>
             <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
         </div>

@@ -45,8 +45,12 @@ public class VoluntarioValidator implements Validator {
 
         // email
         if (!vol.getEmail().matches("[-\\w\\.]+@\\w+\\.\\w+"))
-            errors.rejectValue("email", "inválido", "Dirección de correo inválido.");
+            errors.rejectValue("email", "inválido", "Dirección de correo inválida.");
 
-        // TODO: ¿No se tratan los campos vacíos?
+        // nick
+        if(!vol.getNick().matches("^[A-Za-z][A-Za-z0-9]*$"))
+            errors.rejectValue("nick", "inválido", "El nick no puede contener espacios en blanco");
+
+
     }
 }

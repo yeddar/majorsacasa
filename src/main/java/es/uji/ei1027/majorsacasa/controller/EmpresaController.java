@@ -157,6 +157,9 @@ public class EmpresaController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String processAddSubmit(@ModelAttribute("empresa") Empresa empresa,
                                    BindingResult bindingResult) {
+
+        EmpresaValidator validator = new EmpresaValidator();
+        validator.validate(empresa, bindingResult);
         if (bindingResult.hasErrors())
             return "empresa/add";
 
@@ -193,8 +196,12 @@ public class EmpresaController {
     public String processUpdateSubmit(
             @ModelAttribute("empresa") Empresa empresa,
             BindingResult bindingResult) {
+
+        EmpresaValidator validator = new EmpresaValidator();
+        validator.validate(empresa, bindingResult);
         if (bindingResult.hasErrors())
             return "empresa/update";
+
         empresaDao.updateEmpresa(empresa);
         return "redirect:list";
     }

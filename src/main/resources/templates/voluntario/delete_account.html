@@ -7,6 +7,7 @@
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/popup-style.css" th:href="@{/popup-style.css}"/>
 </head>
 
 <body>
@@ -17,26 +18,39 @@
     <h4> Se dará de baja su cuenta y todos los servcios que esté prestando</h4>
 
         <br><br>
-        <form action="#" th:action="@{/voluntario/remove_user}"
-              th:object="${user}" method="post">
 
-            <div class="col-sm-5" align="center">
-                <label>Introduzca la contraseña para darse de baja: </label>
-                <input type="password"  class="form-control" th:field="*{pass}" th:size="4"/>
-                <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
+        <div class="container">
+            <div>
+                <form action="#popup1">
+                    <input type="submit" value="Darse de baja" />
+                </form>
             </div>
 
-
-
-            <div class="container">
-                <div class="button">
-                    <td colspan="2"><input type="submit" value="Continuar"/></td>
+            <div id="popup1" class="overlay_">
+                <div class="popup_">
+                    <h2>¿Está segur@?</h2>
+                    <a class="close_" href="#">&times;</a>
+                    <div class="content_">
+                        <form action="#" th:action="@{/voluntario/remove_user}"
+                              th:object="${user}" method="post">
+                            <label>Introduzca la contraseña para darse de baja: </label>
+                            <input type="password"  class="form-control" th:field="*{pass}"/>
+                            <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
+                            <br>
+                            <input type="submit" value="Eliminar cuenta"/>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </form>
+
+            <!--<div class="button">
+                <td colspan="2"><input type="submit" value="Eliminar cuenta"/></td>
+            </div>-->
+        </div>
+
         <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
             <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
-
+        </a>
 </div>
 </div>
 </body>

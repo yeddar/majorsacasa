@@ -1,46 +1,42 @@
 package es.uji.ei1027.majorsacasa.controller;
 
+
+import es.uji.ei1027.majorsacasa.model.Empresa;
+import es.uji.ei1027.majorsacasa.model.Voluntario;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import es.uji.ei1027.majorsacasa.model.Demandante;
 
-
-public class DemandanteValidator implements Validator {
-
+public class EmpresaValidator implements Validator {
     @Override
     public boolean supports(Class<?> aClass) {
-        return Demandante.class.equals(aClass);
+        return Empresa.class.equals(aClass);
     }
 
     @Override
     public void validate(Object o, Errors errors) {
-        Demandante d = (Demandante) o;
 
-        //nick en bbdd
+        // Checks volunteer
+        Empresa emp = (Empresa) o;
 
-
-        // edad
-        if(d.getEdad() < 20 || d.getEdad() > 120)
-            errors.rejectValue("edad", "inválido", "Edad inválida.");
 
         // telefono
         boolean valido = true;
-        for (int i = 0; i < d.getTlf().length(); i++){
-            if (!Character.isDigit(d.getTlf().charAt(i))) {
+        for (int i = 0; i < emp.getTlf().length(); i++){
+            if (!Character.isDigit(emp.getTlf().charAt(i))) {
                 valido = false;
                 break;
             }
         }
-        //if(d.getTlf().length() != 9 && d.getTlf().contains("[a-zA-Z]+"))
-        if(d.getTlf().length() != 9 || !valido)
+
+        if(emp.getTlf().length() != 9 || !valido)
             errors.rejectValue("tlf", "inválido", "Teléfono inválido.");
 
         // email
-        if (!d.getEmail().matches("[-\\w\\.]+@\\w+\\.\\w+"))
+        if (!emp.getEmail().matches("[-\\w\\.]+@\\w+\\.\\w+"))
             errors.rejectValue("email", "inválido", "Dirección de correo inválida.");
 
         // nick
-        if(!d.getNick().matches("^[A-Za-z][A-Za-z0-9]*$"))
+        if(!emp.getNick().matches("^[A-Za-z][A-Za-z0-9]*$"))
             errors.rejectValue("nick", "inválido", "El nick no puede contener espacios en blanco");
 
 
