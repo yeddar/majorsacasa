@@ -10,7 +10,8 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1> Listado de demandantes en el sistema</h1>
+    <h2> Listado de demandantes en el sistema</h2>
+    <hr>
     <table>
         <thead>
         <tr>
@@ -35,7 +36,17 @@
             <td th:text="${demandante.direccion}"></td>
 
             <td th:text="${demandante.cod_asist}"></td>
-            <td th:text="${demandante.status}"></td>
+
+            <th:block th:switch="${demandante.status}">
+                <td th:case="'ACEPTADO'">
+                    <i class="flaticon-approve"></i>
+                </td>
+                <td th:case="'SIN REVISAR'">
+                    <i class="flaticon-file"></i>
+                </td>
+                <td th:case="'CANCELADO'">
+                    <i class="flaticon-reject"></i>
+                </td>
 
            <!-- <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
             </td>

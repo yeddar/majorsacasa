@@ -1,6 +1,6 @@
     /*
     Flaticon icon font: Flaticon
-    Creation date: 24/05/2020 15:09
+    Creation date: 03/06/2020 16:40
     */
 
     @font-face {
@@ -54,6 +54,12 @@
 .flaticon-circle-with-an-arrow-pointing-to-left:before { content: "\f10e"; }
 .flaticon-information:before { content: "\f10f"; }
 .flaticon-info:before { content: "\f110"; }
+.flaticon-quality-control:before { content: "\f111"; }
+.flaticon-approve:before { content: "\f112"; }
+.flaticon-file:before { content: "\f113"; }
+.flaticon-reject:before { content: "\f114"; }
+.flaticon-file-1:before { content: "\f115"; }
+.flaticon-tick:before { content: "\f116"; }
     
     $font-Flaticon-can: "\f100";
     $font-Flaticon-interface: "\f101";
@@ -72,3 +78,9 @@
     $font-Flaticon-circle-with-an-arrow-pointing-to-left: "\f10e";
     $font-Flaticon-information: "\f10f";
     $font-Flaticon-info: "\f110";
+    $font-Flaticon-quality-control: "\f111";
+    $font-Flaticon-approve: "\f112";
+    $font-Flaticon-file: "\f113";
+    $font-Flaticon-reject: "\f114";
+    $font-Flaticon-file-1: "\f115";
+    $font-Flaticon-tick: "\f116";

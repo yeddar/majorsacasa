@@ -285,6 +285,29 @@ tfoot{
     color:saddlebrown;
 }
 
+.flaticon-tick{
+    color:darkgreen;
+
+}
+
+.flaticon-phone-call{
+    color:cornflowerblue;
+    font-size:30px !important;
+}
+
+.flaticon-approve{
+    color:darkgreen;
+}
+
+.flaticon-file{
+    color:darkorange;
+}
+
+
+.flaticon-reject{
+    color: darkred;
+}
+
 .flaticon-circle-with-an-arrow-pointing-to-left::before {
     float: left;
     content: "\f10e";
