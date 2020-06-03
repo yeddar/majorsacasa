@@ -20,7 +20,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 @RequestMapping("/empresa")
-public class EmpresaController {
+public class EmpresaController implements UserService {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private EmpresaDao empresaDao;
     private UsuarioDao usuarioDao;
@@ -163,6 +163,12 @@ public class EmpresaController {
         if (bindingResult.hasErrors())
             return "empresa/add";
 
+        // Comprobar si el nick está en uso
+        if(getUserByNick(empresa.getNick()) != null) {
+            bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
+            return "empresa/add";
+        }
+
         // Generacion de contrasena random
         RandomString session = new RandomString(8, ThreadLocalRandom.current());
         String passGenerated = session.nextString();
@@ -202,6 +208,12 @@ public class EmpresaController {
         if (bindingResult.hasErrors())
             return "empresa/update";
 
+        // Comprobar si el nick está en uso
+        if(getUserByNick(empresa.getNick()) != null) {
+            bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
+            return "empresa/update";
+        }
+
         empresaDao.updateEmpresa(empresa);
         return "redirect:list";
     }
@@ -222,5 +234,10 @@ public class EmpresaController {
         // INCREMENTAMOS EL VALOR DE VACANTES
         empresaDao.increaseVacantes(empresaDao.getEmpresa((String) session.getAttribute("nick")));
         return "redirect:"+session.getAttribute("lastURL");
+    }
+
+    @Override
+    public Usuario getUserByNick(String nick) {
+        return usuarioDao.getUsuario(nick);
     }
 }

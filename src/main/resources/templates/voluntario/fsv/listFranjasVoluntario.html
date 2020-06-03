@@ -14,8 +14,10 @@
 <div layout:fragment="content">
     <h2 style="text-align:center"> Disponibilidad para ofrecer ayuda </h2>
     <hr>
+    <div th:if="${#lists.isEmpty(franjas)}">
+        <h4> No tiene ninguna franja ofrecida. Añada una franja desde este formulario.</h4>
+    </div>
     <table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
-
         <tr>
             <th colspan="4">FRANJAS ACTUALES</th>
         </tr>
@@ -32,7 +34,8 @@
             <td th:text="${fr.diaSemana}"></td>
             <td th:text="${fr.hIni}"></td>
             <td th:text="${fr.hFin}"></td>
-            <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}" class="btn btn btn-danger" role="button" aria-pressed="true">Esborra</a></td>
+            <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}"> <i class="flaticon-can"></i></a></td>
+
         </tr>
 
     </table>
@@ -102,7 +105,7 @@
             <td th:text="${fr.diaSemana}"></td>
             <td th:text="${fr.hIni}"></td>
             <td th:text="${fr.hFin}"></td>
-            <td><a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}" class="btn btn btn-danger" role="button" aria-pressed="true">Esborra</a></td>
+            <td><a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}"> <i class="flaticon-can"></i></a></td>
         </tr>
 
     </table>

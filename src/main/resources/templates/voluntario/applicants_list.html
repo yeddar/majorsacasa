@@ -10,6 +10,9 @@
     <div layout:fragment="content">
         <h2 style="text-align:center"> Demandantes asignados </h2>
         <hr>
+        <div th:if="${#lists.isEmpty(demandantes)}">
+            <h4> No tiene ninguna persona asignada todavía. Consulte las solicitudes</h4>
+        </div>
         <table th:unless="${#lists.isEmpty(demandantes)}" class="table table-striped">
 
             <tr>

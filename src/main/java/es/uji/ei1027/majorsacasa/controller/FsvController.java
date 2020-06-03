@@ -160,8 +160,11 @@ public class FsvController {
     public String delFranja(Model modelo, HttpSession session, @PathVariable int id) {
         ArrayList<FranjaServicioVoluntario> franjas = (ArrayList<FranjaServicioVoluntario>) session.getAttribute("franjas");
 
-        // Borrar franja de la base de datos
-        fsvDao.deleteFsv(id);
+        // Comprobar si franja está asignada
+        if (asigVolDao.getByFranjaOrNull(id) == null) {
+            fsvDao.deleteFsv(id); // Borrar franja de la base de datos
+        }
+
 
         String nick_vol = (String)session.getAttribute("nick");
         if (nick_vol != null) { // Si hay usuario logueado

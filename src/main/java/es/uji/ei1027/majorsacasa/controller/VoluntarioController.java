@@ -217,7 +217,10 @@ public class VoluntarioController implements UserService{
                 fsvDao.addFranjaServicioVoluntario(fsv);
             }
         }
-        return "voluntario/finRegistro";
+        if(vol != null)
+            return "voluntario/finRegistro";
+
+        return "redirect:/";
     }
     //-----------------------//
 
@@ -257,7 +260,7 @@ public class VoluntarioController implements UserService{
             demAsignados.add(demandanteDao.getDemandante(nick_dem));
 
         }
-
+        session.setAttribute("lastURL", "/voluntario/vol_applicants_list");
         model.addAttribute("demandantes", demAsignados);
         model.addAttribute("franjas", franjas_asignadas);
         return "voluntario/applicants_list";
