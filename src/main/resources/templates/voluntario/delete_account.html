@@ -14,32 +14,29 @@
 
     <h2 style="text-align:center"> Confirme que desea eliminar la cuenta. </h2>
     <hr>
-    <h3> Se dará de baja su cuenta y todos los servcios que esté prestando</h3>
+    <h4> Se dará de baja su cuenta y todos los servcios que esté prestando</h4>
 
+        <br><br>
+        <form action="#" th:action="@{/voluntario/remove_user}"
+              th:object="${user}" method="post">
 
-    <div class="container py-20 mt-4">
-        <div class="row">
-            <div class="col-md-10 mx-auto">
-                <!--/*@thymesVar id="voluntario" type=""*/-->
-                <form action="#" th:action="@{/voluntario/remove_user}"
-                      th:object="${user}" method="post">
-
-                    <div class="col-sm-8">
-                        <label>Contraseña: </label>
-                        <input type="password"  class="form-control" th:field="*{pass}"/>
-                        <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
-                    </div>
-
-
-                    <div class="container">
-                        <div class="button">
-                            <td colspan="2"><input type="submit" value="Continuar"/></td>
-                        </div>
-                    </div>
-                </form>
+            <div class="col-sm-5" align="center">
+                <label>Introduzca la contraseña para darse de baja: </label>
+                <input type="password"  class="form-control" th:field="*{pass}" th:size="4"/>
+                <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
             </div>
-        </div>
-    </div>
+
+
+
+            <div class="container">
+                <div class="button">
+                    <td colspan="2"><input type="submit" value="Continuar"/></td>
+                </div>
+            </div>
+        </form>
+        <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
+            <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
+
 </div>
 </div>
 </body>

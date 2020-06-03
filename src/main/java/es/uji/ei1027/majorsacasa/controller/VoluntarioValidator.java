@@ -47,8 +47,6 @@ public class VoluntarioValidator implements Validator {
         if (!vol.getEmail().matches("[-\\w\\.]+@\\w+\\.\\w+"))
             errors.rejectValue("email", "inválido", "Dirección de correo inválido.");
 
-//        if(userService.getUserByNick(nick) != null){
-//            errors.rejectValue("nick", "nick.exists", "El nick ya está en uso");
-//        }
+        // TODO: ¿No se tratan los campos vacíos?
     }
 }

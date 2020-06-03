@@ -114,8 +114,10 @@ public class VoluntarioController implements UserService{
     }
 
     @RequestMapping(value = "/remove_user")
-    public String removeUser(Model model){
+    public String removeUser(Model model, HttpSession session){
+        session.setAttribute("lastURL", "../");
         model.addAttribute("user", new Usuario());
+
         return "/voluntario/delete_account";
     }
 
@@ -208,9 +210,14 @@ public class VoluntarioController implements UserService{
                 fsvDao.addFranjaServicioVoluntario(fsv);
             }
         }
-        return "redirect:/";
+        return "voluntario/finRegistro";
     }
     //-----------------------//
+
+    @RequestMapping(value = "/popup")
+    public String popup(){
+        return "voluntario/popup";
+    }
 
     @RequestMapping(value = "/vol_applicants_list")
     public String volApplicantsList(HttpSession session, Model model) {
