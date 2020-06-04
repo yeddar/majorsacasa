@@ -11,21 +11,55 @@
 <body>
 <div layout:fragment="content">
 
-    <h1><b>DETALLES DEL SERVICIO</b></h1>
+    <h2><b>Detalles del servicio</b></h2>
+    <hr>
 
-    <br>
-    <b>Necesidad: </b>
-    <span th:text="${servicioSanitario.necesidad}"></span>
-    <br>
+    <div class="article_servs">
+        <h2> <u>Servicio Sanitario </u></h2>
+        <div th:if="${servicioSanitario != null}">
 
-    <b>Día de visita: </b>
-    <span th:text="${servicioSanitario.dia_visita}"></span>
-    <br>
+            <p th:text="'Servicio en estado: ' +
+                ${servEmpresaEspSan.serv_status}"> </p>
+            <hr>
+            <div class="row">
+                <th:block th:if="${servEmpresaEspSan.f_ini != NULL}">
+                    <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
+                        ${servEmpresaEspSan.f_ini}"> </p>
+                </th:block>
 
-    <b>Franja de visita: </b>
-    <span th:text="${servicioSanitario.manana_tarde}"></span>
+                <th:block th:if="${servEmpresaEspSan.f_fin != NULL}">
+                    <p th:text="'Indico como fecha de finalización el día: ' +
+                        ${servEmpresaEspSan.f_fin}"> </p>
+                </th:block>
 
-    <br><br>
+                <p th:text="'Nombre de empresa: ' + ${empresaSan.nombre}
+                + ' - El teléfono de contacto es: ' +  ${empresaSan.tlf}"></p>
+
+                <div class="column_50">
+                    <h5> <b> Información de petición </b> </h5>
+                    <br>
+                    <p th:text="'Descripción de consulta: ' + ${servicioSanitario.necesidad}"> </p>
+                </div>
+                <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
+                <div class="column_50">
+                    <h5> <b> Especificación de empresa </b> </h5>
+                    <br>
+                    <p th:text="'Día de visita: ' + ${servicioSanitario.dia_visita}"> </p>
+
+                    <span th:if="${#strings.contains(servicioSanitario.manana_tarde,'T')}">
+                        <p>Momento de visita: Tarde </p>
+                    </span>
+
+                    <span th:if="${#strings.contains(servicioSanitario.manana_tarde,'M')}">
+                        <p>Momento de visita: Mañana </p>
+                    </span>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <span th:if="${status == 'SIN EVALUAR'}">
         <button th:value="Aceptar"><a
                 th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}" title="Validar servicio">Aceptar</a></button>

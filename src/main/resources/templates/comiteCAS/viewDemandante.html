@@ -18,7 +18,12 @@
     <h2><b>Servicios de pago</b></h2>
     <hr>
 
-    <div class="container-fluid py-10 mt-2">
+    <div th:if="${#lists.isEmpty(serviciosEmpresa)}">
+        <article>
+            <h4> No tiene ningún servicio de pago activo</h4>
+        </article>
+    </div>
+    <div th:unless="${#lists.isEmpty(serviciosEmpresa)}" class="container-fluid py-10 mt-2">
         <div class="table-responsive">
             <table class="table">
         <thead>
@@ -53,7 +58,13 @@
     <h2 style="text-align:center">  <b> Servicios de voluntarios </b></h2>
     <hr>
 
-    <div class="container-fluid py-10 mt-2">
+    <div th:if="${#lists.isEmpty(serviciosVoluntario)}">
+        <article>
+            <h4> No tiene ningún servicio de voluntario</h4>
+        </article>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(serviciosVoluntario)}" class="container-fluid py-10 mt-2">
         <div class="table-responsive">
             <table class="table">
         <thead>
@@ -118,12 +129,14 @@
     </table>
 
     <br>
+        </div>
+    </div>
 
     <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
         <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
     </a>
-</div>
-    </div>
+
+
 </div>
 </body>
 </html>

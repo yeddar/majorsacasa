@@ -12,7 +12,14 @@
 <div layout:fragment="content">
     <h2> Listado de demandantes aceptados </h2>
     <hr>
-    <div class="container-fluid py-10 mt-2">
+
+    <div th:if="${#lists.isEmpty(demandantes)}">
+        <article>
+            <h4> No hay demandantes aceptados en el sistema</h4>
+        </article>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(demandantes)}" class="container-fluid py-10 mt-2">
         <div class="table-responsive">
             <table class="table">
                 <thead>
