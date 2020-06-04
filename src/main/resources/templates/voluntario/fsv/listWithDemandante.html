@@ -10,22 +10,40 @@
 <div layout:fragment="content">
     <h2 style="text-align:center"> Franjas asignadas </h2>
     <hr>
-    <table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
-        <tr>
-            <th> Día semana</th>
-            <th> Hora inicio</th>
-            <th> Hora fin </th>
-        </tr>
 
-        <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(franjas)-1)}">
-            <td th:text="${franjas[index].diaSemana}"></td>
-            <td th:text="${franjas[index].hIni}"></td>
-            <td th:text="${franjas[index].hFin}"></td>
+    <div th:if="${#lists.isEmpty(franjas)}">
+        <article>
+            <h4> No tiene franjas asignadas. Consulte con atención al cliente.</h4>
+        </article>
+    </div>
+    <div class="container-fluid py-10 mt-2" th:unless="${#lists.isEmpty(franjas)}">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th> Día semana</th>
+                    <th> Hora inicio</th>
+                    <th> Hora fin</th>
+                </tr>
 
-        </tr>
+                <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(franjas)-1)}">
+
+                    <th:block th:switch="${franjas[index].diaSemana}">
+                        <td th:case="'L'">Lunes</td>
+                        <td th:case="'M'">Martes</td>
+                        <td th:case="'X'">Miercoles</td>
+                        <td th:case="'J'">Jueves</td>
+                        <td th:case="'V'">Viernes</td>
+                    </th:block>
+
+                    <td th:text="${franjas[index].hIni}"></td>
+                    <td th:text="${franjas[index].hFin}"></td>
+
+                </tr>
+        </div>
+    </div>
 
     </table>
-    <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
+    <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" title="Regresar al listado de demandantes asignados">
         <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
     </a>
 </div>

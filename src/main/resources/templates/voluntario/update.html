@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <head>
-    <title> Mac - Modificar datos </title>
+    <title> MaC - Modificar datos </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -26,12 +26,12 @@
 
                         <div class="col-sm-8">
                             <label>Nombre y apellidos: </label>
-                            <input type="text"  class="form-control" th:field="*{nombre}" readonly/>
+                            <input type="text" class="form-control" th:field="*{nombre}" readonly/>
                         </div>
 
                         <div class="col-sm-2">
                             <label>Edad: </label>
-                            <input type="number"  class="form-control" th:field="*{edad}" readonly/>
+                            <input type="number" class="form-control" th:field="*{edad}" readonly/>
                             <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
                         </div>
                     </div>
@@ -39,26 +39,26 @@
                     <div class="form-group row">
                         <div class="col-sm-5">
                             <label>Nick: </label>
-                            <input type="text"  class="form-control" th:field="*{nick}"/>
+                            <input type="text" class="form-control" th:field="*{nick}" maxlength="20" title="Introduzca el nombre de usuario deseado"/>
                             <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
                         </div>
 
                         <div class="col-sm-5">
                             <label>Contraseña: </label>
-                            <input type="password"  class="form-control" th:field="*{pass}"/>
+                            <input type="password" class="form-control" th:field="*{pass}" maxlength="20" title="Introduzca la contraseña de acceso deseada"/>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-sm-5">
                             <label>Teléfono: </label>
-                            <input type="text"  class="form-control" th:field="*{tlf}"/>
+                            <input type="text" class="form-control" th:field="*{tlf}" maxlength="9" title="Introduzca un teléfono de contacto"/>
                             <div class="error" th:if="${#fields.hasErrors('tlf')}" th:errors="*{tlf}"></div>
                         </div>
 
                         <div class="col-sm-5">
                             <label>Correo electrónico: </label>
-                            <input type="text"  class="form-control" th:field="*{email}"/>
+                            <input type="text" class="form-control" th:field="*{email}" maxlength="30" title="Introduzca un correo electrónico válido"/>
                             <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
                     </div>
@@ -67,14 +67,14 @@
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <label>Aficiones: </label>
-                            <textarea type="text"  class="form-control" th:field="*{aficiones}"/>
+                            <textarea type="text" class="form-control" th:field="*{aficiones}" maxlength="250" title="Introduzca sus aficiones"/>
                         </div>
                     </div>
 
 
                     <div class="container">
                         <div class="error" th:if="${#fields.hasErrors('all')}" th:errors="*{all}"></div>
-                        <div class="button">
+                        <div class="button" title="Guardar los cambios">
                             <td colspan="2"><input type="submit" value="Modificar"/></td>
                         </div>
                     </div>

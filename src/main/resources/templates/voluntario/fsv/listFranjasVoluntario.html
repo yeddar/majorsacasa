@@ -4,7 +4,7 @@
       layout:decorate="~{fragments/base}">
 
 <head>
-    <title> FSV </title>
+    <title> MaC - Gestor de franjas </title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
@@ -12,80 +12,108 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h2 style="text-align:center"> Disponibilidad para ofrecer ayuda </h2>
+    <h2 style="text-align:center"> Franjas horarias publicadas </h2>
     <hr>
+
     <div th:if="${#lists.isEmpty(franjas)}">
-        <h4> No tiene ninguna franja ofrecida. Añada una franja desde este formulario.</h4>
+        <article>
+            <h4>No tiene ninguna franja ofrecida.</h4>
+            <h4>Añada una franja desde esta pantalla.</h4>
+        </article>
     </div>
-    <table th:unless="${#lists.isEmpty(franjas)}" class="table table-striped">
-        <tr>
-            <th colspan="4">FRANJAS ACTUALES</th>
-        </tr>
 
-        <tr>
-            <th> Dia semana</th>
-            <th> Hora inicio</th>
-            <th> Hora fin </th>
-            <th></th>
-        </tr>
+    <div class="container-fluid py-10 mt-2" th:unless="${#lists.isEmpty(franjas)}">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <tr>
+                    <th colspan="4">FRANJAS ACTUALES</th>
+                </tr>
 
+                <tr>
+                    <th> Dia semana</th>
+                    <th> Hora inicio</th>
+                    <th> Hora fin</th>
+                    <th></th>
+                </tr>
 
-        <tr th:each="fr: ${franjas}">
-            <td th:text="${fr.diaSemana}"></td>
-            <td th:text="${fr.hIni}"></td>
-            <td th:text="${fr.hFin}"></td>
-            <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}"> <i class="flaticon-can"></i></a></td>
+                <tr th:each="fr: ${franjas}">
 
-        </tr>
+                    <th:block th:switch="${fr.diaSemana}">
+                        <td th:case="'L'">Lunes</td>
+                        <td th:case="'M'">Martes</td>
+                        <td th:case="'X'">Miercoles</td>
+                        <td th:case="'J'">Jueves</td>
+                        <td th:case="'V'">Viernes</td>
+                    </th:block>
 
-    </table>
+                    <td th:text="${fr.hIni}"></td>
+                    <td th:text="${fr.hFin}"></td>
+                    <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}" title="Eliminar franja"> <i
+                            class="flaticon-can"></i></a></td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br>
+
+    <h3>Añadir franjas horarias</h3>
+
     <hr>
-    <h3>
-        Añadir franjas horarias:
-    </h3>
-    <form action="#" th:action="@{/voluntario/fsv/add_franja}"
-          th:object="${fsv}" method="post">
-        <table class="table table-striped">
-            <tr>
 
-                <th colspan="3">
-                    <label> Selecciona día de la semana: </label>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio1" th:value="L" checked>
-                        <label class="form-check-label" for="inlineRadio1">Lunes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio2" th:value="M">
-                        <label class="form-check-label" for="inlineRadio2">Martes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio3" th:value="X">
-                        <label class="form-check-label" for="inlineRadio3">Miércoles</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio4" th:value="J">
-                        <label class="form-check-label" for="inlineRadio4">Jueves</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="dia_semana" id="inlineRadio5" value="V">
-                        <label class="form-check-label" for="inlineRadio5">Viernes</label>
-                    </div>
-                </th>
-            </tr>
-            <tr>
-                <th>
-                    <label> Hora inicial: </label>
-                    <input type="time" th:field="*{hIni}"/>
-                    <div class="error" th:if="${#fields.hasErrors('hIni')}" th:errors="*{hIni}"></div>
-                </th>
-                <th>
-                    <label> Hora final: </label>
-                    <input type="time" th:field="*{hFin}"/>
-                    <div class="error" th:if="${#fields.hasErrors('hFin')}" th:errors="*{hFin}"></div>
-                </th>
-                <th><input type="submit" value="Añadir franja"/></th>
-            </tr>
-        </table>
+    <form action="#" th:action="@{/voluntario/fsv/add_franja}" th:object="${fsv}" method="post">
+        <div class="container-fluid py-10 mt-2">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tr>
+                        <th colspan="3">
+                            <div>
+                                <label> Selecciona el día de la semana: </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio1"
+                                       th:value="L" checked>
+                                <label class="form-check-label" for="inlineRadio1">Lunes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio2"
+                                       th:value="M">
+                                <label class="form-check-label" for="inlineRadio2">Martes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio3"
+                                       th:value="X">
+                                <label class="form-check-label" for="inlineRadio3">Miércoles</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" th:name="dia_semana" id="inlineRadio4"
+                                       th:value="J">
+                                <label class="form-check-label" for="inlineRadio4">Jueves</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="dia_semana" id="inlineRadio5"
+                                       value="V">
+                                <label class="form-check-label" for="inlineRadio5">Viernes</label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label> Hora inicial: </label>
+                            <input type="time" th:field="*{hIni}"/>
+                            <div class="error" th:if="${#fields.hasErrors('hIni')}" th:errors="*{hIni}"></div>
+                        </th>
+                        <th>
+                            <label> Hora final: </label>
+                            <input type="time" th:field="*{hFin}"/>
+                            <div class="error" th:if="${#fields.hasErrors('hFin')}" th:errors="*{hFin}"></div>
+                        </th>
+                        <th><input type="submit" value="Añadir franja"/></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </form>
     <table th:unless="${#lists.isEmpty(franjas_nuevas)}" class="table table-striped">
 
@@ -96,7 +124,7 @@
         <tr>
             <th> Dia semana</th>
             <th> Hora inicio</th>
-            <th> Hora fin </th>
+            <th> Hora fin</th>
             <th></th>
         </tr>
 
@@ -115,10 +143,10 @@
                         ¿Desea borrar la franja definitivamente?
                         <br><br>
                         <form action="#" th:action="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}">
-                            <input type="submit" value="Borrar franja" />
+                            <input type="submit" value="Borrar franja"/>
                         </form>
 
-<!--                        <a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}"> Borrar </a>-->
+                        <!--                        <a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}"> Borrar </a>-->
                     </div>
                 </div>
             </div>

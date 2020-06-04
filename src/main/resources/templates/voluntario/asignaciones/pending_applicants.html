@@ -11,27 +11,34 @@
     <h2 style="text-align:center"> Solicitudes pendientes </h2>
     <hr>
     <div th:if="${#lists.isEmpty(demandantes)}">
-        <h4> Por el momento no tiene solicitudes pendientes de aceptación.</h4>
+        <article>
+            <h4>¡TODO EN ORDEN!</h4>
+            <h5>Por el momento no tiene solicitudes pendientes de aceptación.</h5>
+        </article>
     </div>
-    <table th:unless="${#lists.isEmpty(asignaciones)}" class="table table-striped">
+    <div class="container-fluid py-10 mt-2" th:unless="${#lists.isEmpty(asignaciones)}">
+        <div class="table-responsive">
+            <table class="table table-striped">
 
-        <tr>
-            <th> Nombre demandante</th>
-            <th>Día semana</th>
-            <th> Hora inicio</th>
-            <th> Hora fin </th>
-            <th></th>
-        </tr>
+                <tr>
+                    <th> Nombre demandante</th>
+                    <th>Día semana</th>
+                    <th> Hora inicio</th>
+                    <th> Hora fin </th>
+                    <th></th>
+                </tr>
 
-        <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
-            <td th:text="${demandantes[index].nombre}"></td>
-            <td th:text="${franjas[index].diaSemana}"></td>
-            <td th:text="${franjas[index].hIni}"></td>
-            <td th:text="${franjas[index].hFin}"></td>
-            <td><a th:href="@{/servVoluntario/feed/{id}(id=${franjas[index].id})}"> Aceptar solicitud de ayuda</a></td>
-        </tr>
+                <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
+                    <td th:text="${demandantes[index].nombre}"></td>
+                    <td th:text="${franjas[index].diaSemana}"></td>
+                    <td th:text="${franjas[index].hIni}"></td>
+                    <td th:text="${franjas[index].hFin}"></td>
+                    <td><a th:href="@{/servVoluntario/feed/{id}(id=${franjas[index].id})}" title="Confirmar petición"> Aceptar solicitud de ayuda</a></td>
+                </tr>
 
-    </table>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 

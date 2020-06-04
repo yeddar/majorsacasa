@@ -11,27 +11,34 @@
         <h2 style="text-align:center"> Demandantes asignados </h2>
         <hr>
         <div th:if="${#lists.isEmpty(demandantes)}">
-            <h4> No tiene ninguna persona asignada todavía. Consulte las solicitudes</h4>
+            <article>
+                <h4>Aun no tiene ninguna persona asignada.</h4>
+                <h4>Consulte en las solicitudes pendientes.</h4>
+            </article>
         </div>
-        <table th:unless="${#lists.isEmpty(demandantes)}" class="table table-striped">
+        <div class="container-fluid py-10 mt-2" th:unless="${#lists.isEmpty(demandantes)}">
+            <div class="table-responsive">
+                <table class="table table-striped">
 
-            <tr>
-                <th> Nombre</th>
-                <th> Teléfono</th>
-                <th> E-mail </th>
-                <th> Dirección </th>
-                <th></th>
-            </tr>
+                    <tr>
+                        <th> Nombre</th>
+                        <th> Teléfono</th>
+                        <th> E-mail </th>
+                        <th> Dirección </th>
+                        <th></th>
+                    </tr>
 
-            <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
-                <td th:text="${demandantes[index].nombre}"></td>
-                <td th:text="${demandantes[index].tlf}"></td>
-                <td th:text="${demandantes[index].email}"></td>
-                <td th:text="${demandantes[index].direccion}"></td>
-                <td> <a th:href="@{/voluntario/fsv/franjas_dem_list/{nick_dem}(nick_dem=${demandantes[index].nick})}">Ver franjas asignadas</a></td>
-            </tr>
+                    <tr th:each="index: ${#numbers.sequence( 0, #arrays.length(demandantes)-1)}">
+                        <td th:text="${demandantes[index].nombre}"></td>
+                        <td th:text="${demandantes[index].tlf}"></td>
+                        <td th:text="${demandantes[index].email}"></td>
+                        <td th:text="${demandantes[index].direccion}"></td>
+                        <td> <a th:href="@{/voluntario/fsv/franjas_dem_list/{nick_dem}(nick_dem=${demandantes[index].nick})}" title="Ver las franjas asignadas al demandante">Ver franjas asignadas</a></td>
+                    </tr>
 
-        </table>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
