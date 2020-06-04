@@ -16,9 +16,17 @@
 <div layout:fragment="content">
 
 <h2> Listado de servicio de empresas </h2>
+    <hr>
+
+    <div th:if="${#lists.isEmpty(servicios_empresa)}">
+        <article>
+            <h4> No hay ningún servicio empresa en la base de datos. </h4>
+        </article>
+    </div>
+
     <div class="container py-10">
+    <div th:unless="${#lists.isEmpty(servicios_empresa)}" class="table-responsive">
         <table class="table">
-            <hr>
     <thead>
     <tr>
         <th> Nick de Empresa </th>
@@ -61,6 +69,7 @@
     </tr>
     </tbody>
 </table>
+    </div>
     </div>
 </div>
 </body>

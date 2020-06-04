@@ -10,10 +10,17 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1> Dar feedback a solicitudes pendientes </h1>
+    <h2> Dar feedback a solicitudes pendientes </h2>
+    <hr>
 
-    <table class="table table-striped">
-        <thead>
+    <div th:if="${#lists.isEmpty(serviciosEmpresa)}">
+        <article>
+            <h4> No tiene ningún demandante en espera. </h4>
+        </article>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(serviciosEmpresa)}" class="table-responsive">
+        <table class="table">
         <tr>
             <th> Demandante</th>
             <th> Asistente social</th>
@@ -67,15 +74,20 @@
                     <button><a th:href="@{/demandante/viewProfile/{nick}(nick=${servEmpresa.nick_demandante})}">Ver detalles demandante</a></button>
                 </td>
                 <td>
-                    <button> <a th:href="@{/servEmpresa/loadFeedback/{nick}(nick=${servEmpresa.nick_demandante})}">Aceptar</a></button>
+                    <a th:href="@{/servEmpresa/loadFeedback/{nick}(nick=${servEmpresa.nick_demandante})}">
+                        <i class="flaticon-tick" title="Aceptar servicio"></i>
+                    </a>
                 </td>
                 <td>
-                    <button><a th:href="@{/servEmpresa/cancel/{nickDem}(nickDem=${servEmpresa.nick_demandante})}"> Rechazar</a></button>
+                    <a th:href="@{/servEmpresa/cancel/{nickDem}(nickDem=${servEmpresa.nick_demandante})}">
+                    <i class="flaticon-can" title="Cancelar servicio"></i>
+                    </a>
                 </td>
             </div>
         </tr>
         </tbody>
     </table>
+    </div>
 </div>
 </body>
 </html>
