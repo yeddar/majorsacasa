@@ -21,24 +21,24 @@
                     <th> Edad</th>
                     <th> Teléfono</th>
 
-                    <th> Correo</th>
-                    <th> Direccion</th>
-                    <th> Asistente social</th>
+            <!-- <th> Correo</th> -->
+             <th> Direccion</th>
+             <th> Asistente social</th>
 
-                    <th></th>
-                    <th></th>
+             <th></th>
+             <th></th>
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="demandante: ${demandantes}">
-                    <td th:text="${demandante.nombre}"></td>
-                    <td th:text="${demandante.edad}"></td>
-                    <td th:text="${demandante.tlf}"></td>
+         </tr>
+         </thead>
+         <tbody>
+         <tr th:each="demandante: ${demandantes}">
+             <td th:text="${demandante.nombre}"></td>
+             <td th:text="${demandante.edad}"></td>
+             <td th:text="${demandante.tlf}"></td>
 
-                    <td th:text="${demandante.email}"></td>
-                    <td th:text="${demandante.direccion}"></td>
-                    <td th:text="${demandante.cod_asist}"></td>
+             <!-- <td th:text="${demandante.email}"></td> -->
+             <td th:text="${demandante.direccion}"></td>
+            <td th:text="${demandante.cod_asist}"></td>
 
                     <td>
                         <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}" title="Ver perfil del demandante">

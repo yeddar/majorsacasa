@@ -20,24 +20,24 @@
                     <th> Nombre</th>
                     <th> Edad</th>
                     <th> Teléfono</th>
-                    <th> Correo</th>
-                    <th> Direccion</th>
-                    <th> Asistente social</th>
-                    <th> Estado</th>
-                    <!--<th></th>-->
+                    <!-- <th> Correo</th> -->
+              <th> Direccion</th>
+            <th> Asistente social</th>
+            <th> Estado</th>
+            <!--<th></th>-->
 
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="demandante: ${demandantes}">
-                    <td th:text="${demandante.nombre}"></td>
-                    <td th:text="${demandante.edad}"></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="demandante: ${demandantes}">
+            <td th:text="${demandante.nombre}"></td>
+            <td th:text="${demandante.edad}"></td>
 
-                    <td th:text="${demandante.tlf}"></td>
-                    <td th:text="${demandante.email}"></td>
-                    <td th:text="${demandante.direccion}"></td>
+            <td th:text="${demandante.tlf}"></td>
+            <!-- <td th:text="${demandante.email}"></td> -->
+            <td th:text="${demandante.direccion}"></td>
 
-                    <td th:text="${demandante.cod_asist}"></td>
+            <td th:text="${demandante.cod_asist}"></td>
 
                     <th:block th:switch="${demandante.status}">
                         <td th:case="'ACEPTADO'">
@@ -51,14 +51,14 @@
                         </td>
                     </th:block>
 
-                   <!-- <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
-                    </td>
-                    <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Elimina </a>
-                    </td>
-                    <td>
-                        <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a>
-                    </td>-->
-                </tr>
+           <!-- <td><a th:href="@{/demandante/update/{nick}(nick=${demandante.nick})}"> Edita </a>
+            </td>
+            <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}"> Elimina </a>
+            </td>
+            <td>
+                <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">Ver solicitudes</a>
+            </td>-->
+        </tr>
                 </tbody>
             </table>
         </div>

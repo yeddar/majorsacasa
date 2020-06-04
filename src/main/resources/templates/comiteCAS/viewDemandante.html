@@ -10,106 +10,120 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1><b>SERVICIOS DE PAGO</b></h1>
-    <div class="container-fluid py-10 mt-2">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Demandante</th>
-                    <th>Empresa</th>
-                    <th>Fecha inicio</th>
-                    <th>Fecha finalización</th>
-                    <th>Estado del servicio</th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="servEmpresa: ${serviciosEmpresa}">
-                    <span th:if="${servEmpresa.serv_status != 'CANCELADO'}">
-                        <td th:text="${servEmpresa.nick_demandante}"></td>
-                        <td th:text="${servEmpresa.nick_empresa}"></td>
-                        <td th:text="${servEmpresa.f_ini}"></td>
-                        <td th:text="${servEmpresa.f_fin}"></td>
-                        <td th:text="${servEmpresa.serv_status}"></td>
-                        <td><button><a
-                                th:href="@{/servEmpresa/view/{nickEmp}/{nickDem}(nickEmp=${servEmpresa.nick_empresa}, nickDem=${servEmpresa.nick_demandante})}" title="Ver detalles del servicio"> Detalles</a></button></td>
-                    </span>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <br>
-    <br>
+    <h2><b>Detalle sobre demandante</b></h2>
+    <hr>
+    <h5  th:text=" 'Correo electrónico: ' + ${email}"> </h5>
 
-    <h1><b>SERVICIOS DE VOLUNTARIOS</b></h1>
+    <br>
+    <h2><b>Servicios de pago</b></h2>
+    <hr>
 
     <div class="container-fluid py-10 mt-2">
         <div class="table-responsive">
             <table class="table">
-                <thead>
-                <tr>
-                    <th>Voluntario</th>
-                    <th>Demandante</th>
-
-                    <th>Dia semana</th>
-                    <th>Hora inicio</th>
-                    <th>Hora finalización</th>
-
-                    <th>Fecha inicio</th>
-                    <th>Fecha finalización</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="servVoluntario: ${serviciosVoluntario}">
-                    <span th:if="${servVoluntario.serv_status != 'CANCELADO'}">
-                        <td th:text="${info_franjas[servVoluntario.id_franja].nick}"></td>
-                        <td th:text="${servVoluntario.nick_demandante}"></td>
-                        <div th:switch="${info_franjas[servVoluntario.id_franja].diaSemana}">
-                            <div th:case="'L'">
-                                <td>Lunes</td>
-                            </div>
-                            <div th:case="'M'">
-                                <td>Martes</td>
-                            </div>
-                            <div th:case="'X'">
-                                <td>Miércoles</td>
-                            </div>
-                            <div th:case="'J'">
-                                <td>Jueves</td>
-                            </div>
-                            <div th:case="'V'">
-                                <td>Viernes</td>
-                            </div>
-                            <div th:case="*">
-                                <td>ERROR</td>
-                            </div>
-                        </div>
-                        <td th:text="${info_franjas[servVoluntario.id_franja].hIni}"></td>
-                        <td th:text="${info_franjas[servVoluntario.id_franja].hFin}"></td>
-                        <td th:text="${servVoluntario.f_ini}"></td>
-                        <td th:text="${servVoluntario.f_fin}"></td>
-                        <span th:if="${servVoluntario.serv_status == 'SIN EVALUAR'}">
-                            <td><button><a
-                                    th:href="@{/servVoluntario/accept/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}" title="Validar servicio">Aceptar</a></button></td>
-                        </span>
-                        <td><button><a
-                                th:href="@{/servVoluntario/cancel/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}" title="Denegar servicio">Cancelar</a></button></td>
-                    </span>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+        <thead>
+        <tr>
+            <th>Demandante</th>
+            <th>Empresa</th>
+            <th>Fecha inicio</th>
+            <th>Fecha finalización</th>
+            <th>Estado del servicio</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servEmpresa: ${serviciosEmpresa}">
+            <span th:if="${servEmpresa.serv_status != 'CANCELADO'}">
+                <td th:text="${servEmpresa.nick_demandante}"></td>
+                <td th:text="${servEmpresa.nick_empresa}"></td>
+                <td th:text="${servEmpresa.f_ini}"></td>
+                <td th:text="${servEmpresa.f_fin}"></td>
+                <td th:text="${servEmpresa.serv_status}"></td>
+                <td><a th:href="@{/servEmpresa/view/{nickEmp}/{nickDem}(nickEmp=${servEmpresa.nick_empresa}, nickDem=${servEmpresa.nick_demandante})}">
+                   <i class="flaticon-next"></i>
+                </a></td>
+            </span>
+        </tr>
+        </tbody>
+    </table>
     </div>
+</div>
+<br>
+<br>
+    <h2 style="text-align:center">  <b> Servicios de voluntarios </b></h2>
+    <hr>
+
+    <div class="container-fluid py-10 mt-2">
+        <div class="table-responsive">
+            <table class="table">
+        <thead>
+        <tr>
+            <th>Voluntario</th>
+
+            <th>Dia semana</th>
+            <th>Hora inicio</th>
+            <th>Hora finalización</th>
+
+            <th>Fecha inicio</th>
+            <th>Fecha finalización</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="servVoluntario: ${serviciosVoluntario}">
+            <span th:if="${servVoluntario.serv_status != 'CANCELADO'}">
+                <td th:text="${info_franjas[servVoluntario.id_franja].nick}"></td>
+                <div th:switch="${info_franjas[servVoluntario.id_franja].diaSemana}">
+                    <div th:case="'L'">
+                        <td>Lunes</td>
+                    </div>
+                    <div th:case="'M'">
+                        <td>Martes</td>
+                    </div>
+                    <div th:case="'X'">
+                        <td>Miércoles</td>
+                    </div>
+                    <div th:case="'J'">
+                        <td>Jueves</td>
+                    </div>
+                    <div th:case="'V'">
+                        <td>Viernes</td>
+                    </div>
+                    <div th:case="*">
+                        <td>ERROR</td>
+                    </div>
+                </div>
+                <td th:text="${info_franjas[servVoluntario.id_franja].hIni}"></td>
+                <td th:text="${info_franjas[servVoluntario.id_franja].hFin}"></td>
+                <td th:text="${servVoluntario.f_ini}"></td>
+                <td th:text="${servVoluntario.f_fin}"></td>
+            <span th:if="${servVoluntario.serv_status == 'SIN EVALUAR'}">
+                    <td><a th:href="@{/servVoluntario/accept/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}" title="Validar servicio">
+                       <i class="flaticon-tick"></i>
+                    </a></td>
+                </span>
+                <span th:if="${servVoluntario.serv_status != 'SIN EVALUAR'}">
+                    <td></td>
+                </span>
+
+
+                <td>
+                    <a th:href="@{/servVoluntario/cancel/{idFranja}/{nickDem}(idFranja=${servVoluntario.id_franja}, nickDem=${servVoluntario.nick_demandante})}" title="Denegar servicio">
+                        <i class="flaticon-can"></i>
+                    </a></td>
+            </span>
+        </tr>
+        </tbody>
+    </table>
 
     <br>
 
-    <a th:href="@{{lastURL}(lastURL=${session.lastURL})}">
+    <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
         <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
     </a>
+</div>
+    </div>
 </div>
 </body>
 </html>

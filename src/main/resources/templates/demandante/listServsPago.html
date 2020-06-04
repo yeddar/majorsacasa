@@ -11,9 +11,9 @@
 <body>
 <div layout:fragment="content">
 
-
+    <h2 style="text-align:center"> Servicios de pago </h2>
+    <hr>
             <article>
-                <h2>Servicios de pago</h2>
                 <p> Se le muestran a continuación los servicios de pago que ha contratado desde majorsACasa.
                     Primero se le muestra la información temporal y de estado del servicio. Su servicio puede estar
                     <b>SIN EVALUAR</b>: significa que todavía ningún responsable del sistema a evaluado su petición.
@@ -54,14 +54,37 @@
                 <p th:text="'Nombre de empresa: ' + ${empresaCat.nombre}
                 + ' - El teléfono de contacto es: ' +  ${empresaCat.tlf}"></p>
 
+
+
                 <div class="column_50">
-                    <p> <b> Información de petición </b> </p>
+                    <h5> <b> Información de petición </b> </h5>
+                    <br>
+                    <b>Tipo de comida: </b>
                     <p th:text="${servicioCatering.tipo_comida}"> </p>
-                    <p th:text="${servicioCatering.dias_semana}"> </p>
+                    <b>Días a la semana: </b>
+                    <p>
+        <span th:if="${#strings.contains(servicioCatering.dias_semana,'L')}">
+            Lunes -
+        </span>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'M')}">
+            Martes -
+        </span>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'X')}">
+            Miércoles -
+        </span>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'J')}">
+            Jueves -
+        </span>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'V')}">
+            Viernes
+        </span>
+                    </p>
                 </div>
            <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
                 <div class="column_50">
-                    <p> <b> Especificación de empresa </b> </p>
+                    <h5> <b> Especificación de empresa </b> </h5>
+                    <br>
+                    <b>Hora aproximada de llegada: </b>
                     <p th:text="${servicioCatering.hora_aprox}"> </p>
                 </div>
             </div>
@@ -93,12 +116,14 @@
                 + ' - El teléfono de contacto es: ' +  ${empresaSan.tlf}"></p>
 
             <div class="column_50">
-                <p> <b> Información de petición </b> </p>
+                <h5> <b> Información de petición </b> </h5>
+                <br>
                 <p th:text="${servicioSanitario.necesidad}"> </p>
             </div>
             <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
             <div class="column_50">
-                <p> <b> Especificación de empresa </b> </p>
+                <h5> <b> Especificación de empresa </b> </h5>
+                <br>
                 <p th:text="${servicioSanitario.dia_visita}"> </p>
                 <p th:text="${servicioSanitario.manana_tarde}"> </p>
             </div>

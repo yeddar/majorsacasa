@@ -11,9 +11,17 @@
 <body>
 <div layout:fragment="content">
 
-<div class="container py-10 mt-2">
+<div>
     <h2 style="text-align:center"> Listado de servicios de voluntario </h2>
-    <div class="table-responsive">
+<hr>
+
+    <div th:if="${#lists.isEmpty(serviciosVoluntario)}">
+        <article>
+        <h4> No tiene ningún servicio voluntario activo</h4>
+        </article>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(serviciosVoluntario)}" class="table-responsive">
         <table class="table">
             <thead>
             <tr>

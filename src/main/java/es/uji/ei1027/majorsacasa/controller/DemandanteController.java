@@ -279,7 +279,7 @@ public class DemandanteController{
         for (AsignacionVoluntario asignacion : serviciosVoluntario)
             info_franjas.put(asignacion.getId_franja(), fsvDao.getFsv(asignacion.getId_franja()));
 
-
+        model.addAttribute("email", d.getEmail());
         model.addAttribute("serviciosEmpresa", serviciosEmpresa);
         model.addAttribute("serviciosVoluntario", serviciosVoluntario);
         model.addAttribute("info_franjas", info_franjas);

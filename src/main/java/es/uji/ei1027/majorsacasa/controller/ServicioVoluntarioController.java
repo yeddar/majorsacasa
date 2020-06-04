@@ -84,6 +84,18 @@ public class ServicioVoluntarioController {
         model.addAttribute("aficiones", aficiones);
         model.addAttribute("mensajeError", session.getAttribute("mensajeError"));
 
+        /*
+        HashMap<Integer, String> finServicioVoluntario = new HashMap<>();
+
+        for(FranjaServicioVoluntario franja : franjas){
+            finServicioVoluntario.put(franja.getId(), "c");
+        }
+
+        session.setAttribute("finServicioVoluntario", finServicioVoluntario);
+
+        */
+
+
         session.setAttribute("lastURL", "/servVoluntario/add");
         return "servicio_voluntario/add";
     }
@@ -93,8 +105,19 @@ public class ServicioVoluntarioController {
                                    @ModelAttribute("aficiones") HashMap aficiones,
                                    @RequestParam(value = "cb_seleccion", required = false) int[] selecciones,
                                    @RequestParam(value = "fecha_voluntrario", required = false) String fecha_voluntario,
+                                   @RequestParam(value = "finServicioVoluntario", required = false) HashMap<String, String> finServicioVoluntario,
                                    @RequestParam(value = "rd_servicio") boolean decision,
                                    BindingResult bindingResult, Model model, HttpSession session){
+
+        /*
+        for(String fin : finServicioVoluntario.keySet()){
+            if (finServicioVoluntario.get(fin) != null)
+                System.out.print("VOY");
+        }
+
+        */
+
+
 
         Demandante demandante = (Demandante) session.getAttribute("demandante_registro");
         ArrayList<AsignacionVoluntario> selecciones_demandante = new ArrayList<>();

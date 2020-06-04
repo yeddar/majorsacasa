@@ -153,6 +153,10 @@ article {
     top: 10%;
 }
 
+.containerCheck col {
+
+}
+
 
 .row {
     position: center;
@@ -334,9 +338,11 @@ tfoot{
 
 .column_50{
     float: left;
-    width: 50%;
+    width: 45%;
     padding: 20px;
-
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 20px;
 }
 
 /*
