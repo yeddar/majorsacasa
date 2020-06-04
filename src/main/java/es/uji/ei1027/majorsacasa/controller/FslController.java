@@ -3,6 +3,7 @@ package es.uji.ei1027.majorsacasa.controller;
 import es.uji.ei1027.majorsacasa.dao.FslDao;
 import es.uji.ei1027.majorsacasa.model.Demandante;
 import es.uji.ei1027.majorsacasa.model.FranjaServicioLimpieza;
+import es.uji.ei1027.majorsacasa.model.FranjaServicioVoluntario;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.validation.Validator;
+
+import java.time.Duration;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,10 +29,21 @@ class FslValidator implements Validator{
 
     @Override
     public void validate(Object o, Errors errors) {
-        FranjaServicioLimpieza fsl = (FranjaServicioLimpieza) o;
+        // Comprobar campos
+        FranjaServicioLimpieza fslDetails = (FranjaServicioLimpieza) o;
 
-        if(fsl.gethIni().isAfter(fsl.gethFin()) || fsl.gethFin().equals(fsl.gethIni()))
-            errors.rejectValue("hIni", "incorrecto", "Las horas introducidas son incorrectas.");
+        LocalTime hIni = fslDetails.gethIni();
+        LocalTime hFin = fslDetails.gethFin();
+
+        if(hIni == null)
+            errors.rejectValue("hIni", "missing", "Se requiere una hora inicial");
+        if(hFin == null)
+            errors.rejectValue("hFin", "missing", "Se requiere una hora final");
+
+        if(hIni != null && hFin != null) {
+            if(hFin.isBefore(hIni) || Duration.between(hIni, hFin).toHours() < 1)
+                errors.rejectValue("hIni" ,"invalidhours", "Debe haber una hora de diferencia entre la hora inicio y la hora fin.");
+        }
     }
 }
 
@@ -72,8 +87,9 @@ public class FslController {
         FslValidator fslValidator = new FslValidator();
         fslValidator.validate(fsl, bindingResult);
         if (bindingResult.hasErrors()){
-            session.setAttribute("mensajeErrorDupFranjaLimpieza", true);
-            return "redirect:/franja-limpieza/add/"+nick;
+            //session.setAttribute("mensajeErrorDupFranjaLimpieza", true);
+            //return "redirect:/franja-limpieza/add/"+nick;
+            return "empresa/fsl/add";
         }else {
             session.setAttribute("mensajeErrorDupFranjaLimpieza", null);
         }
