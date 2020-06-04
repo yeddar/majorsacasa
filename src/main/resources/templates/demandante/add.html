@@ -15,88 +15,88 @@
     <h2 style="text-align:center"> Registro de demandante </h2>
     <hr>
 
-<div class="container py-20 mt-4">
-<div class="row">
-<div class="col-md-10 mx-auto">
-<!--/*@thymesVar id="demandante" type=""*/-->
-<form action="#" th:action="@{/demandante/add}"
-      th:object="${demandante}" method="post">
+    <div class="container py-20 mt-4">
+        <div class="row">
+            <div class="col-md-10 mx-auto">
+                <!--/*@thymesVar id="demandante" type=""*/-->
+                <form action="#" th:action="@{/demandante/add}"
+                      th:object="${demandante}" method="post">
 
-    <div class="form-group row">
-        <div class="col-sm-8">
-            <label>Nombre y apellidos: </label>
-            <input type="text"  class="form-control" th:field="*{nombre}" required/>
-            <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
-        </div>
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <label>Nombre y apellidos: </label>
+                            <input type="text" class="form-control" th:field="*{nombre}" maxlength="30" title="Introduzca su nombre completo"  autofocus required/>
+                            <div class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                        </div>
 
-        <div class="col-sm-2">
-            <label>Edad: </label>
-            <input type="number"  class="form-control" th:field="*{edad}" required/>
-            <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
-        </div>
-    </div>
-
-
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <label>Nick de usuario: </label>
-            <input type="text"  class="form-control" th:field="*{nick}" required/>
-            <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
-        </div>
-
-        <div class="col-sm-5">
-            <label>Contraseña: </label>
-            <input type="password"  class="form-control" th:field="*{pass}" required/>
-            <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <label>Teléfono: </label>
-            <input type="text"  class="form-control" th:field="*{tlf}" required/>
-            <div class="error" th:if="${#fields.hasErrors('tlf')}" th:errors="*{tlf}"></div>
-        </div>
-
-        <div class="col-sm-5">
-            <label>Correo electrónico: </label>
-            <input type="text"  class="form-control" th:field="*{email}" required/>
-            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-        </div>
-    </div>
+                        <div class="col-sm-2">
+                            <label>Edad: </label>
+                            <input type="number" class="form-control" th:field="*{edad}" min="0" max="120" title="Introduzca su edad actual" required/>
+                            <div class="error" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></div>
+                        </div>
+                    </div>
 
 
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <label>Dirección: </label>
-            <input type="text"  class="form-control" th:field="*{direccion}" required/>
-            <div class="error" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div>
-        </div>
-    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label>Nick de usuario: </label>
+                            <input type="text" class="form-control" th:field="*{nick}" maxlength="20" title="Introduzca su nombre de usuario"  required/>
+                            <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
+                        </div>
 
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <div class="alert alert-warning">
-                El <strong> codigo de asistente</strong> solo debe completarse si el usuario
-                que realiza la petición es un asistente social
+                        <div class="col-sm-5">
+                            <label>Contraseña: </label>
+                            <input type="password" class="form-control" th:field="*{pass}" maxlength="20" title="Introduzca su contraseña de acceso"  required/>
+                            <div class="error" th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-5">
+                            <label>Teléfono: </label>
+                            <input type="text" class="form-control" th:field="*{tlf}" maxlength="9" title="Introduzca un teléfono de contacto" required/>
+                            <div class="error" th:if="${#fields.hasErrors('tlf')}" th:errors="*{tlf}"></div>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <label>Correo electrónico: </label>
+                            <input type="text" class="form-control" th:field="*{email}" maxlength="30" title="Introduzca un correo electrónico válido" required/>
+                            <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <label>Dirección: </label>
+                            <input type="text" class="form-control" th:field="*{direccion}" maxlength="30" title="Introduzca la dirección de su domicilio habitual" required/>
+                            <div class="error" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <div class="alert alert-warning">
+                                El <strong> codigo de asistente</strong> solo debe completarse si el usuario
+                                que realiza la petición es un asistente social
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Codigo de asistente*: </label>
+                            <input type="number" class="form-control" th:field="*{cod_asist}" maxlength="9" title="Introduzca el código de identificación del asistente"/>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <td colspan="2"><input class="buttomNext" type="submit" value="Siguiente paso" title="Continuar para seleccionar los servicios deseados"/></td>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <label>Codigo de asistente*: </label>
-            <input type="number"  class="form-control" th:field="*{cod_asist}"/>
+
+
         </div>
 
-        <div class="col-sm-12">
-            <td colspan="2"><input class="buttomNext" type="submit" value="Siguiente paso"/></td>
-        </div>
     </div>
-</form>
-</div>
-
-
-</div>
-
-</div>
 </div>
 </body>
 </html>

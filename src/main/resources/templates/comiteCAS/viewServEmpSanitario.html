@@ -25,13 +25,17 @@
     <b>Franja de visita: </b>
     <span th:text="${servicioSanitario.manana_tarde}"></span>
 
-<br><br>
-<span th:if="${status == 'SIN EVALUAR'}">
-<button th:value="Aceptar"><a th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}">Aceptar</a></button>
-</span>
-<button th:value="Rechazar"><a th:href="@{/servEmpresa/cancel/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}">Cancelar</a></button>
+    <br><br>
+    <span th:if="${status == 'SIN EVALUAR'}">
+        <button th:value="Aceptar"><a
+                th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}" title="Validar servicio">Aceptar</a></button>
+    </span>
 
-    <a th:href="@{/demandante/solicitudes/{nick}(nick=${nick})}" >
+    <button th:value="Rechazar"><a
+            th:href="@{/servEmpresa/cancel/{nickEmp}/{nickDem}(nickEmp=${servicioSanitario.nick_empresa}, nickDem=${servicioSanitario.nick_demandante})}" title="Denegar servicio">Cancelar</a>
+    </button>
+
+    <a th:href="@{/demandante/solicitudes/{nick}(nick=${nick})}" title="Regresar al listado de servicios">
         <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
     </a>
 

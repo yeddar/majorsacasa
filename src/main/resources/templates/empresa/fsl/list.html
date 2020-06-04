@@ -10,7 +10,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container py-10 mt-2">
+    <div class="container-fluid py-10 mt-2">
         <div class="table-responsive">
             <table class="table">
                 <thead>
@@ -52,14 +52,14 @@
 
 
     <th:block th:if="*{user.rol.equals('EMPRESA')}">
-        <a th:href="@{/empresa/listAsignaciones}" >
+        <a th:href="@{/empresa/listAsignaciones}" title="Regresar al listado de asignaciones">
             <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
         </a>
 
     </th:block>
 
     <th:block th:if="*{user.rol.equals('COMITE_CAS')}">
-        <a th:href="@{/servEmpresa/view/{nicke}/{nickd}(nickd=${nickDem}, nicke=${nickEmp})}" >
+        <a th:href="@{/servEmpresa/view/{nicke}/{nickd}(nickd=${nickDem}, nicke=${nickEmp})}" title="Regresar a la página informativa del servicio">
             <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
         </a>
     </th:block>
