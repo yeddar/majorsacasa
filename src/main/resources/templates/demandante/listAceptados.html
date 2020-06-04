@@ -12,44 +12,48 @@
 <div layout:fragment="content">
     <h2> Listado de demandantes aceptados </h2>
     <hr>
-    <table>
-        <thead>
-        <tr>
-            <th> Nombre</th>
-            <th> Edad</th>
-            <th> Teléfono</th>
+    <div class="container-fluid py-10 mt-2">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Nombre</th>
+                    <th> Edad</th>
+                    <th> Teléfono</th>
 
-            <th> Correo</th>
-            <th> Direccion</th>
-            <th> Asistente social</th>
+                    <th> Correo</th>
+                    <th> Direccion</th>
+                    <th> Asistente social</th>
 
-            <th></th>
-            <th></th>
+                    <th></th>
+                    <th></th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="demandante: ${demandantes}">
-            <td th:text="${demandante.nombre}"></td>
-            <td th:text="${demandante.edad}"></td>
-            <td th:text="${demandante.tlf}"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="demandante: ${demandantes}">
+                    <td th:text="${demandante.nombre}"></td>
+                    <td th:text="${demandante.edad}"></td>
+                    <td th:text="${demandante.tlf}"></td>
 
-            <td th:text="${demandante.email}"></td>
-            <td th:text="${demandante.direccion}"></td>
-            <td th:text="${demandante.cod_asist}"></td>
+                    <td th:text="${demandante.email}"></td>
+                    <td th:text="${demandante.direccion}"></td>
+                    <td th:text="${demandante.cod_asist}"></td>
 
-            <td>
-                <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">
-                    <i class="flaticon-info"></i>
-                </a>
-            </td>
+                    <td>
+                        <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}" title="Ver perfil del demandante">
+                            <i class="flaticon-info"></i>
+                        </a>
+                    </td>
 
-            <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}">
-                <i class="flaticon-can"></i>
-            </a></td>
-        </tr>
-        </tbody>
-    </table>
+                    <td><a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}" title="Eliminar demandante ">
+                        <i class="flaticon-can"></i>
+                    </a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>
