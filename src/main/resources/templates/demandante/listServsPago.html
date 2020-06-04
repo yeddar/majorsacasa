@@ -37,10 +37,11 @@
     <div class="article_servs">
     <h2> <u> Servicio Cátering </u> </h2>
     <div th:if="${servicioCatering != null}">
-            <div class="row">
+
                 <p th:text="'Servicio en estado: ' +
                 ${servEmpresaEspCat.serv_status}"> </p>
-
+                <hr>
+        <div class="row">
                 <th:block th:if="${servEmpresaEspCat.f_ini != NULL}">
                     <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
                         ${servEmpresaEspCat.f_ini}"> </p>
@@ -59,7 +60,7 @@
                 <div class="column_50">
                     <h5> <b> Información de petición </b> </h5>
                     <br>
-                    <b>Tipo de comida: </b>
+                    <b>Tipo de menu: </b>
                     <p th:text="${servicioCatering.tipo_comida}"> </p>
                     <b>Días a la semana: </b>
                     <p>
@@ -98,10 +99,11 @@
     <div class="article_servs">
      <h2> <u>Servicio Sanitario </u></h2>
         <div th:if="${servicioSanitario != null}">
-            <div class="row">
+
             <p th:text="'Servicio en estado: ' +
                 ${servEmpresaEspSan.serv_status}"> </p>
-
+                <hr>
+            <div class="row">
             <th:block th:if="${servEmpresaEspSan.f_ini != NULL}">
                 <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
                         ${servEmpresaEspSan.f_ini}"> </p>
@@ -118,14 +120,22 @@
             <div class="column_50">
                 <h5> <b> Información de petición </b> </h5>
                 <br>
-                <p th:text="${servicioSanitario.necesidad}"> </p>
+                <p th:text="'Descripción de consulta: ' + ${servicioSanitario.necesidad}"> </p>
             </div>
             <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
             <div class="column_50">
                 <h5> <b> Especificación de empresa </b> </h5>
                 <br>
-                <p th:text="${servicioSanitario.dia_visita}"> </p>
-                <p th:text="${servicioSanitario.manana_tarde}"> </p>
+                <p th:text="'Día de visita: ' + ${servicioSanitario.dia_visita}">
+
+                <th:block th:if="${servicioSanitario.manana_tarde == 'T'}">
+                    <p>Momento de visita: Tarde </p>
+                </th:block>
+
+                <th:block th:if="${servicioSanitario.manana_tarde == 'M'}">
+                    <p>Momento de visita: Mañana </p>
+                </th:block>
+                </p>
             </div>
             </div>
         </div>
@@ -136,11 +146,12 @@
     </div>
 
     <div class="article_servs">
-    <div> <u> <h2> Servicio Limpieza</h2> </u> </div>
+    <div> <u> <h2> Servicio Limpieza</h2> </u>  </div>
     <div th:if="${servicioLimpieza != null}">
 
         <p th:text="'Servicio en estado: ' +
                 ${servEmpresaEspLimp.serv_status}"> </p>
+        <hr>
 
         <th:block th:if="${servEmpresaEspLimp.f_ini != NULL}">
             <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
@@ -169,7 +180,25 @@
             </thead>
             <tbody>
             <tr th:each="franja: ${franjasLimpieza}">
-                <td th:text="${franja.diaSemana}"></td>
+                <td>
+                    <span th:if="${#strings.contains(franja.diaSemana,'L')}">
+                        Lunes
+                    </span>
+                    <span th:if="${#strings.contains(franja.diaSemana,'M')}">
+                        Martes
+                    </span>
+                    <span th:if="${#strings.contains(franja.diaSemana,'X')}">
+                        Miércoles
+                    </span>
+                    <span th:if="${#strings.contains(franja.diaSemana,'J')}">
+                        Jueves
+                    </span>
+                    <span th:if="${#strings.contains(franja.diaSemana,'V')}">
+                        Viernes
+                    </span>
+                </td>
+
+
                 <td th:text="${franja.hIni}"></td>
                 <td th:text="${franja.hFin}"></td>
             </tr>
@@ -179,7 +208,7 @@
         </div>
 
     <div th:if="${servicioLimpieza == null}">
-        <h5> No se ha contratado servicio de limpieza</h5>
+        <p> No se ha contratado servicio de limpieza</p>
     </div>
     </div>
 

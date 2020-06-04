@@ -17,7 +17,13 @@
     <h2 style="text-align:center"> Listado de Demandantes asignados </h2>
     <hr>
 
-    <div class="table-responsive">
+    <div th:if="${#lists.isEmpty(asignaciones_empresa)}">
+        <article>
+            <h4> No tiene ningún servicio en activo. </h4>
+        </article>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(asignaciones_empresa)}" class="table-responsive">
         <table class="table">
             <thead>
             <tr>
@@ -93,12 +99,15 @@
                         <button><a th:href="@{/franja-limpieza/viewFranjas/{nickDem}(nickDem=${asignaciones.nick_demandante})}">Ver franjas</a></button>
                     </td>
                     <td>
-                        <button><a th:href="@{/empresa/cancel/{nick}(nick=${asignaciones.nick_demandante})}"> Cancelar servicio </a></button>
+                        <a th:href="@{/empresa/cancel/{nick}(nick=${asignaciones.nick_demandante})}">
+                            <i class="flaticon-can" title="Cancelar servicio"></i>
+                        </a>
                     </td>
                 </div>
             </tr>
             </tbody>
         </table>
     </div>
+</div>
 </body>
 </html>

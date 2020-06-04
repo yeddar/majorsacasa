@@ -11,16 +11,62 @@
 <body>
 <div layout:fragment="content">
 
-    <h1><b>DETALLES DEL SERVICIO</b></h1>
+    <h2><b>DETALLES DEL SERVICIO</b></h2>
+    <hr>
 
     <br>
-    <b>Cantidad de horas semanales: </b>
-    <span th:text="${servicioLimpieza.horas}"></span>
 
-    <br>
-    <b>Franjas asignadas: </b>
-    <button><a th:href="@{/franja-limpieza/viewFranjas/{nicke}/{nickd}(nicke=${nickEmp}, nickd=${nickDem})}" title="Ver franjas asignadas por la empresa">Ver franjas</a></button>
-    <br><br>
+    <div class="article_servs">
+        <div> <u> <h2> Servicio Limpieza</h2> </u>  </div>
+        <div th:if="${servicioLimpieza != null}">
+
+            <p th:text="'Servicio en estado: ' +
+                ${servEmpresaEspLimp.serv_status}"> </p>
+            <hr>
+
+            <th:block th:if="${servEmpresaEspLimp.f_ini != NULL}">
+                <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
+                        ${servEmpresaEspLimp.f_ini}"> </p>
+            </th:block>
+
+            <th:block th:if="${servEmpresaEspLimp.f_fin != NULL}">
+                <p th:text="'Indico como fecha de finalización el día: ' +
+                        ${servEmpresaEspLimp.f_fin}"> </p>
+            </th:block>
+
+            <p th:text="'Nombre de empresa: ' + ${empresaLim.nombre}
+                + ' - El teléfono de contacto es: ' +  ${empresaLim.tlf}"></p>
+
+            <p th:text=" 'Las horas que indicó fueron: ' + ${servicioLimpieza.horas}"> </p>
+
+            <p> Las franjas especificadas por la empresa son: </p>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> dia_semana </th>
+                    <th> h_ini </th>
+                    <th> h_fin</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="franja: ${franjasLimpieza}">
+                    <td th:text="${franja.diaSemana}"></td>
+                    <td th:text="${franja.hIni}"></td>
+                    <td th:text="${franja.hFin}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
+        </div>
+
+        <div th:if="${servicioLimpieza == null}">
+            <p> No se ha contratado servicio de limpieza</p>
+        </div>
+    </div>
+
+
+
     <span th:if="${status == 'SIN EVALUAR'}">
         <button th:value="Aceptar"><a
                 th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioLimpieza.nick_empresa}, nickDem=${servicioLimpieza.nick_demandante})}" title="Validar servicio">Aceptar</a></button>

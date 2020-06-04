@@ -16,8 +16,14 @@
     <h2 style="text-align:center"> Listado de empresas </h2>
     <hr>
 
+    <div th:if="${#lists.isEmpty(empresas)}">
+        <article>
+            <h4> No hay ninguna empresa en la base de datos. </h4>
+        </article>
+    </div>
+
     <div class="container-fluid py-10 mt-2">
-        <div class="table-responsive">
+        <div th:unless="${#lists.isEmpty(servicios_empresa)}" class="table-responsive">
             <table class="table">
                 <thead>
                 <tr>
@@ -68,6 +74,7 @@
                 </tr>
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 </div>
