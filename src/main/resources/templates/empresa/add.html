@@ -26,7 +26,7 @@
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label>Nombre de Empresa: </label>
-                            <input type="text" class="form-control" th:field="*{nombre}" maxlength="30" title="Introduzca el nombre de la empresa" placeholder="Ej: Panadería Hnos. Nava" autofocus required/>
+                            <input type="text" class="form-control" th:field="*{nombre}" maxlength="30" title="Introduzca el nombre de la empresa"  autofocus required/>
                         </div>
 
                         <div class="col-sm-4">
@@ -39,12 +39,12 @@
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <td><label> Correo electrónico: </label></td>
-                            <td><input type="text" class="form-control" th:field="*{email}" maxlength="30" title="Introduzca un correo electrónico válido" placeholder="ejemplo@email.com" required/></td>
+                            <td><input type="text" class="form-control" th:field="*{email}" maxlength="30" title="Introduzca un correo electrónico válido"  required/></td>
                             <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
                         <div class="col-sm-4">
                             <label> Telefono de contacto: </label>
-                            <input type="text" class="form-control" th:field="*{tlf}" maxlength="9" title="Introduzca un teléfono de contacto" placeholder="123 45 67 89" required/>
+                            <input type="text" class="form-control" th:field="*{tlf}" maxlength="9" title="Introduzca un teléfono de contacto"  required/>
                             <div class="error" th:if="${#fields.hasErrors('tlf')}" th:errors="*{tlf}"></div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label> Nick de usuario: </label>
-                            <input class="form-control" type="text" th:field="*{nick}" maxlength="20" title="Introduzca el nombre de usuario deseado" placeholder="Ej: PanaderiaHNava" required/>
+                            <input class="form-control" type="text" th:field="*{nick}" maxlength="20" title="Introduzca el nombre de usuario deseado"  required/>
                             <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
                         </div>
                         <div class="col-sm-4">

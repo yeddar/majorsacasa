@@ -11,7 +11,7 @@
 <body>
 <div layout:fragment="content">
 
-    <h1><p>¡HOLA <span th:text="${demandante.nombre}"></span>!</p></h1>
+    <h1><p>¡Hola <span th:text="${demandante.nombre}"></span>, ya casi está!</p></h1>
     <br>
     <h4><p>A continuación se mostrará la factura de los servicios que ha seleccionado previamente:</p></h4>
     <br>
@@ -44,9 +44,10 @@
         </tbody>
     </table>
     <br>
-    <h4><p>Si está usted de acuerdo se procederá a la pasarela de pago para confirmar el pago después de pulsar el siguiente botón</p></h4>
-    <br>
-    <button><a th:href="@{/demandante/gestion-pago}">Finalizar</a></button>
+    <h4><p>Si está usted de acuerdo se procederá a la pasarela de pago.</p></h4>
+    <h4><p>Para ello pulse el siguiente botón</p></h4>
+
+    <button><a th:href="@{/demandante/gestion-pago}" title="Realizar el pago y finalizar el registro">Finalizar</a></button>
 
 
 

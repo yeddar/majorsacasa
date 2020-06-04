@@ -10,80 +10,82 @@
 <body>
 <div layout:fragment="content">
 
-        <div class="listado">
-            <form action="#" th:action="@{/servVoluntario/add}" method="post">
-                <div class="contenedor">
-                    <h2> Servicio de acompañamiento</h2>
-                    <h4> Los servicios de acompañamiento son gratuitos,
-                        llevados por voluntarios adscritos en nuestra aplicación.
-                        comprometidos con la ayuda a aquellos que más lo necesitan.
-                        Podrá ser acompañad@ a comprar, guardar la compra, dar un paseo o jugar a algún juego de mesa.
-                        ¡Déjese cuidar!
-                    </h4>
+    <div class="listado">
+        <form action="#" th:action="@{/servVoluntario/add}" method="post">
+            <div class="contenedor">
+                <h2> Servicio de acompañamiento</h2>
+                <h4> Los servicios de acompañamiento son gratuitos,
+                    llevados por voluntarios adscritos en nuestra aplicación.
+                    comprometidos con la ayuda a aquellos que más lo necesitan.
+                    Podrá ser acompañad@ a comprar, guardar la compra, dar un paseo o jugar a algún juego de mesa.
+                    ¡Déjese cuidar!
+                </h4>
 
-                    <h3>¿Desea un servicio de acompañamiento?</h3>
+                <h3>¿Desea un servicio de acompañamiento?</h3>
 
-                    <div class="form-check form-check-inline">
-                        <input  class="h3" type="radio" th:name="rd_servicio"
-                                id="inlineCheckbox2" th:value="true" checked>
-                        <label class="h3" for="inlineCheckbox2">  Sí  </label>
-                    </div>
+                <div class="form-check form-check-inline">
+                    <input class="h3" type="radio" th:name="rd_servicio"
+                           id="inlineCheckbox2" th:value="true" checked>
+                    <label class="h3" for="inlineCheckbox2"> Sí </label>
+                </div>
 
                 <div class="form-check form-check-inline">
                     <input class="h3" type="radio" th:name="rd_servicio"
                            id="inlineCheckbox1" th:value="false">
-                    <label class="h3" for="inlineCheckbox1">  No  </label>
+                    <label class="h3" for="inlineCheckbox1"> No </label>
                 </div>
 
 
-                    <div th:if="${mensajeError} != null">
-                        <span class="error">¡No ha introducido los servicios de voluntarios!</span>
-                    </div>
-
-
+                <div th:if="${mensajeError} != null">
+                    <span class="error">¡No ha introducido los servicios de voluntarios!</span>
                 </div>
 
 
-                <div class="contenedor">
-                    <br>
+            </div>
+
+
+            <div class="contenedor">
+                <br>
                 <div class="alert alert-info">
                     Solo tendrán efecto los valores aquí seleccionados
                     si marcó sí en la pregunta anterior
                 </div>
 
+                <div class="p-3">
+                    <label>(Si se requiere) Fecha finalización: </label>
+                    <input type="date" th:name="fecha_voluntrario" title="Fecha de finalización deseada">
+                    <input type="submit" value="Continuar" title="Siguiente paso">
+                </div>
 
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th>Día</th>
-                            <th>Hora inicio</th>
-                            <th>Hora final</th>
-                            <th>Aficiones</th>
-                            <th>Información</th>
-                            <th>Seleccionar</th>
-                        </tr>
+                    <tr>
+                        <th>Día</th>
+                        <th>Hora inicio</th>
+                        <th>Hora final</th>
+                        <th>Aficiones</th>
+                        <th>Información</th>
+                        <th>Seleccionar</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="fr_vol: ${franjas}">
-                            <td th:text="${fr_vol.diaSemana}"></td>
-                            <td th:text="${fr_vol.hIni}"></td>
-                            <td th:text="${fr_vol.hFin}"></td>
-                            <td th:text="${aficiones[fr_vol.id]}"></td>
-                            </th:block>
-                            <td><a th:href="@{/voluntario/viewProfile/{nick}(nick=${fr_vol.nick})}">más info</a></td>
-                            <td><input type="checkbox" th:value="${fr_vol.id}" th:name="cb_seleccion"></td>
-                        </tr>
+                    <tr th:each="fr_vol: ${franjas}">
+                        <td th:text="${fr_vol.diaSemana}"></td>
+                        <td th:text="${fr_vol.hIni}"></td>
+                        <td th:text="${fr_vol.hFin}"></td>
+                        <td th:text="${aficiones[fr_vol.id]}"></td>
+                        </th:block>
+                        <td><a th:href="@{/voluntario/viewProfile/{nick}(nick=${fr_vol.nick})}" title="Ver perfil del voluntario">más info</a></td>
+                        <td><input type="checkbox" th:value="${fr_vol.id}" th:name="cb_seleccion" title="Seleccionar esta franja"></td>
+                    </tr>
                     </tbody>
                 </table>
 
-                        <label>(Si se requiere) Fecha finalización: </label>
-                        <input type="date" th:name="fecha_voluntrario">
 
-                <input type="submit" value="Continuar">
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>
 </div>
 </body>
 </html>

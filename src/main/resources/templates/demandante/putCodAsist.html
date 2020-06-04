@@ -12,8 +12,8 @@
 <div layout:fragment="content">
     <form action="#" th:action="@{/demandante/accept/{nick}(nick=${demandante})}" method="post">
         <label>Introduzca el código de asistente que le asignará: </label>
-        <input type="text" th:name="cod_asist" required>
-        <input type="submit" value="Aceptar">
+        <input type="text" th:name="cod_asist" title="Introduzca un código de asistente" required>
+        <input type="submit" value="Aceptar" title="Asignar asistente social y continuar con la validación">
     </form>
 </div>
 </body>

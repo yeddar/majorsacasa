@@ -16,59 +16,61 @@
     <h2 style="text-align:center"> Listado de empresas </h2>
     <hr>
 
-    <div class="container py-10 mt-2">
-        <table class="table">
-            <thead>
-            <tr>
-                <th> Nombre</th>
-                <th> NIF de responsable</th>
+    <div class="container-fluid py-10 mt-2">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Nombre</th>
+                    <th> NIF de responsable</th>
 
-                <th> Telefono </th>
+                    <th> Telefono</th>
 
-                <th> Tipo de servicio </th>
+                    <th> Tipo de servicio</th>
 
-                <th> Vacantes</th>
-                <th> </th>
-                <th> </th>
-
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="empresa: ${empresas}">
-                <td th:text="${empresa.nombre}"></td>
-                <td th:text="${empresa.nif}"></td>
-
-                <td th:text="${empresa.tlf}"></td>
+                    <th> Vacantes</th>
+                    <th></th>
+                    <th></th>
 
 
-                <th:block th:switch="${empresa.tipo_empresa}">
-                    <td th:case="'CATERING'">
-                        <i class="flaticon-cook"></i>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="empresa: ${empresas}">
+                    <td th:text="${empresa.nombre}"></td>
+                    <td th:text="${empresa.nif}"></td>
+
+                    <td th:text="${empresa.tlf}"></td>
+
+
+                    <th:block th:switch="${empresa.tipo_empresa}">
+                        <td th:case="'CATERING'">
+                            <i class="flaticon-cook" title="Empresa de Catering"></i>
+                        </td>
+                        <td th:case="'SANITARIA'">
+                            <i class="flaticon-healthcare" title="Empresa Sanitaria"></i>
+                        </td>
+                        <td th:case="'LIMPIEZA'">
+                            <i class="flaticon-broom" title="Empresa de Limpieza"></i>
+                        </td>
+                    </th:block>
+
+                    <td th:text="${empresa.vacantes}"></td>
+
+                    <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}">
+                        <i class="flaticon-interface" title="Modificar datos de la empresa"></i>
+                    </a>
                     </td>
-                    <td th:case="'SANITARIA'">
-                        <i class="flaticon-healthcare"></i>
+                    <td><a th:href="@{/empresa/delete/{nick}(nick=${empresa.nick})}">
+                        <i class="flaticon-can" title="Eliminar empresa del sistema"></i>
+                    </a>
                     </td>
-                    <td th:case="'LIMPIEZA'">
-                        <i class="flaticon-broom"></i>
-                    </td>
-                </th:block>
-
-                <td th:text="${empresa.vacantes}"></td>
-
-                <td><a th:href="@{/empresa/update/{nick}(nick=${empresa.nick})}" >
-                    <i class="flaticon-interface"></i>
-                </a>
-                </td>
-                <td><a th:href="@{/empresa/delete/{nick}(nick=${empresa.nick})}" >
-                    <i class="flaticon-can"></i>
-                </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </tr>
+                </tbody>
+            </table>
         </div>
-        </div>
+    </div>
+</div>
 
 </div>
 </body>

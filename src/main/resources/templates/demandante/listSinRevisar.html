@@ -14,56 +14,60 @@
 <div layout:fragment="content">
     <h2> Listado de demandantes sin revisar </h2>
     <hr>
-    <table class="table">
-        <thead>
-        <tr>
-            <th> Nombre</th>
-            <th> Edad</th>
-            <th> Teléfono</th>
+    <div class="container-fluid py-10 mt-2">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th> Nombre</th>
+                    <th> Edad</th>
+                    <th> Teléfono</th>
 
-            <th> Correo</th>
-            <th> Direccion</th>
-            <th> Asistente social</th>
+                    <th> Correo</th>
+                    <th> Direccion</th>
+                    <th> Asistente social</th>
 
-            <th></th>
-            <th></th>
+                    <th></th>
+                    <th></th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="demandante: ${demandantes}">
-            <td th:text="${demandante.nombre}"></td>
-            <td th:text="${demandante.edad}"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="demandante: ${demandantes}">
+                    <td th:text="${demandante.nombre}"></td>
+                    <td th:text="${demandante.edad}"></td>
 
-            <td th:text="${demandante.tlf}"></td>
-            <td th:text="${demandante.email}"></td>
-            <td th:text="${demandante.direccion}"></td>
+                    <td th:text="${demandante.tlf}"></td>
+                    <td th:text="${demandante.email}"></td>
+                    <td th:text="${demandante.direccion}"></td>
 
-            <td th:text="${demandante.cod_asist}"></td>
+                    <td th:text="${demandante.cod_asist}"></td>
 
-            <td>
-                <div th:switch="${demandante.cod_asist}">
-                    <div th:case="''">
-                        <a th:href="@{/demandante/accept/codAsist/{nick}(nick=${demandante.nick})}">
-                            <i class="flaticon-tick"></i>
+                    <td>
+                        <div th:switch="${demandante.cod_asist}">
+                            <div th:case="''">
+                                <a th:href="@{/demandante/accept/codAsist/{nick}(nick=${demandante.nick})}">
+                                    <i class="flaticon-tick" title="Empezar validación del demandante"></i>
+                                </a>
+                            </div>
+                            <div th:case="*">
+                                <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">
+                                    <i class="flaticon-tick" title="Empezar validación del demandante"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td>
+                        <a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}">
+                            <i class="flaticon-can" title="Denegar acceso al demandante"></i>
                         </a>
-                    </div>
-                    <div th:case="*">
-                        <a th:href="@{/demandante/solicitudes/{nick}(nick=${demandante.nick})}">
-                            <i class="flaticon-tick"></i>
-                        </a>
-                    </div>
-                </div>
-            </td>
-
-            <td>
-                <a th:href="@{/demandante/delete/{nick}(nick=${demandante.nick})}">
-                    <i class="flaticon-can"></i>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

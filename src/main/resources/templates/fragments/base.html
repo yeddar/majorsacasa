@@ -5,6 +5,7 @@
 
 <link rel="stylesheet" type="text/css" href="../static/css/style-guide.css" th:href="@{/css/style-guide.css}"/>
 <link rel="stylesheet" type="text/css" href="../static/icons/flaticon.css" th:href="@{/icons/flaticon.css}"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"/>
 
 
 <head>
@@ -19,49 +20,61 @@
 </head>
 
 <body class="container">
-<header >
+<header>
+    <div class="container" style="width: 100%">
 
-        <div id="epicFlower" style="width: 25%;float:left">
-            <img src = "../static/images/icono.png" th:src="@{/images/icono.png}"
-                 style="width:150px;height:139px" alt="image not found">
-        </div>
-        <div style="width: 75%; float:right">
-            <h1 style="; font-size: 600%"> Majors a Casa </h1>
+        <div>
+            <div class="row">
+                <div id="epicFlower" style="float:left">
+                    <img src="../static/images/icono.png" th:src="@{/images/icono.png}"
+                         style="width:150px;height:139px" alt="image not found">
+                </div>
+                <div class="mx-auto">
+                    <div class="h-100" style="text-align: center;">
+                        <h1 class="h-100" style="font-size: 600%"> Majors a Casa </h1>
+                    </div>
+                </div>
+            </div>
         </div>
 
+    </div>
+    <!--
     <div style="width: 100%;">_________________________________________________________________________________________</div>
+    -->
 </header>
 <div th:replace="fragments/nav"></div>
 
+<div class="container">
+    <div th:object="${session}">
+        <th:block th:if="*{user != null}">
 
-<div th:object="${session}">
-<th:block th:if="*{user != null}">
+            <div class="row">
+                <div class="lateralNav">
+                    <div th:replace="fragments/lateralNav"></div>
+                </div>
+                <div class="indexBasicContainer">
+                    <BR>
+                    <div layout:fragment="content"></div>
+                </div>
+            </div>
+        </th:block>
 
-<div class="row">
-    <div class="lateralNav">
-        <div th:replace="fragments/lateralNav"></div>
+        <th:block th:if="*{user == null}">
+            <div class="row">
+                <div class="noRegisterBasicContainer">
+                    <BR>
+                    <div layout:fragment="content"></div>
+                </div>
+            </div>
+        </th:block>
     </div>
-    <div class="indexBasicContainer">
-        <BR>
-        <div layout:fragment="content"></div>
-    </div>
-</div>
-</th:block>
-
-<th:block th:if="*{user == null}">
-<div class="row">
-    <div class="noRegisterBasicContainer">
-    <BR>
-    <div layout:fragment="content"></div>
-</div>
-</div>
-</th:block>
 </div>
 
 
 <div class="f">
     <hr>
-    <p class="text-muted" style="text-align:center"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i Implementació de
+    <p class="text-muted" style="text-align:center"> System based on Momo-PB technology 2020 ® <BR> EI1027 - Disseny i
+        Implementació de
         Sistemes d'Informació </p>
 </div>
 

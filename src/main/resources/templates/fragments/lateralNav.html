@@ -22,42 +22,42 @@
         </div> -->
 
         <div th:if="*{user.rol.equals('RESP_CAS')}">
-            <a href="/empresa/add">Añadir empresa</a>
-            <a href="/empresa/list">Listado de empresas</a>
-            <a href="/servEmpresa/listWithType"> Listado servicios empresas</a>
+            <a href="/empresa/add" title="Añadir una empresa al sistema">Añadir empresa</a>
+            <a href="/empresa/list" title="Listar todas las empresas del sistema">Listado de empresas</a>
+            <a href="/servEmpresa/listWithType" title="Listar todos los servicios activos"> Listado servicios empresas</a>
         </div>
 
         <div th:if="*{user.rol.equals('COMITE_CAS')}">
-            <a href="/demandante/listSinRevisar">Listado de demandantes sin revisar</a>
-            <a href="/demandante/listAceptados">Listado de demandantes aceptados</a>
-            <a href="/demandante/list">Listado de demandantes en sistema</a>
-            <a href="/demandante/add"> Crear ayuda a domicilio </a>
+            <a href="/demandante/listSinRevisar" title="Listar los nuevos registros de demandantes">Listado de demandantes sin revisar</a>
+            <a href="/demandante/listAceptados" title="Listar los demandantes activos">Listado de demandantes aceptados</a>
+            <a href="/demandante/list" title="Listar todos los demandantes">Listado de demandantes en sistema</a>
+            <a href="/demandante/add" title="Añadir un demandante al sistema"> Crear ayuda a domicilio </a>
         </div>
 
         <div th:if="*{user.rol.equals('SUPERVISOR_CAS')}">
-            <a href="/voluntario/listSinRevisar">Listado de voluntarios sin revisar</a>
-            <a href="/voluntario/listAceptados">Listado de voluntarios aceptados</a>
-            <a href="/voluntario/list">Listado de voluntarios en sistema</a>
+            <a href="/voluntario/listSinRevisar" title="Listar los nuevos registros de voluntarios">Listado de voluntarios sin revisar</a>
+            <a href="/voluntario/listAceptados" title="Listar los voluntarios activos">Listado de voluntarios aceptados</a>
+            <a href="/voluntario/list" title="Listar todos los voluntarios">Listado de voluntarios en sistema</a>
         </div>
 
         <div th:if="*{user.rol.equals('DEMANDANTE')}">
-            <a href="/demandante/solicitudesPago">Solicitudes de pago</a>
-            <a href="/demandante/solicitudesVolun">Solicitudes de voluntario</a>
-            <a href="/demandante/update">Modificar perfil</a>
+            <a href="/demandante/solicitudesPago" title="Ver las solicitudes de pago solicitadas">Solicitudes de pago</a>
+            <a href="/demandante/solicitudesVolun" title="Ver las solicitudes de voluntarios solicitadas">Solicitudes de voluntario</a>
+            <a href="/demandante/update" title="Modificar datos del perfil">Modificar perfil</a>
         </div>
 
         <div th:if="*{user.rol.equals('VOLUNTARIO')}">
-            <a href="/servVoluntario/asignaciones/list">Solicitudes pendientes</a>
-            <a href="/voluntario/vol_applicants_list">Demandantes asignados</a>
-            <a href="/voluntario/fsv/modif_schedule">Modificar disponibilidad</a>
-            <a href="/voluntario/vol_update"> Modificar datos </a>
-            <a href="/voluntario/remove_user"> Darse de baja </a>
+            <a href="/servVoluntario/asignaciones/list" title="Ver las nuevas asignaciones de demandantes">Solicitudes pendientes</a>
+            <a href="/voluntario/vol_applicants_list" title="Ver todos los demandantes asignados">Demandantes asignados</a>
+            <a href="/voluntario/fsv/modif_schedule" title="Modificar la disponibilidad horaria">Modificar disponibilidad</a>
+            <a href="/voluntario/vol_update" title="Modificar datos del perfil"> Modificar datos </a>
+            <a href="/voluntario/remove_user" title="Darse de baja del sistema"> Darse de baja </a>
 
         </div>
 
         <div th:if="*{user.rol.equals('EMPRESA')}">
-            <a href="/empresa/listPendientes">Feedback a Demandantes en Espera </a>
-            <a href="/empresa/listAsignaciones">Servicios activos</a>
+            <a href="/empresa/listPendientes" title="Ver las nuevas asignaciones de demandantes">Feedback a Demandantes en Espera </a>
+            <a href="/empresa/listAsignaciones" title="Ver todos los demandantes asignados">Servicios activos</a>
         </div>
 
     </div>

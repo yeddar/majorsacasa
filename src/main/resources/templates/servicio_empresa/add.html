@@ -56,10 +56,10 @@
             <div class="contenedor">
                 <div class="row">
                     <div class="column">
-                        <input type="checkbox" th:value="catering" th:name="servicios"> Servicio catering
+                        <div title="Contratar el servicio de catering"><input type="checkbox" th:value="catering" th:name="servicios" > Servicio catering</div>
                         <hr>
                         <b>Tipo de menu: </b>
-                        <select th:field="${servCatering.tipo_comida}" class="form-control">
+                        <select th:field="${servCatering.tipo_comida}" class="form-control" title="Selección del tipo de menú">
                             <!-- sin valor:  <option value=""> -- </option> -->
                             <option selected th:value="DIABETICO">Dieta para Diabetico</option>
                             <option selected th:value="BAJO_SAL">Dieta baja en sal</option>
@@ -83,38 +83,38 @@
                             </div>
                         </div>
                         <b>(Si se requiere) Fecha finalización: </b>
-                        <input type="date" th:name="fecha_catering">
+                        <input type="date" th:name="fecha_catering" title="Fecha de finalización deseada">
                     </div>
                     <div class="column" style="background-color: #f1f1f1">
-                        <input type="checkbox" th:value="sanitario" th:name="servicios"> Servicio sanitario
+                        <div title="Contratar el servicio sanitario"><input type="checkbox" th:value="sanitario" th:name="servicios"> Servicio sanitario</div>
                         <hr>
                         <div>
                             <b> Descripción de consulta: </b>
-                            <input type="text" th:field="${servSanitario.necesidad}">
+                            <input type="text" th:field="${servSanitario.necesidad}" title="Describa que le ocurre de forma clara">
                             <div th:if="${mensajeErrorSanitario} != null">
                                 <span class="error">¡No ha introducido una breve descripción!</span>
                             </div>
                         </div>
                         <b>(Si se requiere) Fecha finalización: </b>
-                        <input type="date" th:name="fecha_sanitario">
+                        <input type="date" th:name="fecha_sanitario" title="Fecha de finalización deseada">
                     </div>
                     <div class="column">
-                        <input type="checkbox" th:value="limpieza" th:name="servicios"> Servicio limpieza
+                        <div title="Contratar el servicio de limpieza"><input type="checkbox" th:value="limpieza" th:name="servicios"> Servicio limpieza</div>
                         <hr>
                         <div>
                             <b>Horas semanales: </b>
-                            <input type="number" th:name="horas" th:field="${servLimpieza.horas}">
+                            <input type="number" th:name="horas" th:field="${servLimpieza.horas}" title="Introduzca la cantidad de horas semanales deseada">
                             <div th:if="${mensajeErrorLimpieza} != null">
                                 <span class="error">¡No ha introducido un número de horas correctas!</span>
                             </div>
                             <br>
                         </div>
                         <b>(Si se requiere) Fecha finalización: </b>
-                        <input type="date" th:name="fecha_limpieza">
+                        <input type="date" th:name="fecha_limpieza" title="Fecha de finalización deseada">
                     </div>
                 </div>
             </div>
-            <input type="submit" value="Aceptar">
+            <input type="submit" value="Aceptar" title="Finalizar la contratación de servicios">
         </form>
     </div>
 </div>
