@@ -35,7 +35,6 @@
             <td th:text="${fr.hIni}"></td>
             <td th:text="${fr.hFin}"></td>
             <td><a th:href="@{/voluntario/fsv/del_franja/{id}(id=${fr.id})}"> <i class="flaticon-can"></i></a></td>
-
         </tr>
 
     </table>
@@ -105,24 +104,7 @@
             <td th:text="${fr.diaSemana}"></td>
             <td th:text="${fr.hIni}"></td>
             <td th:text="${fr.hFin}"></td>
-
-            <td><a href="#popup-remove"> <i class="flaticon-can"></i></a></td>
-            <div id="popup-remove" class="overlay_">
-                <div class="popup_">
-                    <h2>Confirmar borrado</h2>
-                    <a class="close_" href="#">&times;</a>
-                    <div class="content_">
-                        ¿Desea borrar la franja definitivamente?
-                        <br><br>
-                        <form action="#" th:action="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}">
-                            <input type="submit" value="Borrar franja" />
-                        </form>
-
-<!--                        <a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}"> Borrar </a>-->
-                    </div>
-                </div>
-            </div>
-
+            <td><a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}"> <i class="flaticon-can"></i></a></td>
         </tr>
 
     </table>
