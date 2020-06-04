@@ -14,33 +14,69 @@
     <h2><b>Detalles del servicio</b></h2>
     <hr>
 
-    <b>Tipo de comida: </b>
-    <span th:text="${servicioCatering.tipo_comida}"></span>
-    <br>
+    <div class="article_servs">
+        <h2> <u> Servicio Cátering </u> </h2>
+        <div th:if="${servicioCatering != null}">
 
-    <b>Días a la semana: </b>
-    <ul>
+            <p th:text="'Servicio en estado: ' +
+                ${servEmpresaEspCat.serv_status}"> </p>
+            <hr>
+            <div class="row">
+                <th:block th:if="${servEmpresaEspCat.f_ini != NULL}">
+                    <p th:text="'Su servicio ha sido revisado favorablemente a fecha: ' +
+                        ${servEmpresaEspCat.f_ini}"> </p>
+                </th:block>
+
+                <th:block th:if="${servEmpresaEspCat.f_fin != NULL}">
+                    <p th:text="'Indico como fecha de finalización el día: ' +
+                        ${servEmpresaEspCat.f_fin}"> </p>
+                </th:block>
+
+                <p th:text="'Nombre de empresa: ' + ${empresaCat.nombre}
+                + ' - El teléfono de contacto es: ' +  ${empresaCat.tlf}"></p>
+
+
+
+                <div class="column_50">
+                    <h5> <b> Información de petición </b> </h5>
+                    <br>
+                    <b>Tipo de menu: </b>
+                    <p th:text="${servicioCatering.tipo_comida}"> </p>
+                    <b>Días a la semana: </b>
+                    <p>
         <span th:if="${#strings.contains(servicioCatering.dias_semana,'L')}">
-            <li>Lunes</li>
+            Lunes -
         </span>
-        <span th:if="${#strings.contains(servicioCatering.dias_semana,'M')}">
-            <li>Martes</li>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'M')}">
+            Martes -
         </span>
-        <span th:if="${#strings.contains(servicioCatering.dias_semana,'X')}">
-            <li>Miércoles</li>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'X')}">
+            Miércoles -
         </span>
-        <span th:if="${#strings.contains(servicioCatering.dias_semana,'J')}">
-            <li>Jueves</li>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'J')}">
+            Jueves -
         </span>
-        <span th:if="${#strings.contains(servicioCatering.dias_semana,'V')}">
-            <li>Viernes</li>
+                        <span th:if="${#strings.contains(servicioCatering.dias_semana,'V')}">
+            Viernes
         </span>
-    </ul>
+                    </p>
+                </div>
+                <!-- <p th:text="${servicioCatering.horas_aprox}"> </p> -->
+                <div class="column_50">
+                    <h5> <b> Especificación de empresa </b> </h5>
+                    <br>
+                    <b>Hora aproximada de llegada: </b>
+                    <p th:text="${servicioCatering.hora_aprox}"> </p>
+                </div>
+            </div>
+        </div>
 
-    <b>Hora aproximada: </b>
-    <span th:text="${servicioCatering.hora_aprox}"></span>
+        <div th:if="${servicioCatering == null}">
+            <p> No se ha contratado servicio de catering </p>
+        </div>
+    </div>
 
-    <br><br>
+    <div style="justify-content:center" >
     <span th:if="${status == 'SIN EVALUAR'}">
         <button th:value="Aceptar"><a
                 th:href="@{/servEmpresa/accept/{nickEmp}/{nickDem}(nickEmp=${servicioCatering.nick_empresa}, nickDem=${servicioCatering.nick_demandante})}" title="Validar servicio">Aceptar</a></button>
@@ -53,6 +89,7 @@
     <a th:href="@{/demandante/solicitudes/{nick}(nick=${nick})}" title="Regresar al listado de servicios">
         <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
     </a>
+    </div>
 
 </div>
 </body>

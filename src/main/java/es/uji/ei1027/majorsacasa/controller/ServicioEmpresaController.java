@@ -273,19 +273,51 @@ public class ServicioEmpresaController {
 
         if(tipo.equals("CATERING")){
             ServicioCatering servCat = servCatDao.getServicioCatering(nickEmp, nickDem);
+
+            ServicioEmpresa servEmpresaEspCat =
+                    servEmpDao.getServicioEmpresaStatus(nickDem, servCat.getNick_empresa());
+            Empresa empresaCat = empDao.getEmpresa(servCat.getNick_empresa());
+
             model.addAttribute("servicioCatering", servCat);
+            model.addAttribute("empresaCat", empresaCat);
+            model.addAttribute("servEmpresaEspCat", servEmpresaEspCat);
+
             return "comiteCAS/viewServEmpCatering";
 
         }else if(tipo.equals("SANITARIA")){
             ServicioSanitario servSan = servSanDao.getServicioSanitario(nickEmp, nickDem);
+
+
+            ServicioEmpresa servEmpresaEspSan =
+                    servEmpDao.getServicioEmpresaStatus(nickDem, servSan.getNick_empresa());
+            Empresa empresaSan = empDao.getEmpresa(servSan.getNick_empresa());
+
             model.addAttribute("servicioSanitario", servSan);
+            model.addAttribute("empresaSan", empresaSan);
+            model.addAttribute("servEmpresaEspSan", servEmpresaEspSan);
+
             return "comiteCAS/viewServEmpSanitario";
 
         }else{
             ServicioLimpieza servLimp = servLimDao.getServicioLimpieza(nickEmp, nickDem);
+            ServicioEmpresa servEmpresaEspLimp =
+                    servEmpDao.getServicioEmpresaStatus(nickDem, servLimp.getNick_empresa());
+            Empresa empresaLim = empDao.getEmpresa(servLimp.getNick_empresa());
+
+            // Anadir las franjas de limpieza
+            List<FranjaServicioLimpieza> franjasLimpieza =
+                    fslDao.getFranjasByDemandanteAndEmpresa(nickDem, servLimp.getNick_empresa());
+            // Metemos en el modelo
+            model.addAttribute("franjasLimpieza", franjasLimpieza);
+            model.addAttribute("empresaLim", empresaLim);
+            model.addAttribute("servEmpresaEspLimp", servEmpresaEspLimp);
+
             model.addAttribute("servicioLimpieza", servLimp);
             model.addAttribute("nickEmp", nickEmp);
             model.addAttribute("nickDem", nickDem);
+
+
+
             return "comiteCAS/viewServEmpLimpieza";
         }
     }
