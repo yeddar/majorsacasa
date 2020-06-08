@@ -93,7 +93,9 @@
                     </div>
 
                     <td>
-                        <button><a th:href="@{/demandante/viewProfile/{nick}(nick=${asignaciones.nick_demandante})}">Ver detalles demandante</a></button>
+                        <a th:href="@{/demandante/viewProfile/{nick}(nick=${asignaciones.nick_demandante})}">
+                            <i class="flaticon-info"></i>
+                        </a>
                     </td>
                     <td th:if="${tipo_empresa == 'LIMPIEZA'}">
                         <button><a th:href="@{/franja-limpieza/viewFranjas/{nickDem}(nickDem=${asignaciones.nick_demandante})}">Ver franjas</a></button>

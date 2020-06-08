@@ -202,7 +202,7 @@ public class DemandanteController{
         Usuario user = (Usuario) session.getAttribute("user");
 
         if (user.getRol().equals("DEMANDANTE")){
-            return "redirect:/common/home";
+            return "redirect:/";
         }
         return "redirect:list";
     }

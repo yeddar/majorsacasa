@@ -44,6 +44,7 @@
                 <div class="column_50">
                     <h5> <b> Especificación de empresa </b> </h5>
                     <br>
+                    <th:block th:if="${servicioSanitario.manana_tarde != null}">
                     <p th:text="'Día de visita: ' + ${servicioSanitario.dia_visita}"> </p>
 
                     <span th:if="${#strings.contains(servicioSanitario.manana_tarde,'T')}">
@@ -53,7 +54,7 @@
                     <span th:if="${#strings.contains(servicioSanitario.manana_tarde,'M')}">
                         <p>Momento de visita: Mañana </p>
                     </span>
-
+                    </th:block>
 
                 </div>
             </div>

@@ -106,14 +106,16 @@ public class VoluntarioController implements UserService{
         if (bindingResult.hasErrors())
             return "voluntario/update";
 
-        // Comprobar si el nick está en uso
+        /* Comprobar si el nick está en uso
         if(getUserByNick(voluntario.getNick()) != null) {
             bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
             return "voluntario/update";
         }
 
+         */
+
         voluntario.setStatus("ACEPTADO");
-        System.out.print(voluntario.toString());
+
         voluntarioDao.updateVoluntario(voluntario);
         return "redirect:/";
 
@@ -256,7 +258,6 @@ public class VoluntarioController implements UserService{
                 nickDemNoRepe.add(asig.getNick_demandante());
         }
         for (String nick_dem : nickDemNoRepe) {
-            System.out.println(nick_dem);
             demAsignados.add(demandanteDao.getDemandante(nick_dem));
 
         }
@@ -327,6 +328,9 @@ public class VoluntarioController implements UserService{
         model.addAttribute("franjas_libres", franjas_libres);
         model.addAttribute("franjas_ocupadas", franjas_ocupadas);
         // mandamos a la vista
+
+        model.addAttribute("lastURL","voluntario/viewFranjas/vol777");
+
         return "voluntario/fsv/listFranjasSupervisor";
     }
 

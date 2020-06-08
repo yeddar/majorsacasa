@@ -78,7 +78,6 @@ public class FsvController {
     public String processAddSubmit(@ModelAttribute("fsv") FranjaServicioVoluntario fsv,
                                    BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError());
             return "voluntario/fsv/add";
         }
 

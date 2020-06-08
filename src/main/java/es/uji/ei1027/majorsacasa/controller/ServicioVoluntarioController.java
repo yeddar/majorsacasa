@@ -109,13 +109,7 @@ public class ServicioVoluntarioController {
                                    @RequestParam(value = "rd_servicio") boolean decision,
                                    BindingResult bindingResult, Model model, HttpSession session){
 
-        /*
-        for(String fin : finServicioVoluntario.keySet()){
-            if (finServicioVoluntario.get(fin) != null)
-                System.out.print("VOY");
-        }
 
-        */
 
 
 
@@ -183,7 +177,6 @@ public class ServicioVoluntarioController {
                 nickDemNoRepe.add(asig.getNick_demandante());
         }
         for (String nick_dem : nickDemNoRepe) {
-            System.out.println(nick_dem);
             demAsignados.add(demandanteDao.getDemandante(nick_dem));
         }
         model.addAttribute("franjas", franjas);

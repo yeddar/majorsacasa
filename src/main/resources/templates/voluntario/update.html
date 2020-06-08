@@ -39,7 +39,7 @@
                     <div class="form-group row">
                         <div class="col-sm-5">
                             <label>Nick: </label>
-                            <input type="text" class="form-control" th:field="*{nick}" maxlength="20" title="Introduzca el nombre de usuario deseado"/>
+                            <input type="text" class="form-control" th:field="*{nick}" maxlength="20" title="Introduzca el nombre de usuario deseado" readonly/>
                             <div class="error" th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}"></div>
                         </div>
 

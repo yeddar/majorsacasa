@@ -169,7 +169,6 @@ public class FslController {
         // Coger todas las franjas del demandante
         List<FranjaServicioLimpieza> franjas = fslDao.getFranjasByDemandanteAndEmpresa(nickDem, nickEmp);
         // Metemos en el modelo
-        System.out.print(nickEmp + nickDem);
         model.addAttribute("franjas", franjas);
 
         model.addAttribute("nickDem", nickDem);

@@ -208,11 +208,6 @@ public class EmpresaController implements UserService {
         if (bindingResult.hasErrors())
             return "empresa/update";
 
-        // Comprobar si el nick está en uso
-        if(getUserByNick(empresa.getNick()) != null) {
-            bindingResult.rejectValue("nick", "nick.exists", "El nick ya está en uso.");
-            return "empresa/update";
-        }
 
         empresaDao.updateEmpresa(empresa);
         return "redirect:list";

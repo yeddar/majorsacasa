@@ -30,7 +30,8 @@
 
                         <div class="col-sm-4">
                             <label> NIF del responsable: </label>
-                            <input type="text" class="form-control" th:field="*{nif}"/>
+                            <input type="text" class="form-control" th:field="*{nif}" maxlength="9" title="Introduzca el NIF del responsable" placeholder="Ej: 12345678A" required/>
+                            <div class="error" th:if="${#fields.hasErrors('nif')}" th:errors="*{nif}"></div>
                         </div>
                     </div>
 
