@@ -130,7 +130,28 @@
 
 
         <tr th:each="fr: ${franjas_nuevas}">
-            <td th:text="${fr.diaSemana}"></td>
+
+            <div th:switch="${fr.diaSemana}">
+                <div th:case="'L'">
+                    <td>Lunes</td>
+                </div>
+                <div th:case="'M'">
+                    <td>Martes</td>
+                </div>
+                <div th:case="'X'">
+                    <td>Miércoles</td>
+                </div>
+                <div th:case="'J'">
+                    <td>Jueves</td>
+                </div>
+                <div th:case="'V'">
+                    <td>Viernes</td>
+                </div>
+                <div th:case="*">
+                    <td>ERROR</td>
+                </div>
+            </div>
+
             <td th:text="${fr.hIni}"></td>
             <td th:text="${fr.hFin}"></td>
             <td><a th:href="@{/voluntario/fsv/del_franja_nueva/{id}(id=${fr.id})}"> <i class="flaticon-can"></i></a></td>
