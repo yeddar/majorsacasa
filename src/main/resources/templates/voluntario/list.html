@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{fragments/base}">
 <head>
-    <title> Lista voluntarios </title>
+    <title>MAC - Lista voluntarios</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
@@ -18,7 +18,6 @@
     <tr>
         <th> Nombre</th>
         <th> Teléfono</th>
-
         <th> Correo</th>
         <th> Aficiones</th>
         <th> Estado</th>
@@ -36,13 +35,13 @@
 
         <th:block th:switch="${voluntario.status}">
             <td th:case="'ACEPTADO'">
-                <i class="flaticon-approve"></i>
+                <i class="flaticon-approve" title="Aceptado"></i>
             </td>
             <td th:case="'SIN REVISAR'">
-                <i class="flaticon-file"></i>
+                <i class="flaticon-file" title="Sin revisar"></i>
             </td>
             <td th:case="'CANCELADO'">
-                <i class="flaticon-reject"></i>
+                <i class="flaticon-reject" title="Cancelado"></i>
             </td>
         </th:block>
     </tr>
