@@ -4,92 +4,109 @@
       layout:decorate="~{fragments/base}">
 <head>
     <meta charset="UTF-8">
-    <title>Franjas del voluntario</title>
+    <title>MAC - Franjas del voluntario</title>
     <link rel="stylesheet"
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 </head>
 <body>
 <div layout:fragment="content">
     <h1> Listado de franjas libres del voluntario </h1>
-    <table>
-        <thead>
-        <tr>
-            <th> Día de la semana</th>
 
-            <th> Hora inicio</th>
-            <th> Hora finalización</th>
+    <div th:if="${#lists.isEmpty(franjas_libres)}">
+        <article>
+            <h4>¡TODO OCUPADO!</h4>
+            <h5>Todas sus franjas se encuentran asignadas a demandantes.</h5>
+        </article>
+    </div>
+    <div class="container-fluid py-10 mt-2" th:unless="${#lists.isEmpty(franjas_libres)}">
+        <table>
+            <thead>
+            <tr>
+                <th> Día de la semana</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="franja_libre: ${franjas_libres}">
-            <div th:switch="${franja_libre.diaSemana}">
-                <div th:case="'L'">
-                    <td>Lunes</td>
-                </div>
-                <div th:case="'M'">
-                    <td>Martes</td>
-                </div>
-                <div th:case="'X'">
-                    <td>Miércoles</td>
-                </div>
-                <div th:case="'J'">
-                    <td>Jueves</td>
-                </div>
-                <div th:case="'V'">
-                    <td>Viernes</td>
-                </div>
-                <div th:case="*">
-                    <td>ERROR</td>
-                </div>
-            </div>
+                <th> Hora inicio</th>
+                <th> Hora finalización</th>
 
-            <td th:text="${franja_libre.hIni}"></td>
-            <td th:text="${franja_libre.hFin}"></td>
-        </tr>
-        </tbody>
-    </table>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="franja_libre: ${franjas_libres}">
+                <div th:switch="${franja_libre.diaSemana}">
+                    <div th:case="'L'">
+                        <td>Lunes</td>
+                    </div>
+                    <div th:case="'M'">
+                        <td>Martes</td>
+                    </div>
+                    <div th:case="'X'">
+                        <td>Miércoles</td>
+                    </div>
+                    <div th:case="'J'">
+                        <td>Jueves</td>
+                    </div>
+                    <div th:case="'V'">
+                        <td>Viernes</td>
+                    </div>
+                    <div th:case="*">
+                        <td>ERROR</td>
+                    </div>
+                </div>
+
+                <td th:text="${franja_libre.hIni}"></td>
+                <td th:text="${franja_libre.hFin}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <br>
 
     <h1> Listado de franjas ocupadas del voluntario </h1>
-    <table>
-        <thead>
-        <tr>
-            <th> Día de la semana</th>
-            <th> Hora inicio</th>
-            <th> Hora finalización</th>
+    <div th:if="${#lists.isEmpty(franjas_ocupadas)}">
+        <article>
+            <h4>¡TODO EN ORDEN!</h4>
+            <h5>Por el momento no tiene franjas asignadas a demandantes.</h5>
+        </article>
+    </div>
+    <div class="container-fluid py-10 mt-2" th:unless="${#lists.isEmpty(franjas_ocupadas)}">
+        <table>
+            <thead>
+            <tr>
+                <th> Día de la semana</th>
+                <th> Hora inicio</th>
+                <th> Hora finalización</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="franja_ocupada: ${franjas_ocupadas}">
-            <div th:switch="${franja_ocupada.diaSemana}">
-                <div th:case="'L'">
-                    <td>Lunes</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="franja_ocupada: ${franjas_ocupadas}">
+                <div th:switch="${franja_ocupada.diaSemana}">
+                    <div th:case="'L'">
+                        <td>Lunes</td>
+                    </div>
+                    <div th:case="'M'">
+                        <td>Martes</td>
+                    </div>
+                    <div th:case="'X'">
+                        <td>Miércoles</td>
+                    </div>
+                    <div th:case="'J'">
+                        <td>Jueves</td>
+                    </div>
+                    <div th:case="'V'">
+                        <td>Viernes</td>
+                    </div>
+                    <div th:case="*">
+                        <td>ERROR</td>
+                    </div>
                 </div>
-                <div th:case="'M'">
-                    <td>Martes</td>
-                </div>
-                <div th:case="'X'">
-                    <td>Miércoles</td>
-                </div>
-                <div th:case="'J'">
-                    <td>Jueves</td>
-                </div>
-                <div th:case="'V'">
-                    <td>Viernes</td>
-                </div>
-                <div th:case="*">
-                    <td>ERROR</td>
-                </div>
-            </div>
 
-            <td th:text="${franja_ocupada.hIni}"></td>
-            <td th:text="${franja_ocupada.hFin}"></td>
-        </tr>
-        </tbody>
-    </table>
+                <td th:text="${franja_ocupada.hIni}"></td>
+                <td th:text="${franja_ocupada.hFin}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <a th:href="@{{lastURL}(lastURL=${session.lastURL})}" >
         <i class="flaticon-circle-with-an-arrow-pointing-to-left"></i>
